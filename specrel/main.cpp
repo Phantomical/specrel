@@ -181,6 +181,7 @@ int main()
 	observer obs;
 	obs.dir = vec4(1, 0, 0, 0);
 	obs.pos = vec4(-10, 0, 0, 0);
+	obs.vel = 0.5;
 
 	camera c;
 	c.forward = forward;
