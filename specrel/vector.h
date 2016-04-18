@@ -475,8 +475,7 @@ typename vector<vTy, N>::value_type angle(const vector<vTy, N>& a, const vector<
 template<typename vTy>
 vector<vTy, 3> rotate(const vector<vTy, 3>& v, const vector<vTy, 3>& axis, const typename vector<vTy, 3>::value_type& angle)
 {
-	using std::abs;
-	using std::sqrt;
+	//Rotates the vector using quaternion arithmetic
 	using std::sin;
 	using std::cos;
 	typedef typename vector<vTy, 3>::value_type value_type;
@@ -484,9 +483,7 @@ vector<vTy, 3> rotate(const vector<vTy, 3>& v, const vector<vTy, 3>& axis, const
 	vector<vTy, 3> Q2 = axis * sin(angle * 0.5);
 	value_type S1 = -dot(axis, v);
 	vector<vTy, 3> S2 = Q1 * v + cross(Q2, v);
-	value_type R1 = S1 * Q1 - dot(S2, -Q2);
-	vector<vTy, 3> R2 = S1 * -Q2 + Q1 * S2 + cross(S2, -Q2);
-	return R2;
+	return S1 * -Q2 + Q1 * S2 + cross(S2, -Q2);
 }
 
 typedef vector<double, 2> vec2;

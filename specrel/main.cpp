@@ -170,8 +170,8 @@ typedef cil::CImg<unsigned char> Img;
 
 int main()
 {
-	constexpr size_t WIDTH = 512;
-	constexpr size_t HEIGHT = 384;
+	constexpr size_t WIDTH = 1080;
+	constexpr size_t HEIGHT = 720;
 	constexpr double FOVY = deg2rad(60);
 	constexpr double FOVX = deg2rad(80);
 	static const vec3 forward = vec3(1, 0, 0);
