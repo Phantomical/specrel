@@ -1,518 +1,92 @@
-#ifndef SPECREL_VECTOR_H
+#ifndef SPECREL_VECTOR_
 #define SPECREL_VECTOR_H
 
-#include <cstring>
-#include <cmath>
-#include <algorithm>
-#include <numeric>
-
-template<typename, size_t> struct vector;
+#include <Eigen\Dense>
+#include <Eigen\Geometry>
 
 template<typename vTy, size_t N>
-struct vector_data
-{
-	typedef vTy value_type;
-	static constexpr size_t size = N;
+using vector = Eigen::Matrix<vTy, N, 1>;
 
-	value_type data[size];
-
-	vector_data() = default;
-	vector_data(const vector<value_type, size - 1>& v, const value_type& n);
-	template<typename vTy, typename... vArgs>
-	vector_data(const vTy& arg, const vArgs&... args)
-	{
-		fill<0, vArgs...>(arg, args...);
-	}
-private:
-	template<size_t idx, typename... vArgs>
-	void fill(const value_type& val, const vArgs&... args)
-	{
-		static_assert(idx < size, "Passed more arguments than elements in the vector");
-		data[idx] = val;
-		fill<idx + 1, vArgs...>(args...);
-	}
-	template<size_t idx>
-	void fill(const value_type& val)
-	{
-		static_assert(idx < size, "Passed more arguments than elements in the vector");
-		data[idx] = val;
-	}
-};
-
-template<typename vTy, size_t N>
-struct vector : vector_data<vTy, N>
-{
-	typedef vector_data<value_type, size> data_type;
-	typedef typename data_type::value_type value_type;
-	static constexpr size_t size = data_type::size;
-
-	static_assert(size != 1 || size != 0, "Vectors of size 1 or 0 are not valid");
-
-	vector() = default;
-	vector(const data_type& data) :
-		data_type(data)
-	{
-
-	}
-	vector(const value_type* vals)
-	{
-		std::memcpy(data, vals, sizeof(value_type) * N);
-	}
-	vector(const vector<vTy, size - 1>& v, const value_type& n) :
-		data_type(v, n)
-	{
-
-	}
-	template<typename vTy1, typename... vArgs>
-	vector(const vTy1& v, const vArgs&... args) :
-		data_type(v, args...)
-	{
-
-	}
-	vector(const std::initializer_list<value_type>& lst)
-	{
-		for (size_t i = 0; i < size && i < lst.size(); ++i)
-			data[i] = *(lst.begin()+i);
-	}
-
-	void fill(value_type v)
-	{
-		for (size_t i = 0; i < size; ++i)
-			data[i] = v;
-	}
-
-	value_type& operator[](const size_t idx)
-	{
-		return data[idx];
-	}
-	const value_type& operator[](const size_t idx) const
-	{
-		return data[idx];
-	}
-
-	value_type* begin()
-	{
-		return data;
-	}
-	const value_type* begin() const
-	{
-		return data;
-	}
-
-	value_type* end()
-	{
-		return data + size;
-	}
-	const value_type* end() const
-	{
-		return data + size;
-	}
-
-	value_type sum() const
-	{
-		return std::accumulate(begin(), end(), value_type(0.0));
-	}
-
-	template<typename oTy>
-	operator vector<oTy, size>() const
-	{
-		vector<oTy, size> res;
-		for (size_t i = 0; i < size; ++i)
-			res.data[i] = static_cast<oTy>(data[i]);
-		return res;
-	}
-	template<size_t nsz>
-	operator vector<value_type, nsz>() const
-	{
-		vector<value_type, nsz> res;
-		size_t i = 0;
-		for (; i < nsz && i < size; ++i)
-			res[i] = data[i];
-		for (; i < nsz; ++i)
-			res[i] = value_type();
-		return res;
-	}
-	template<typename oTy, size_t nsz>
-	operator vector<oTy, nsz>() const
-	{
-		return static_cast<vector<oTy, nsz>>(static_cast<vector<value_type, N>>(*this));
-	}
-
-	value_type magnitude() const;
-	value_type sqrmagnitude() const;
-
-	vector normalized() const
-	{
-		value_type q = value_type(1.0) / magnitude();
-		return *this * q;
-	}
-	void normalize()
-	{
-		value_type q = value_type(1.0) / magnitude();
-		*this *= q;
-	}
-
-	template<size_t nsz>
-	//WARNING: If start + nsz is greater than the size of the vector, the result is undefined
-	vector<value_type, nsz> subvector(size_t start = 0) const
-	{
-		static_assert(nsz < size, "A subvector must be smaller then the vector it is selected from");
-		return vector<value_type, nsz>(data + start);
-	}
-	template<size_t nsz>
-	//An alias for subvector
-	vector<value_type, nsz> subvec(size_t start = 0) const
-	{
-		return subvector<nsz>(start);
-	}
-
-	vector& operator +=(const vector& v)
-	{
-		for (size_t i = 0; i < size; ++i)
-			data[i] += v.data[i];
-	}
-	vector& operator -=(const vector& v)
-	{
-		for (size_t i = 0; i < size; ++i)
-			data[i] -= v.data[i];
-	}
-	vector& operator *=(const vector& v)
-	{
-		for (size_t i = 0; i < size; ++i)
-			data[i] *= v.data[i];
-	}
-	vector& operator /=(const vector& v)
-	{
-		for (size_t i = 0; i < size; ++i)
-			data[i] /= v.data[i];
-	}
-
-	vector& operator +=(const double v)
-	{
-		for (size_t i = 0; i < size; ++i)
-			data[i] += v;
-	}
-	vector& operator -=(const double v)
-	{
-		for (size_t i = 0; i < size; ++i)
-			data[i] -= v;
-	}
-	vector& operator *=(const double v)
-	{
-		for (size_t i = 0; i < size; ++i)
-			data[i] *= v;
-	}
-	vector& operator /=(const double v)
-	{
-		for (size_t i = 0; i < size; ++i)
-			data[i] /= v;
-	}
-
-	vector operator-() const
-	{
-		vector res;
-		for (size_t i = 0; i < size; ++i)
-			res.data[i] = -data[i];
-		return res;
-	}
-	const vector& operator+() const
-	{
-		return *this;
-	}
-};
+typedef double vTy;
+constexpr size_t N = 3;
 
 template<typename vTy>
-struct vector_data<vTy, 2>
+auto sqrmagnitude(const vTy& v)
 {
-	typedef vTy value_type;
-	static constexpr size_t size = 2;
-	union
-	{
-		value_type data[size];
-		struct
-		{
-			value_type x;
-			value_type y;
-		};
-	};
-
-	vector_data() = default;
-	vector_data(const value_type& x, const value_type& y) :
-		x(x),
-		y(y)
-	{
-
-	}
-};
+	return v.squaredNorm();
+}
 template<typename vTy>
-struct vector_data<vTy, 3>
+auto magnitude(const vTy& v)
 {
-	typedef vTy value_type;
-	static constexpr size_t size = 3;
-	union
-	{
-		value_type data[size];
-		struct
-		{
-			value_type x;
-			value_type y;
-			value_type z;
-		};
-		struct
-		{
-			value_type r;
-			value_type g;
-			value_type b;
-		};
-	};
-
-	vector_data() = default;
-	vector_data(const vector<value_type, size - 1>& v, const value_type& n)
-	{
-		std::copy(v.data, v.data + (size - 1), data);
-		data[size - 1] = n;
-	}
-	vector_data(const value_type& x, const value_type& y, const value_type& z) :
-		x(x),
-		y(y),
-		z(z)
-	{
-
-	}
-};
-template<typename vTy>
-struct vector_data<vTy, 4>
-{
-	typedef vTy value_type;
-	static constexpr size_t size = 4;
-	union
-	{
-		value_type data[size];
-		struct
-		{
-			value_type x;
-			value_type y;
-			value_type z;
-			value_type t;
-		};
-		struct
-		{
-			value_type r;
-			value_type g;
-			value_type b;
-			value_type a;
-		};
-	};
-
-	vector_data() = default;
-	vector_data(const vector<value_type, size - 1>& v, const value_type& n)
-	{
-		std::copy(v.data, v.data + (size - 1), data);
-		data[size - 1] = n;
-	}	
-	vector_data(const value_type& x, const value_type& y, const value_type& z, const value_type& t) :
-		x(x),
-		y(y),
-		z(z),
-		t(t)
-	{
-
-	}
-};
-
-template<typename vTy, size_t N>
-vector_data<vTy, N>::vector_data(const vector<value_type, size-1>& v, const value_type& n)
-{
-	std::copy(v.data, v.data + (size - 1), data);
-	data[size - 1] = n;
+	return v.norm();
 }
 
 template<typename vTy, size_t N>
-vector<vTy, N> operator +(const vector<vTy, N>& a, const vector<vTy, N>& b)
+auto normalized(const vector<vTy, N>& v)
 {
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a[i] + b[i];
-	return res;
+	vTy q = vTy(1.0) / magnitude(v);
+	return return v * q;
 }
-template<typename vTy, size_t N>
-vector<vTy, N> operator -(const vector<vTy, N>& a, const vector<vTy, N>& b)
+template<typename vTy1, typename vTy2>
+auto dot(const vTy1& a, const vTy2& b)
 {
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a[i] - b[i];
-	return res;
-}
-template<typename vTy, size_t N>
-vector<vTy, N> operator *(const vector<vTy, N>& a, const vector<vTy, N>& b)
-{
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a[i] * b[i];
-	return res;
-}
-template<typename vTy, size_t N>
-vector<vTy, N> operator /(const vector<vTy, N>& a, const vector<vTy, N>& b)
-{
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a[i] / b[i];
-	return res;
+	return a.dot(b);
 }
 
-template<typename vTy, size_t N>
-vector<vTy, N> operator +(const vector<vTy, N>& a, const typename vector<vTy, N>::value_type b)
+template<typename vTy1, typename vTy2>
+auto cross(const  vTy1& a, const vTy2& b)
 {
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a[i] + b;
-	return res;
-}
-template<typename vTy, size_t N>
-vector<vTy, N> operator -(const vector<vTy, N>& a, const typename vector<vTy, N>::value_type b)
-{
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a[i] - b;
-	return res;
-}
-template<typename vTy, size_t N>
-vector<vTy, N> operator *(const vector<vTy, N>& a, const typename vector<vTy, N>::value_type b)
-{
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a[i] * b;
-	return res;
-}
-template<typename vTy, size_t N>
-vector<vTy, N> operator /(const vector<vTy, N>& a, const typename vector<vTy, N>::value_type b)
-{
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a[i] / b;
-	return res;
+	return a.cross(b);
 }
 
-template<typename vTy, size_t N>
-vector<vTy, N> operator +(const typename vector<vTy, N>::value_type a, const vector<vTy, N>& b)
-{
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a + b[i];
-	return res;
-}
-template<typename vTy, size_t N>
-vector<vTy, N> operator -(const typename vector<vTy, N>::value_type a, const vector<vTy, N>& b)
-{
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a - b[i];
-	return res;
-}
-template<typename vTy, size_t N>
-vector<vTy, N> operator *(const typename vector<vTy, N>::value_type a, const vector<vTy, N>& b)
-{
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a * b[i];
-	return res;
-}
-template<typename vTy, size_t N>
-vector<vTy, N> operator /(const typename vector<vTy, N>::value_type a, const vector<vTy, N>& b)
-{
-	vector<vTy, N> res;
-	for (size_t i = 0; i < N; ++i)
-		res[i] = a / b[i];
-	return res;
-}
-
-template<typename vTy, size_t N>
-vTy dot(const vector<vTy, N>& a, const vector<vTy, N>& b)
-{
-	vTy res = 0.0;
-	for (size_t i = 0; i < N; ++i)
-		res += a[i] * b[i];
-	return res;
-}
-template<typename vTy, size_t N>
-vTy sqrmagnitude(const vector<vTy, N>& v)
-{
-	return v.sqrmagnitude();
-}
-template<typename vTy, size_t N>
-vTy magnitude(const vector<vTy, N>& v)
-{
-	return v.magnitude();
-}
-
-template<typename vTy, size_t N>
-typename vector<vTy, N>::value_type vector<vTy, N>::magnitude() const
-{
-	return std::sqrt(sqrmagnitude());
-}
-template<typename vTy, size_t N>
-typename vector<vTy, N>::value_type vector<vTy, N>::sqrmagnitude() const
-{
-	return dot(*this, *this);
-}
-
-template<typename vTy>
-vector<vTy, 3> cross(const vector<vTy, 3>& a, const vector<vTy, 3>& b)
-{
-	return vector<vTy, 3>(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
-}
-template<typename vTy, size_t N>
+template<typename vTy1, typename vTy2>
 //Returns the cosine of the angle
-typename vector<vTy, N>::value_type cosangle(const vector<vTy, N>& a, const vector<vTy, N>& b)
+auto cosangle(const vTy1& a, const vTy2& b)
 {
 	return dot(a, b) / (magnitude(a) * magnitude(b));
 }
-template<typename vTy, size_t N>
-typename vector<vTy, N>::value_type angle(const vector<vTy, N>& a, const vector<vTy, N>& b)
+
+template<typename vTy1, typename vTy2>
+auto angle(const vTy1& a, const vTy2& b)
 {
+	using std::acos;
 	return acos(cosangle(a, b));
 }
-template<typename vTy>
-vector<vTy, 3> rotate(const vector<vTy, 3>& v, const vector<vTy, 3>& axis, const typename vector<vTy, 3>::value_type& angle)
+
+template<typename vTy, typename vAxis, typename vAngle>
+auto rotate(const vTy& v, const vAxis& axis, vAngle& angle)
 {
 	//Rotates the vector using quaternion arithmetic
 	using std::sin;
 	using std::cos;
-	typedef typename vector<vTy, 3>::value_type value_type;
-	value_type Q1 = -cos(angle * 0.5);
-	vector<vTy, 3> Q2 = axis * sin(angle * 0.5);
-	value_type S1 = -dot(axis, v);
-	vector<vTy, 3> S2 = Q1 * v + cross(Q2, v);
+	auto Q1 = -cos(angle * 0.5);
+	auto Q2 = axis * sin(angle * 0.5);
+	auto S1 = -dot(axis, v);
+	auto S2 = Q1 * v + cross(Q2, v);
 	return S1 * -Q2 + Q1 * S2 + cross(S2, -Q2);
+}
+
+template<size_t Nnew, size_t Nold, typename vTy>
+vector<vTy, Nnew> subvec(const vector<vTy, Nold>& v, size_t offset = 0)
+{
+	static_assert(Nnew < Nold, "The subvector must be smaller than the original vector");
+	return vector<vTy, Nnew>(v.data() + offset);
+}
+
+template<size_t Nnew, size_t Nold, typename vTy>
+vector<vTy, Nnew> subvector(const vector<vTy, Nold>& v, size_t offset = 0)
+{
+	return subvec<Nnew, Nold, vTy>(v, offset);
+}
+
+template<typename vTy, typename... vArgs>
+vector<vTy, sizeof...(vArgs)+1> make_vector(const vTy& val, const vArgs&... args)
+{
+	return vector<vTy, sizeof...(vArgs)+1>(val, args...);
 }
 
 typedef vector<double, 2> vec2;
 typedef vector<double, 3> vec3;
 typedef vector<double, 4> vec4;
-
-template<typename vTy, typename... vArgs>
-vector<vTy, sizeof...(vArgs)+1> make_vector(const vTy& val, const vArgs&... args)
-{
-	return vector<vTy, sizeof...(vArgs)+1>({ val, args... });
-}
-
-struct coord
-{
-	vec4 pos;
-	//This is so that positions that are inside the black hole are valid
-	bool negative;
-
-	coord() :
-		negative(false)
-	{
-
-	}
-	coord(const vec4& pos, bool is_neg = false) :
-		pos(pos),
-		negative(is_neg)
-	{
-
-	}
-};
 
 #endif
