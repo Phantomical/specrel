@@ -52,10 +52,24 @@ ray lorentz_transform(const ray& r, const observer& c)
 	if (approx(angle, 0.0))
 		return r;
 		
-	const double alpha = 2.0 * std::atan(std::sqrt((1.0 - c.vel) / (1.0 + c.vel))
-		* std::tan(0.5 * angle));
+	const double alpha = 2.0 * std::atan(std::tan(0.5 * angle) 
+		/ std::sqrt((1.0 - c.vel) / (1.0 + c.vel)));
 
 	return ray(r.origin, vec4(rotate(vel, cross(dir, vel).normalized(), alpha), r.dir.t));
+}
+ray inverse_lorentz_transform(const ray& r, const observer& c)
+{
+	const vec3 dir = r.dir.subvector<3>().normalized();
+	const vec3 vel = c.dir.subvector<3>().normalized();
+	const double alpha = angle(vel, dir);
+
+	if (approx(alpha, 0.0))
+		return r;
+
+	const double beta = 2.0 * std::atan(std::tan(alpha * 0.5)
+		/ std::sqrt((1.0 - c.vel) / (1.0 + c.vel)));
+
+	return ray(r.origin, vec4(rotate(vel, cross(dir, vel).normalized(), beta), r.dir.t));
 }
 double doppler_shift(const double freq, const ray& r, const observer& c)
 {
