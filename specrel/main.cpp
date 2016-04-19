@@ -45,8 +45,8 @@ double lorentz_factor(const double v)
 
 ray lorentz_transform(const ray& r, const observer& c)
 {
-	const vec3 dir = r.dir.subvector<3>(0).normalized();
-	const vec3 vel = c.dir.subvector<3>(0).normalized();
+	const vec3 dir = subvec<3>(r.dir).normalized();
+	const vec3 vel = subvec<3>(c.dir).normalized();
 	const double angle = ::angle(vel, dir);
 	
 	if (approx(angle, 0.0))
@@ -55,12 +55,13 @@ ray lorentz_transform(const ray& r, const observer& c)
 	const double alpha = 2.0 * std::atan(std::tan(0.5 * angle) 
 		/ std::sqrt((1.0 - c.vel) / (1.0 + c.vel)));
 
-	return ray(r.origin, vec4(rotate(vel, cross(dir, vel).normalized(), alpha), r.dir.t));
+	auto rotated = rotate(vel, cross(dir, vel).normalized(), alpha);
+	return ray(r.origin, vec4(rotated[0], rotated[1], rotated[2], r.dir.w()));
 }
 ray inverse_lorentz_transform(const ray& r, const observer& c)
 {
-	const vec3 dir = r.dir.subvector<3>().normalized();
-	const vec3 vel = c.dir.subvector<3>().normalized();
+	const vec3 dir = subvec<3>(r.dir).normalized();
+	const vec3 vel = subvec<3>(c.dir).normalized();
 	const double alpha = angle(vel, dir);
 
 	if (approx(alpha, 0.0))
@@ -69,7 +70,8 @@ ray inverse_lorentz_transform(const ray& r, const observer& c)
 	const double beta = 2.0 * std::atan(std::tan(alpha * 0.5)
 		/ std::sqrt((1.0 - c.vel) / (1.0 + c.vel)));
 
-	return ray(r.origin, vec4(rotate(vel, cross(dir, vel).normalized(), beta), r.dir.t));
+	auto rotated = rotate(vel, cross(dir, vel).normalized(), beta);
+	return ray(r.origin, vec4(rotated[0], rotated[1], rotated[2], r.dir.w()));
 }
 double doppler_shift(const double freq, const ray& r, const observer& c)
 {
@@ -85,12 +87,12 @@ struct sphere
 
 	bool intersect(const ray& r, double& hit) const
 	{
-		const vec3 dir = r.dir.subvec<3>();
-		const vec3 org = r.origin.subvec<3>();
+		const vec3 dir = subvec<3>(r.dir);
+		const vec3 org = subvec<3>(r.origin);
 
-		const double b = (dir * (org + pos)).sum();
-		const double a = dir.sqrmagnitude();
-		const double c = (org + pos).sqrmagnitude() - this->r;
+		const double b = (dir.transpose() * (org + pos)).sum();
+		const double a = sqrmagnitude(dir);
+		const double c = sqrmagnitude(org + pos) - this->r;
 
 		const double det = sqr(b) - a * c;
 		if (det < 0)
@@ -142,7 +144,7 @@ struct camera
 		const double halfsizey = std::tan(fovy * 0.5);
 
 		vec3 space_dir = (forward + right * halfsizex * pixel[0] + up * halfsizey * pixel[1]).normalized();
-		vec4 dir = vec4(space_dir, -1);
+		vec4 dir = vec4(space_dir[0], space_dir[2], space_dir[2], -1.0);
 		return ray(obs.pos, dir);
 	}
 };
@@ -150,7 +152,7 @@ struct camera
 vec4 convert_to_si(const vec4& v)
 {
 	//Scale everything to SI units
-	return v * vec4(C, C, C, 1.0 / C);
+	return v.cwiseProduct(vec4(C, C, C, 1.0 / C));
 }
 
 std::vector<sphere> spheres;
@@ -223,9 +225,9 @@ int main()
 			colour p = trace_ray(r);
 
 #pragma warning(disable:4267)
-			img._atXYZC(x, y, 0, 0) = p.r;
-			img._atXYZC(x, y, 0, 1) = p.g;
-			img._atXYZC(x, y, 0, 2) = p.b;
+			img._atXYZC(x, y, 0, 0) = p.x();
+			img._atXYZC(x, y, 0, 1) = p.y();
+			img._atXYZC(x, y, 0, 2) = p.z();
 		}
 		printf("%zd\n", y);
 	});
