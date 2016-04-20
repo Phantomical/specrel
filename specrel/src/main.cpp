@@ -1,10 +1,19 @@
 
 #include "vector.h"
 #include "constants.h"
-#pragma warning(disable:4319)
-#include "CImg.h"
 #include <vector>
 #include <ppl.h>
+
+#ifdef _MSC_VER
+#include <codeanalysis\warnings.h>
+#pragma warning(push)
+#pragma warning(disable:ALL_CODE_ANALYSIS_WARNINGS)
+#pragma warning(disable:4319)
+#endif
+#include <CImg.h>
+#ifdef _MSC_VER
+#pragma warning(pop) 
+#endif
 
 inline double sqr(double v)
 {

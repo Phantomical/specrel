@@ -9,6 +9,8 @@ struct Camera
 	Vector3d Forward;
 	Vector3d Up;
 	Vector3d Right;
+	double FovY;
+	double FovX;
 };
 
 #endif

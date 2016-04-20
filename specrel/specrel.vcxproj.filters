@@ -45,6 +45,12 @@
     <ClCompile Include="src\ObjectBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Medium.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -88,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="PreDefs.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files\Spatial</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

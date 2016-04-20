@@ -530,6 +530,12 @@ vTy sqrdistance(const vector<vTy, N>& a, const vector<vTy, N>& b)
 	return sqrmagnitude(a - b);
 }
 
+template<typename vTy, size_t N>
+vector<vTy, N> normalize(const vector<vTy, N>& v)
+{
+	return v.normalized();
+}
+
 typedef vector<double, 2> vec2;
 typedef vector<double, 3> vec3;
 typedef vector<double, 4> vec4;

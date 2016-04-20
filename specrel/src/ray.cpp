@@ -21,3 +21,4 @@ Ray TransformRay(const Ray& ray, const ReferenceFrame& new_frame)
 	Vector4d new_dir = TransformVelocity(ray.Direction, ray.RefFrame, new_frame);
 	return Ray(new_org, new_dir, new_frame);
 }
+

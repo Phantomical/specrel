@@ -11,6 +11,7 @@ public:
 	std::vector<LightBasePtr> Lights;   // All the lights in the scene
 	std::vector<ObjectBasePtr> Objects; // All the objects in the scene
 	Camera Viewpoint;                   // The viewpoint that the scene will be traced from
+	Medium SceneMedium;                 // The medium that is the default for the scene (For refraction)
 
 	void GetIntersections(const Ray&, std::vector<Intersection>&) const;
 	//Returns true if an intersection was found, false otherwise
