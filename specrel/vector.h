@@ -39,6 +39,8 @@ private:
 	}
 };
 
+
+
 template<typename vTy, size_t N>
 struct vector : vector_data<vTy, N>
 {
@@ -218,6 +220,31 @@ struct vector : vector_data<vTy, N>
 	const vector& operator+() const
 	{
 		return *this;
+	}
+
+	static const vector zero()
+	{
+		vector(vector<value_type, size - 1>::zero(), 0.0);
+	}
+};
+
+template<typename vTy>
+struct vector<vTy, 1>
+{
+	typedef vTy value_type;
+	static constexpr size_t size = 1;
+	
+	value_type data[size];
+
+	vector() = default;
+	vector(value_type v)
+	{
+		data[0] = v;
+	}
+
+	static const vector zero()
+	{
+		return vector(0.0);
 	}
 };
 
@@ -473,7 +500,7 @@ typename vector<vTy, N>::value_type angle(const vector<vTy, N>& a, const vector<
 	return acos(cosangle(a, b));
 }
 template<typename vTy>
-vector<vTy, 3> rotate(const vector<vTy, 3>& v, const vector<vTy, 3>& axis, const typename vector<vTy, 3>::value_type& angle)
+inline vector<vTy, 3> rotate(const vector<vTy, 3>& v, const vector<vTy, 3>& axis, const typename vector<vTy, 3>::value_type& angle)
 {
 	//Rotates the vector using quaternion arithmetic
 	using std::sin;
@@ -486,6 +513,18 @@ vector<vTy, 3> rotate(const vector<vTy, 3>& v, const vector<vTy, 3>& axis, const
 	return S1 * -Q2 + Q1 * S2 + cross(S2, -Q2);
 }
 
+template<size_t Nnew, typename vTy, size_t Nold>
+inline vector<vTy, Nnew> subvec(const vector<vTy, Nold>& v, size_t offset = 0)
+{
+	return v.subvec<Nnew>(offset);
+}
+
+template<typename vTy, size_t N>
+vTy distance(const vector<vTy, N>& a, const vector<vTy, N>& b)
+{
+	return magnitude(a - b);
+}
+
 typedef vector<double, 2> vec2;
 typedef vector<double, 3> vec3;
 typedef vector<double, 4> vec4;
@@ -496,23 +535,8 @@ vector<vTy, sizeof...(vArgs)+1> make_vector(const vTy& val, const vArgs&... args
 	return vector<vTy, sizeof...(vArgs)+1>({ val, args... });
 }
 
-struct coord
-{
-	vec4 pos;
-	//This is so that positions that are inside the black hole are valid
-	bool negative;
-
-	coord() :
-		negative(false)
-	{
-
-	}
-	coord(const vec4& pos, bool is_neg = false) :
-		pos(pos),
-		negative(is_neg)
-	{
-
-	}
-};
+typedef vec3 Vector3d;
+typedef vec4 Vector4d;
+typedef vector<float, 3> Colour;
 
 #endif

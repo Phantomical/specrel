@@ -1,12 +1,10 @@
 
 #include "vector.h"
+#include "constants.h"
 #pragma warning(disable:4319)
 #include "CImg.h"
 #include <vector>
 #include <ppl.h>
-
-//Speed of light in m/s
-constexpr double C = 299792458.0;
 
 inline double sqr(double v)
 {
@@ -49,7 +47,7 @@ ray lorentz_transform(const ray& r, const observer& c)
 	const vec3 vel = c.dir.subvector<3>(0).normalized();
 	const double angle = ::angle(vel, dir);
 	
-	if (approx(angle, 0.0))
+	if (approx(angle, 0.0) || approx(angle, PI))
 		return r;
 		
 	const double alpha = 2.0 * std::atan(std::tan(0.5 * angle) 
@@ -63,7 +61,7 @@ ray inverse_lorentz_transform(const ray& r, const observer& c)
 	const vec3 vel = c.dir.subvector<3>().normalized();
 	const double alpha = angle(vel, dir);
 
-	if (approx(alpha, 0.0))
+	if (approx(alpha, 0.0) || approx(alpha, PI))
 		return r;
 
 	const double beta = 2.0 * std::atan(std::tan(alpha * 0.5)
@@ -195,7 +193,7 @@ int main()
 	observer obs;
 	obs.dir = vec4(1, 0, 0, 0);
 	obs.pos = vec4(-10, 0, 0, 0);
-	obs.vel = 0.5;
+	obs.vel = 0.0;
 
 	camera c;
 	c.forward = forward;
@@ -207,6 +205,7 @@ int main()
 
 	spheres.push_back(sphere(0.5, vec3(0, 0, 1.5)));
 	spheres.push_back(sphere(0.5, vec3(0, 0, -1.5)));
+	spheres.push_back(sphere(50000, vec3(-50020, 0, 0)));
 
 	Img img = Img(WIDTH, HEIGHT, 1, 3);
 

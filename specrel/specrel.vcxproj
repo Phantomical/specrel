@@ -116,7 +116,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lightbase.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectBase.cpp" />
+    <ClCompile Include="ref_frame.cpp" />
+    <ClCompile Include="scene.cpp" />
+    <ClCompile Include="transform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="medium.h" />
+    <ClInclude Include="quat.h" />
+    <ClInclude Include="ref_frame.h" />
+    <ClInclude Include="scene.h" />
+    <ClInclude Include="transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
