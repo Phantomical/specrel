@@ -15,6 +15,7 @@ struct Intersection
 	double Reflectivity;          // How reflective the surface is at the intersection
 	double Transparancy;          // How transparent the surface is
 	ColourSourcePtr ColourSource; // Source for the colour at that point
+	ObjectBasePtr Object;         // The object that was intersected
 
 };
 
