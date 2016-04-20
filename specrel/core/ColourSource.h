@@ -1,7 +1,7 @@
 #ifndef SPECREL_COLOUR_SOURCE_
 #define SPECREL_COLOUR_SOURCE_H
 
-#include "ref_frame.h"
+#include "RefFrame.h"
 #include <memory>
 
 class ColourSource

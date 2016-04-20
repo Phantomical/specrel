@@ -1,8 +1,8 @@
 #ifndef SPECREL_SCENE_
 #define SPECREL_SCENE_H
 
-#include "light_base.h"
-#include "object_base.h"
+#include "LightBase.h"
+#include "ObjectBase.h"
 
 struct Scene
 {

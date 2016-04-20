@@ -1,7 +1,7 @@
 #ifndef SPECREL_INTERSECTION_H
 #define SPECREL_INTERSECTION_H
 
-#include "transform.h"
+#include "Transform.h"
 #include "ColourSource.h"
 
 struct Intersection

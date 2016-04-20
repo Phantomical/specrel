@@ -18,9 +18,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ref_frame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,10 +27,13 @@
     <ClCompile Include="src\transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\object_base.cpp">
+    <ClCompile Include="src\RefFrame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\light_base.cpp">
+    <ClCompile Include="src\LightBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,16 +62,19 @@
     <ClInclude Include="core\ColourSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\ray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\ObjectBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\medium.h">
+    <ClInclude Include="core\LightBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\LightBase.h">
+    <ClInclude Include="core\RefFrame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\medium.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

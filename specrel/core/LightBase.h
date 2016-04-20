@@ -1,8 +1,8 @@
 #ifndef SPECREL_LIGHTBASE_H
 #define SPECREL_LIGHTBASE_H
 
-#include "ray.h"
-#include "object_base.h"
+#include "Ray.h"
+#include "ObjectBase.h"
 
 class LightBase
 {

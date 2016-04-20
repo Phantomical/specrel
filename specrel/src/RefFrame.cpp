@@ -1,4 +1,4 @@
-#include "core\ref_frame.h"
+#include "core\RefFrame.h"
 
 const ReferenceFrame ReferenceFrame::Default = ReferenceFrame(Vector3d(0.0, 0.0, 0.0));
 

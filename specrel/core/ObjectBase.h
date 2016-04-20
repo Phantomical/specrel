@@ -1,9 +1,9 @@
 #ifndef SPECREL_OBJECTBASE_H
 #define SPECREL_OBJECTBASE_H
 
-#include "medium.h"
-#include "intersection.h"
-#include "ray.h"
+#include "Medium.h"
+#include "Intersection.h"
+#include "Ray.h"
 #include <vector>
 #include <memory>
 

@@ -1,4 +1,4 @@
-#include "core\light_base.h"
+#include "core\LightBase.h"
 
 ReferenceFrame LightBase::GetRefFrame() const
 {

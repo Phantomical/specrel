@@ -1,4 +1,4 @@
-#include "core\transform.h"
+#include "core\Transform.h"
 
 Transform::Transform(const Vector4d& pos) :
 	RefFrame(ReferenceFrame::Default),

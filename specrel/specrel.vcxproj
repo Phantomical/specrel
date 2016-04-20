@@ -116,11 +116,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\light_base.cpp" />
+    <ClCompile Include="src\LightBase.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\object_base.cpp" />
+    <ClCompile Include="src\ObjectBase.cpp" />
     <ClCompile Include="src\ray.cpp" />
-    <ClCompile Include="src\ref_frame.cpp" />
+    <ClCompile Include="src\RefFrame.cpp" />
     <ClCompile Include="src\scene.cpp" />
     <ClCompile Include="src\transform.cpp" />
   </ItemGroup>
@@ -131,6 +131,7 @@
     <ClInclude Include="core\LightBase.h" />
     <ClInclude Include="core\medium.h" />
     <ClInclude Include="core\ObjectBase.h" />
+    <ClInclude Include="core\RefFrame.h" />
     <ClInclude Include="quat.h" />
     <ClInclude Include="core\ray.h" />
     <ClInclude Include="core\ref_frame.h" />

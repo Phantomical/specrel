@@ -2,7 +2,7 @@
 #define SPECREL_TRANSFORM_H
 
 #include "quat.h"
-#include "ref_frame.h"
+#include "RefFrame.h"
 
 struct Transform
 {
