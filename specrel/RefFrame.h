@@ -23,4 +23,6 @@ Vector4d TransformPosition(const Vector4d& pos, const ReferenceFrame& old_frame,
 Vector3d TransformVelocity(const Vector3d& vel, const ReferenceFrame& old_frame, const ReferenceFrame& new_frame);
 Vector4d TransformVelocity(const Vector4d& vel, const ReferenceFrame& old_frame, const ReferenceFrame& new_frame);
 
+Vector3d AddVelocities(const Vector3d&, const Vector3d&);
+
 #endif

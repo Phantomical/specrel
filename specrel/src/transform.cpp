@@ -39,3 +39,4 @@ Vector3d Transform::VelToGlobalFrame(const Vector3d& vel) const
 {
 	return VelToReferenceFrame(vel, ReferenceFrame::Default);
 }
+
