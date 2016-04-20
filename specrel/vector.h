@@ -116,7 +116,7 @@ struct vector : vector_data<vTy, N>
 	}
 
 	template<typename oTy>
-	operator vector<oTy, size>() const
+	explicit operator vector<oTy, size>() const
 	{
 		vector<oTy, size> res;
 		for (size_t i = 0; i < size; ++i)
@@ -124,7 +124,7 @@ struct vector : vector_data<vTy, N>
 		return res;
 	}
 	template<size_t nsz>
-	operator vector<value_type, nsz>() const
+	explicit operator vector<value_type, nsz>() const
 	{
 		vector<value_type, nsz> res;
 		size_t i = 0;
@@ -135,7 +135,7 @@ struct vector : vector_data<vTy, N>
 		return res;
 	}
 	template<typename oTy, size_t nsz>
-	operator vector<oTy, nsz>() const
+	explicit operator vector<oTy, nsz>() const
 	{
 		return static_cast<vector<oTy, nsz>>(static_cast<vector<value_type, N>>(*this));
 	}
@@ -523,6 +523,11 @@ template<typename vTy, size_t N>
 vTy distance(const vector<vTy, N>& a, const vector<vTy, N>& b)
 {
 	return magnitude(a - b);
+}
+template<typename vTy, size_t N>
+vTy sqrdistance(const vector<vTy, N>& a, const vector<vTy, N>& b)
+{
+	return sqrmagnitude(a - b);
 }
 
 typedef vector<double, 2> vec2;

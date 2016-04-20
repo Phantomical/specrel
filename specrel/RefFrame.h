@@ -6,10 +6,10 @@
 
 struct ReferenceFrame
 {
-	Vector3d Velocity;
+	Vector4d Velocity;
 
 	ReferenceFrame() = default;
-	ReferenceFrame(const Vector3d& vel) :
+	ReferenceFrame(const Vector4d& vel) :
 		Velocity(vel)
 	{
 
@@ -21,5 +21,6 @@ struct ReferenceFrame
 
 Vector4d TransformPosition(const Vector4d& pos, const ReferenceFrame& old_frame, const ReferenceFrame& new_frame);
 Vector3d TransformVelocity(const Vector3d& vel, const ReferenceFrame& old_frame, const ReferenceFrame& new_frame);
+Vector4d TransformVelocity(const Vector4d& vel, const ReferenceFrame& old_frame, const ReferenceFrame& new_frame);
 
 #endif

@@ -12,7 +12,7 @@ struct Intersection
 	// Velocity of the surface relative to the object
 	// This is _NOT_ the velocity of the object 
 	Vector3d Velocity;
-	double Specularity;           // How reflective the surface is at the intersection
+	double Reflectivity;          // How reflective the surface is at the intersection
 	double Transparancy;          // How transparent the surface is
 	ColourSourcePtr ColourSource; // Source for the colour at that point
 

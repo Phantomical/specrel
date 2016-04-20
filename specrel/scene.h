@@ -3,19 +3,18 @@
 
 #include "LightBase.h"
 #include "ObjectBase.h"
+#include "Camera.h"
 
 class Scene
 {
 public:
 	std::vector<LightBasePtr> Lights;   // All the lights in the scene
 	std::vector<ObjectBasePtr> Objects; // All the objects in the scene
+	Camera Viewpoint;                   // The viewpoint that the scene will be traced from
 
 	void GetIntersections(const Ray&, std::vector<Intersection>&) const;
-	Intersection NearestIntersection(const Ray&) const;
-
-	virtual Colour GetColour(
-		const Intersection& i,
-		const ReferenceFrame& frame) = 0;
+	//Returns true if an intersection was found, false otherwise
+	bool NearestIntersection(const Ray&, Intersection&) const;
 };
 
 #endif
