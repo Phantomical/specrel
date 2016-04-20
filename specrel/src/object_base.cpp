@@ -1,4 +1,4 @@
-#include "scene.h"
+#include "core/scene.h"
 
 Medium ObjectBase::GetInternalMedium() const
 {

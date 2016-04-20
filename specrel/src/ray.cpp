@@ -1,4 +1,4 @@
-#include "scene.h"
+#include "core/ray.h"
 
 Ray::Ray(const Vector4d& origin, const Vector4d& dir, const ReferenceFrame& ref_frame, const double weight) :
 	Origin(origin),

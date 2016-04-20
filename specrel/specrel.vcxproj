@@ -74,7 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -82,7 +82,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,7 +92,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -106,7 +106,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
@@ -116,20 +116,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lightbase.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ObjectBase.cpp" />
-    <ClCompile Include="ref_frame.cpp" />
-    <ClCompile Include="scene.cpp" />
-    <ClCompile Include="transform.cpp" />
+    <ClCompile Include="src\light_base.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\object_base.cpp" />
+    <ClCompile Include="src\ray.cpp" />
+    <ClCompile Include="src\ref_frame.cpp" />
+    <ClCompile Include="src\scene.cpp" />
+    <ClCompile Include="src\transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
-    <ClInclude Include="medium.h" />
+    <ClInclude Include="core\ColourSource.h" />
+    <ClInclude Include="core\intersection.h" />
+    <ClInclude Include="core\LightBase.h" />
+    <ClInclude Include="core\medium.h" />
+    <ClInclude Include="core\ObjectBase.h" />
     <ClInclude Include="quat.h" />
-    <ClInclude Include="ref_frame.h" />
-    <ClInclude Include="scene.h" />
-    <ClInclude Include="transform.h" />
+    <ClInclude Include="core\ray.h" />
+    <ClInclude Include="core\ref_frame.h" />
+    <ClInclude Include="core\scene.h" />
+    <ClInclude Include="core\transform.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
