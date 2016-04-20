@@ -15,11 +15,9 @@ public:
 	Transform GetTransform() const;
 	ObjectBasePtr GetLightVolume() const;
 
-	
+	virtual ColourSourcePtr GetColourSource() const = 0;
 
 	virtual ~LightBase() = default;
 };
-
-typedef std::shared_ptr<LightBase> LightBasePtr;
 
 #endif

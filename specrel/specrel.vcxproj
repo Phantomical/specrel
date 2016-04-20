@@ -125,18 +125,19 @@
     <ClCompile Include="src\transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="constants.h" />
-    <ClInclude Include="core\ColourSource.h" />
-    <ClInclude Include="core\intersection.h" />
-    <ClInclude Include="core\LightBase.h" />
-    <ClInclude Include="core\medium.h" />
-    <ClInclude Include="core\ObjectBase.h" />
-    <ClInclude Include="core\RefFrame.h" />
+    <ClInclude Include="ColourSource.h" />
+    <ClInclude Include="intersection.h" />
+    <ClInclude Include="LightBase.h" />
+    <ClInclude Include="medium.h" />
+    <ClInclude Include="ObjectBase.h" />
+    <ClInclude Include="PreDefs.h" />
+    <ClInclude Include="RefFrame.h" />
     <ClInclude Include="quat.h" />
-    <ClInclude Include="core\ray.h" />
-    <ClInclude Include="core\ref_frame.h" />
-    <ClInclude Include="core\scene.h" />
-    <ClInclude Include="core\transform.h" />
+    <ClInclude Include="ray.h" />
+    <ClInclude Include="scene.h" />
+    <ClInclude Include="transform.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

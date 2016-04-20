@@ -2,6 +2,7 @@
 #define SPECREL_REF_FRAME_H
 
 #include "vector.h"
+#include "PreDefs.h"
 
 struct ReferenceFrame
 {

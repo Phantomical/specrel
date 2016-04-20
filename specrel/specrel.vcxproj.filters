@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Abstract">
+      <UniqueIdentifier>{1b55045d-a834-4b27-b905-973625bb810b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\VectorMath">
+      <UniqueIdentifier>{91002bc4-fc4c-4d69-9738-ac1414774df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Spatial">
+      <UniqueIdentifier>{20f67ebf-cb4f-43f8-8e14-783e96b9adf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -42,39 +51,42 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="quat.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\VectorMath</Filter>
     </ClInclude>
     <ClInclude Include="vector.h">
+      <Filter>Header Files\VectorMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Spatial</Filter>
+    </ClInclude>
+    <ClInclude Include="ColourSource.h">
+      <Filter>Header Files\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="intersection.h">
+      <Filter>Header Files\Spatial</Filter>
+    </ClInclude>
+    <ClInclude Include="LightBase.h">
+      <Filter>Header Files\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="medium.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\intersection.h">
+    <ClInclude Include="ObjectBase.h">
+      <Filter>Header Files\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="ray.h">
+      <Filter>Header Files\Spatial</Filter>
+    </ClInclude>
+    <ClInclude Include="RefFrame.h">
+      <Filter>Header Files\Spatial</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\ref_frame.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="transform.h">
+      <Filter>Header Files\Spatial</Filter>
     </ClInclude>
-    <ClInclude Include="core\transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\ColourSource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\ObjectBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\LightBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\RefFrame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\ray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\medium.h">
+    <ClInclude Include="PreDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
