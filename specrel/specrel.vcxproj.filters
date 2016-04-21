@@ -59,9 +59,6 @@
     <ClInclude Include="quat.h">
       <Filter>Header Files\VectorMath</Filter>
     </ClInclude>
-    <ClInclude Include="vector.h">
-      <Filter>Header Files\VectorMath</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Spatial</Filter>
     </ClInclude>
@@ -97,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Header Files\Spatial</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

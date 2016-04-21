@@ -4,7 +4,7 @@ const ReferenceFrame ReferenceFrame::Default = ReferenceFrame(Vector4d(0.0, 0.0,
 
 Vector4d TransformPosition(const Vector4d& pos, const ReferenceFrame& old_frame, const ReferenceFrame& new_frame)
 {
-	ReferenceFrame relative_frame = ReferenceFrame(AddVelocities(subvec<3>(new_frame.Velocity), -old_frame.Velocity));
+	ReferenceFrame relative_frame; throw 0;//ReferenceFrame(AddVelocities(subvec<3>(new_frame.Velocity), subvec<3>(-old_frame.Velocity)));
 	double velocity = relative_frame.Velocity.magnitude();
 	Vector4d direction = relative_frame.Velocity * (1.0 / velocity);
 
