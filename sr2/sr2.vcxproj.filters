@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Lights">
       <UniqueIdentifier>{e817c085-5345-4428-8634-d3b31920a37d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Spatial">
+      <UniqueIdentifier>{a763708a-2ff0-4b86-a790-7f6f1faa8334}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="quat.h">
@@ -66,13 +69,28 @@
     <ClInclude Include="StaticLight.h">
       <Filter>Header Files\Lights</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightRayInfo.h">
+      <Filter>Header Files\Physical</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RefFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="StaticLight.cpp">
       <Filter>Source Files\Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Source Files\Spatial</Filter>
+    </ClCompile>
+    <ClCompile Include="RefFrame.cpp">
+      <Filter>Source Files\Spatial</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

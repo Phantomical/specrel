@@ -2,6 +2,10 @@
 
 typedef Position Pos;
 
+ReferenceFrame StaticLight::GetRefFrameAtTime(double) const
+{
+	return ReferenceFrame::Default;
+}
 Position StaticLight::GetPositionAtTime(double time) const
 {
 	return Pos(Position, time);

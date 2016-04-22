@@ -7,6 +7,7 @@ struct ReferenceFrame;
 struct Intersection;
 struct Velocity;
 struct Spectrum;
+struct LightRayInfo;
 
 class ObjectBase;
 class LightBase;

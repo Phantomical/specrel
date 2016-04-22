@@ -7,11 +7,14 @@
 class LightBase
 {
 protected:
-	ObjectBasePtr LightVolume; // A mesh that descripes the shape of the light (This can be NULL)
+	// A mesh that descripes the shape of the light (This can be NULL)
+	// The reference frame and position of this object should be the same as the light
+	ObjectBasePtr LightVolume; 
 
 public:
 	ObjectBasePtr GetLightVolume() const;
 
+	virtual ReferenceFrame GetRefFrameAtTime(double time) const = 0;
 	virtual Position GetPositionAtTime(double time) const = 0;
 	virtual Spectrum GetSpectrumAtTime(double time) const = 0;
 	virtual bool IsStatic() const = 0;

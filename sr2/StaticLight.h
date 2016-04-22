@@ -9,6 +9,9 @@ class StaticLight : public LightBase
 public:
 	virtual Position GetPositionAtTime(double time) const override final;
 	virtual Spectrum GetSpectrumAtTime(double time) const override final;
+	//Always returns the default reference frame because
+	//a static light, by definition, has no velocity
+	virtual ReferenceFrame GetRefFrameAtTime(double time) const override final;
 	virtual bool IsStatic() const override final;
 		
 protected:

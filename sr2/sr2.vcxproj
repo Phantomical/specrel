@@ -19,21 +19,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Intersection.h" />
     <ClInclude Include="LightBase.h" />
+    <ClInclude Include="LightRayInfo.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="PreDefs.h" />
     <ClInclude Include="quat.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RefFrame.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Spectrum.h" />
     <ClInclude Include="StaticLight.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="Velocity.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RefFrame.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="StaticLight.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -2,9 +2,10 @@
 #define SPECREL_SCENE_H
 
 #include <vector>
+#include "Camera.h"
 #include "LightBase.h"
 #include "ObjectBase.h"
-#include "Camera.h"
+#include "LightRayInfo.h"
 
 struct Scene
 {
@@ -15,6 +16,9 @@ struct Scene
 
 	IntersectionList GlobalIntersect(const Ray& ray) const;
 	Intersection NearestIntersection(const Ray& ray) const;
+	//Only returns true if the light is static and the intersection point is illuminated by it
+	//If it returns true then information about the light ray will be placed in info (Which can be NULL)
+	bool IlluminatedByStaticLight(const Intersection& isect, const LightBasePtr& light, LightRayInfo* info) const;
 };
 
 #endif
