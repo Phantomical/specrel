@@ -3,7 +3,7 @@
 
 #include <memory>
 
-struct RefFrame;
+struct ReferenceFrame;
 struct Intersection;
 struct Velocity;
 struct Spectrum;

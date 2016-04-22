@@ -20,16 +20,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Intersection.h" />
+    <ClInclude Include="LightBase.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="PreDefs.h" />
     <ClInclude Include="quat.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="RefFrame.h" />
+    <ClInclude Include="Spectrum.h" />
+    <ClInclude Include="StaticLight.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="Velocity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RefFrame.cpp" />
+    <ClCompile Include="StaticLight.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{32E8D26D-425B-4BEF-B2D4-0163C603F36E}</ProjectGuid>

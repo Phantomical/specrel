@@ -31,31 +31,31 @@ struct Velocity : Vector3d
 	}
 };
 
-Velocity operator-(const Velocity& v)
+inline Velocity operator-(const Velocity& v)
 {
 	return -v;
 }
-Velocity operator+(const Velocity& v)
+inline Velocity operator+(const Velocity& v)
 {
 	return v;
 }
 
-Velocity operator +(const Velocity& u, const Velocity& v)
+inline Velocity operator +(const Velocity& u, const Velocity& v)
 {
 	double gamma = u.Gamma();
 	double factor = 1.0 / (1.0 + dot(u, v));
 	return ((Velocity::BaseType&)u + (Velocity::BaseType&)v + gamma / (1 + gamma) * cross(u, cross(u, v))) * factor;
 }
-Velocity operator -(const Velocity& u, const Velocity& v)
+inline Velocity operator -(const Velocity& u, const Velocity& v)
 {
 	return u + -v;
 }
 
-Velocity& operator+=(Velocity& v, const Velocity& u)
+inline Velocity& operator+=(Velocity& v, const Velocity& u)
 {
 	return v = v + u;
 }
-Velocity& operator-=(Velocity& v, const Velocity& u)
+inline Velocity& operator-=(Velocity& v, const Velocity& u)
 {
 	return v = v - u;
 }
