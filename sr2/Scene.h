@@ -1,4 +1,4 @@
-#ifndef SPECREL_SCENE_
+#ifndef SPECREL_SCENE_H
 #define SPECREL_SCENE_H
 
 #include <vector>
@@ -11,8 +11,6 @@ struct Scene
 {
 	std::vector<LightBasePtr> Lights;
 	std::vector<ObjectBasePtr> Objects;
-	Camera Viewpoint;
-
 
 	IntersectionList GlobalIntersect(const Ray& ray) const;
 	Intersection NearestIntersection(const Ray& ray) const;
@@ -20,5 +18,7 @@ struct Scene
 	//If it returns true then information about the light ray will be placed in info (Which can be NULL)
 	bool IlluminatedByStaticLight(const Intersection& isect, const LightBasePtr& light, LightRayInfo* info) const;
 };
+
+typedef std::shared_ptr<Scene> ScenePtr;
 
 #endif

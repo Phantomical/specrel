@@ -546,6 +546,7 @@ vector<vTy, sizeof...(vArgs)+1> make_vector(const vTy& val, const vArgs&... args
 	return vector<vTy, sizeof...(vArgs)+1>({ val, args... });
 }
 
+typedef vec2 Vector2d;
 typedef vec3 Vector3d;
 typedef vec4 Vector4d;
 typedef vector<float, 3> Colour;

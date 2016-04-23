@@ -10,7 +10,7 @@ struct Velocity : Vector3d
 
 	Velocity() = default;
 	Velocity(const double* v) :
-		Vector3d(v)
+		BaseType(v)
 	{
 
 	}

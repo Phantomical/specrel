@@ -49,8 +49,6 @@ bool Scene::IlluminatedByStaticLight(const Intersection& isect, const LightBaseP
 	//distance from the light to the origin of the ray
 	double dis2light2 = sqrdistance(orig.subvec<3>(), dest);
 
-	Intersection nearest = NearestIntersection(lightray);
-
 	if (sqrdistance(nearest.Position.subvec<3>(), orig.subvec<3>()) < dis2light2)
 		return false;
 
