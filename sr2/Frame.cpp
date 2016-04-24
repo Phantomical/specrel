@@ -50,7 +50,7 @@ Colour Frame::TraceRay(const Ray& ray) const
 		// The ray didn't hit anything
 		return Background;
 
-	Colour illuminance = Colour(0.0, 0.0, 0.0);
+	Colour illuminance = Colour(0.0f, 0.0f, 0.0f);
 
 	for (const auto& light : FrameScene->Lights)
 	{
@@ -62,7 +62,7 @@ Colour Frame::TraceRay(const Ray& ray) const
 
 			Spectrum spec = light->GetSpectrumAtTime(info.IntersectTime).DopplerShift(factor);
 
-			illuminance += spec.GetIntensity() / (4 * M_PI * info.Distance * info.Distance);
+			illuminance += spec.GetRGB() * static_cast<Colour::value_type>(spec.GetIntensity() / (4 * M_PI * info.Distance * info.Distance));
 		}
 	}
 }

@@ -90,6 +90,9 @@
     <ClInclude Include="SpectrumData.h">
       <Filter>Header Files\Physical</Filter>
     </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StaticLight.cpp">

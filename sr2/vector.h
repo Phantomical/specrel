@@ -189,22 +189,22 @@ struct vector : vector_data<vTy, N>
 			data[i] /= v.data[i];
 	}
 
-	vector& operator +=(const double v)
+	vector& operator +=(const value_type v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] += v;
 	}
-	vector& operator -=(const double v)
+	vector& operator -=(const value_type v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] -= v;
 	}
-	vector& operator *=(const double v)
+	vector& operator *=(const value_type v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] *= v;
 	}
-	vector& operator /=(const double v)
+	vector& operator /=(const value_type v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] /= v;

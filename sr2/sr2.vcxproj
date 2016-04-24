@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Intersection.h" />
     <ClInclude Include="LightBase.h" />
