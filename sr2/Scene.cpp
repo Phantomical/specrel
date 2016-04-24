@@ -2,6 +2,14 @@
 #include "LightRayInfo.h"
 #include <limits>
 
+bool Scene::IsLightShape(ObjectBasePtr object) const
+{
+	for (const auto& light : Lights)
+		if (object.get() == light->GetLightVolume().get())
+			return true;
+	return false;
+}
+
 IntersectionList Scene::GlobalIntersect(const Ray& ray) const
 {
 	IntersectionList lst;
@@ -12,11 +20,12 @@ IntersectionList Scene::GlobalIntersect(const Ray& ray) const
 	}
 	return lst;
 }
-Intersection Scene::NearestIntersection(const Ray& ray) const
+bool Scene::TryNearestIntersection(const Ray& ray, Intersection& nearest) const
 {
 	IntersectionList lst = GlobalIntersect(ray);
+	if (lst.empty())
+		return false;
 	double dis2 = std::numeric_limits<double>::max();
-	Intersection nearest;
 	for (const auto& isect : lst)
 	{
 		Position c = TransformPosition(isect.Position, isect.RefFrame, ray.RefFrame);
@@ -27,7 +36,7 @@ Intersection Scene::NearestIntersection(const Ray& ray) const
 			nearest = isect;
 		}
 	}
-	return nearest;
+	return true;
 }
 
 bool Scene::IlluminatedByStaticLight(const Intersection& isect, const LightBasePtr& light, LightRayInfo* info) const
@@ -43,12 +52,32 @@ bool Scene::IlluminatedByStaticLight(const Intersection& isect, const LightBaseP
 	Vector3d dest = light->GetPositionAtTime(0.0).subvec<3>();
 	Vector3d dir = normalize(dest - orig.subvec<3>());
 
-	Ray lightray = Ray(dir, orig, lightref);
-	Intersection nearest = NearestIntersection(lightray);
+	Ray lightray = Ray(dir, orig, -1.0, lightref);
 	
 	//distance from the light to the origin of the ray
 	double dis2light2 = sqrdistance(orig.subvec<3>(), dest);
 
+	IntersectionList isects = GlobalIntersect(lightray);
+
+	std::sort(isects.begin(), isects.end(), [&](const Intersection& a, const Intersection& b)
+	{
+		return sqrdistance(subvec<3>(orig), subvec<3>(a.Position)) < sqrdistance(subvec<3>(orig), subvec<3>(b.Position));
+	});
+	
+	Intersection nearest;
+	bool set = false;
+
+	for (const auto& isect : isects)
+	{
+		if (IsLightShape(isect.Object))
+			continue;
+		set = true;
+		nearest = isect;
+		break;
+	}
+
+	if (set)
+		return false;
 	if (sqrdistance(nearest.Position.subvec<3>(), orig.subvec<3>()) < dis2light2)
 		return false;
 
@@ -62,6 +91,7 @@ bool Scene::IlluminatedByStaticLight(const Intersection& isect, const LightBaseP
 		info->RelVelocity = isect.SurfaceVel
 			+ isect.Object->GetReferenceFrame(orig.t - dis).Velocity;
 		info->Distance = dis;
+		info->IntersectTime = orig.t - dis;
 	}
 	
 	return true;

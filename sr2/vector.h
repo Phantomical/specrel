@@ -222,6 +222,15 @@ struct vector : vector_data<vTy, N>
 		return *this;
 	}
 
+	template<typename vFty>
+	vector for_each(vFty& func)
+	{
+		vector res;
+		for (size_t i = 0; i < N; ++i)
+			res = func(data[i]);
+		return res;
+	}
+
 	static const vector zero()
 	{
 		vector(vector<value_type, size - 1>::zero(), 0.0);

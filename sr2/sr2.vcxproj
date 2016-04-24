@@ -33,6 +33,7 @@
     <ClInclude Include="RefFrame.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Spectrum.h" />
+    <ClInclude Include="SpectrumData.h" />
     <ClInclude Include="StaticLight.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="Velocity.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RefFrame.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SpectrumData.cpp" />
     <ClCompile Include="StaticLight.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

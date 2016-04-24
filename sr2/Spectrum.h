@@ -7,7 +7,7 @@
 class SpectrumSource
 {
 public:
-	virtual const double* GetDataPtr() const = 0;
+	virtual SpectrumDataPtr GetDataPtr() const = 0;
 
 	virtual ~SpectrumSource() = default;
 };
@@ -19,6 +19,8 @@ struct Spectrum
 	Spectrum DopplerShift(double factor) const;
 
 	Colour GetRGB() const;
+	//Intensity of the light at a distance of 1
+	double GetIntensity() const;
 
 	Spectrum() = default;
 	Spectrum(SpectrumSourcePtr source);

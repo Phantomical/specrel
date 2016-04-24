@@ -11,6 +11,7 @@ struct LightRayInfo
 	Ray LightRay;         // The ray that goes from the intersection to the light
 	Velocity RelVelocity; // The relative velocity between the intersection point and the light
 	double Distance;      // The distance to the light from the intersection
+	double IntersectTime; // The time at which the ray intersected the light
 };
 
 #endif

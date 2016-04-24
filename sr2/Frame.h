@@ -21,8 +21,10 @@ struct Frame
 public:
 	// The image that the scene is being rendered to
 	cil::CImg<typename Colour::value_type> Image;
-	ScenePtr FrameScene; // The scene which is being rendered
-	Camera Viewpoint;    // The viewpoint from which the scene is being rendered
+	ScenePtr FrameScene;    // The scene which is being rendered
+	Camera Viewpoint;       // The viewpoint from which the scene is being rendered
+	size_t SamplesPerPixel; // The number of samples that will be gathered for each pixel
+	Colour Background;      // The colour that will be used when there is no object
 
 	Vector2s ImageSize() const;
 	//Saves the file with the given name
@@ -32,6 +34,7 @@ public:
 	//Shoots a ray through the point on the screen indicated by pixel
 	//trace_forward indicates whether the ray should go into the past or the future
 	Ray CreateRay(const Vector2d& pixel, bool trace_forward = false) const;
+	Colour TraceRay(const Ray& ray) const;
 
 	void DrawPixel(const Vector2s& pixel);
 	void DrawFrame(bool multithreaded = true);

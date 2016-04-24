@@ -31,6 +31,9 @@
     <Filter Include="Header Files\LinearAlgebra">
       <UniqueIdentifier>{9327d1e8-a596-40f7-8825-82c2813e721d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Physical">
+      <UniqueIdentifier>{a57840b3-a33d-4203-adc5-302e2c814f7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="quat.h">
@@ -84,6 +87,9 @@
     <ClInclude Include="Matrix.h">
       <Filter>Header Files\LinearAlgebra</Filter>
     </ClInclude>
+    <ClInclude Include="SpectrumData.h">
+      <Filter>Header Files\Physical</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StaticLight.cpp">
@@ -100,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="Frame.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpectrumData.cpp">
+      <Filter>Source Files\Physical</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
