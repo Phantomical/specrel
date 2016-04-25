@@ -113,5 +113,14 @@
     <ClCompile Include="SpectrumData.cpp">
       <Filter>Source Files\Physical</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightBase.cpp">
+      <Filter>Source Files\Physical</Filter>
+    </ClCompile>
+    <ClCompile Include="Spectrum.cpp">
+      <Filter>Source Files\Physical</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

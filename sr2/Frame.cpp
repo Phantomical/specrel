@@ -62,9 +62,22 @@ Colour Frame::TraceRay(const Ray& ray) const
 
 			Spectrum spec = light->GetSpectrumAtTime(info.IntersectTime).DopplerShift(factor);
 
-			illuminance += spec.GetRGB() * static_cast<Colour::value_type>(spec.GetIntensity() / (4 * M_PI * info.Distance * info.Distance));
+			illuminance += spec.GetRGB() * spec.GetIntensity() * (float)(1.0 / (4.0 * M_PI * info.Distance * info.Distance));
 		}
 	}
+	double factor;
+	{
+		double mag = magnitude(isect.SurfaceVel 
+			+ isect.Object->GetReferenceFrame(isect.Position.t).Velocity 
+			- Viewpoint.RefFrame.Velocity);
+		factor = std::sqrt((1.0 - mag) / (1.0 + mag));
+	}
+
+	Spectrum nspec = isect.Spectrum.DopplerShift(factor); 
+
+	Colour surface = nspec.GetRGB() * nspec.GetIntensity();
+
+	return surface * illuminance;
 }
 
 void Frame::DrawPixel(const Vector2s& pixel)

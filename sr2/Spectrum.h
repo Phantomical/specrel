@@ -7,7 +7,8 @@
 class SpectrumSource
 {
 public:
-	virtual SpectrumDataPtr GetDataPtr() const = 0;
+	virtual SpectrumDataPtr GetData() const = 0;
+	virtual double GetIntensity() const = 0;
 
 	virtual ~SpectrumSource() = default;
 };
@@ -20,6 +21,8 @@ struct Spectrum
 
 	Colour GetRGB() const;
 	//Intensity of the light at a distance of 1
+	//Returns a separate intensity for each channel
+	//A value of 1 means that light will be unchanged at a unit distance
 	double GetIntensity() const;
 
 	Spectrum() = default;

@@ -41,9 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="LightBase.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RefFrame.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Spectrum.cpp" />
     <ClCompile Include="SpectrumData.cpp" />
     <ClCompile Include="StaticLight.cpp" />
   </ItemGroup>
