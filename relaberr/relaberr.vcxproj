@@ -145,6 +145,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="StaticLight.cpp" />
     <ClCompile Include="StaticPointLight.cpp" />
+    <ClCompile Include="StaticSphere.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

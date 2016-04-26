@@ -27,74 +27,8 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RefFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LightBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ObjectBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Medium.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="quat.h">
-      <Filter>Header Files\VectorMath</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\Spatial</Filter>
-    </ClInclude>
-    <ClInclude Include="ColourSource.h">
-      <Filter>Header Files\Abstract</Filter>
-    </ClInclude>
-    <ClInclude Include="intersection.h">
-      <Filter>Header Files\Spatial</Filter>
-    </ClInclude>
-    <ClInclude Include="LightBase.h">
-      <Filter>Header Files\Abstract</Filter>
-    </ClInclude>
-    <ClInclude Include="medium.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectBase.h">
-      <Filter>Header Files\Abstract</Filter>
-    </ClInclude>
-    <ClInclude Include="ray.h">
-      <Filter>Header Files\Spatial</Filter>
-    </ClInclude>
-    <ClInclude Include="RefFrame.h">
-      <Filter>Header Files\Spatial</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="transform.h">
-      <Filter>Header Files\Spatial</Filter>
-    </ClInclude>
-    <ClInclude Include="PreDefs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files\Spatial</Filter>
-    </ClInclude>
     <ClInclude Include="vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
