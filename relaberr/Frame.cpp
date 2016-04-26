@@ -57,26 +57,13 @@ Colour Frame::TraceRay(const Ray& ray) const
 		LightRayInfo info;
 		if (FrameScene->IlluminatedByStaticLight(isect, light, &info))
 		{
-			double mag = magnitude(info.RelVelocity);
-			double factor = std::sqrt((1.0 - mag) / (1.0 + mag));
+			auto spec = light->GetColourAtTime(info.IntersectTime);
 
-			Spectrum spec = light->GetSpectrumAtTime(info.IntersectTime).DopplerShift(factor);
-
-			illuminance += spec.GetRGB() * spec.GetIntensity() * (1.0 / (4.0 * M_PI * info.Distance * info.Distance));
+			illuminance += spec->GetRGB() * (float)(1.0 / (4.0 * M_PI * info.Distance * info.Distance));
 		}
 	}
-	double factor;
-	{
-		double mag = magnitude(isect.SurfaceVel 
-			+ isect.Object->GetReferenceFrame(isect.Position.t).Velocity 
-			- Viewpoint.RefFrame.Velocity);
-		factor = std::sqrt((1.0 - mag) / (1.0 + mag));
-	}
 
-	Spectrum nspec = isect.Spectrum.DopplerShift(factor); 
-
-	Colour surface = nspec.GetRGB() * nspec.GetIntensity();
-
+	Colour surface = isect.Source->GetRGB();
 	return surface * illuminance;
 }
 

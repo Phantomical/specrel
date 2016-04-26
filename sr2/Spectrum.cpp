@@ -936,6 +936,11 @@ Colour Spectrum::GetRGB() const
 	return rgb;
 }
 
+Spectrum Spectrum::DopplerShift(double v) const
+{
+	throw 0;
+}
+
 double Spectrum::GetIntensity() const
 {
 	return Source->GetIntensity();
