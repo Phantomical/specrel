@@ -129,17 +129,22 @@
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RefFrame.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="StaticSphere.h" />
+    <ClInclude Include="StandardColourSource.h" />
     <ClInclude Include="StaticLight.h" />
+    <ClInclude Include="StaticPointLight.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="Velocity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="LightBase.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RefFrame.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="StaticLight.cpp" />
+    <ClCompile Include="StaticPointLight.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
