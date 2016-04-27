@@ -1,8 +1,9 @@
 
 #include "vector.h"
-#include "constants.h"
 #include <vector>
 #include <ppl.h>
+
+constexpr double PI = 3.1415926535897932385;
 
 #ifdef _MSC_VER
 #include <codeanalysis\warnings.h>
@@ -153,12 +154,6 @@ struct camera
 		return ray(obs.pos, dir);
 	}
 };
-
-vec4 convert_to_si(const vec4& v)
-{
-	//Scale everything to SI units
-	return v * vec4(C, C, C, 1.0 / C);
-}
 
 std::vector<sphere> spheres;
 
