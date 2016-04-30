@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vector.h"
+#include "PreDefs.h"
 
 struct ReferenceFrame
 {

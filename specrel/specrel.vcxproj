@@ -116,13 +116,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ReferenceFrame.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Intersection.h" />
+    <ClInclude Include="ObjectBase.h" />
+    <ClInclude Include="PreDefs.h" />
+    <ClInclude Include="ptr_ref.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="ReferenceFrame.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

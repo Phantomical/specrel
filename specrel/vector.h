@@ -222,9 +222,11 @@ struct vector : vector_data<vTy, N>
 		return *this;
 	}
 
-	static const vector zero()
+	static vector zero()
 	{
-		vector(vector<value_type, size - 1>::zero(), 0.0);
+		vector ret;
+		ret.fill(value_type(0.0));
+		return ret;
 	}
 };
 
