@@ -3,6 +3,10 @@
 #include <vector>
 #include <ppl.h>
 
+typedef vector<double, 2> vec2;
+typedef vector<double, 3> vec3;
+typedef vector<double, 4> vec4;
+
 constexpr double PI = 3.1415926535897932385;
 
 #ifdef _MSC_VER
