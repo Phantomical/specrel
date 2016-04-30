@@ -28,3 +28,4 @@ struct Scene
 	// If there is no intersection it throws NoIntersectionException
 	Intersection NearestIntersection(const Ray& ray) const;
 };
+

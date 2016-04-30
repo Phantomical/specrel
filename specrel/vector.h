@@ -538,18 +538,15 @@ vector<vTy, N> normalize(const vector<vTy, N>& v)
 	return v.normalized();
 }
 
-typedef vector<double, 2> vec2;
-typedef vector<double, 3> vec3;
-typedef vector<double, 4> vec4;
-
 template<typename vTy, typename... vArgs>
 vector<vTy, sizeof...(vArgs)+1> make_vector(const vTy& val, const vArgs&... args)
 {
 	return vector<vTy, sizeof...(vArgs)+1>({ val, args... });
 }
 
-typedef vec3 Vector3d;
-typedef vec4 Vector4d;
+typedef vector<double, 2> Vector2d;
+typedef vector<double, 3> Vector3d;
+typedef vector<double, 4> Vector4d;
 typedef vector<float, 3> Colour;
 
 #endif
