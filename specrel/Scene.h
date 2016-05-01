@@ -27,5 +27,6 @@ struct Scene
 	// Returns the nearest intersection if there is one.
 	// If there is no intersection it throws NoIntersectionException
 	Intersection NearestIntersection(const Ray& ray) const;
+	bool TryNearestIntersection(const Ray& ray, Intersection& isect) const;
 };
 

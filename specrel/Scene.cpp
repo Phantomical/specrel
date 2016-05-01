@@ -28,13 +28,18 @@ IntersectionList Scene::AllIntersections(const Ray& ray) const
 }
 Intersection Scene::NearestIntersection(const Ray& ray) const
 {
+	Intersection isect;
+	if (TryNearestIntersection(ray, isect))
+		return isect;
+	throw NoIntersectionException(ray);
+}
+bool Scene::TryNearestIntersection(const Ray& ray, Intersection& nearest) const
+{
 	IntersectionList isects = AllIntersections(ray);
 
 	if (isects.empty())
-		//There were no intersections so there is nothing to return
-		throw NoIntersectionException(ray);
+		return false;
 
-	Intersection nearest;
 	double dis = std::numeric_limits<double>::max();
 	// Will be set if an object in front of the ray origin is found
 	bool found1 = false;
@@ -44,8 +49,7 @@ Intersection Scene::NearestIntersection(const Ray& ray) const
 		// The ray should always intersect before it was 
 		// launched because we are raytracing backwards in time
 		// (Unless it is behind us)
-		// Therefore we can reduce -(torig - tend) to (tend - torig)
-		double ndis = isect.Position.t - ray.Origin.t;
+		double ndis = ray.Origin.t - isect.Position.t;
 
 		if (ndis < ray.MinDistance)
 			// The intersection is behind the 
@@ -60,10 +64,5 @@ Intersection Scene::NearestIntersection(const Ray& ray) const
 		}
 	}
 
-	if (!found1)
-		// All the intersections were behind the
-		// minimum distance of the ray.
-		throw NoIntersectionException(ray);
-
-	return nearest;
+	return found1;
 }

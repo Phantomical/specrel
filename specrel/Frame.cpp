@@ -18,14 +18,16 @@ const Colour Frame::DefaultBackground = Colour(0.0f, 0.0f, 0.0f);
 
 Frame::Frame(size_t width, size_t height) :
 	Image(width, height, 1, 3),
-	Background(DefaultBackground)
+	Background(DefaultBackground),
+	NumSamples(DefaultNumSamples)
 {
 
 }
 Frame::Frame(size_t width, size_t height, ScenePtr scene) :
 	Image(width, height, 1, 3),
 	Scene(scene),
-	Background(DefaultBackground)
+	Background(DefaultBackground),
+	NumSamples(DefaultNumSamples)
 {
 
 }
@@ -33,36 +35,32 @@ Frame::Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoin
 	Image(width, height, 1, 3),
 	Scene(scene),
 	Viewpoint(viewpoint),
-	Background(DefaultBackground)
+	Background(DefaultBackground),
+	NumSamples(DefaultNumSamples)
 {
 
 }
-Frame::Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint, const Colour& background) :
+Frame::Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint, const Colour& background, size_t samples) :
 	Image(width, height, 1, 3),
 	Scene(scene),
 	Viewpoint(viewpoint),
-	Background(background)
+	Background(background),
+	NumSamples(samples)
 {
 
 }
 
 Colour Frame::TracePoint(const Vector2d& screen_pos) const
 {
-	try
-	{
-		//TODO: Add reflection, refraction, and doppler effect calculations
-		Ray ray = Viewpoint.CreateRay(screen_pos);
+	//TODO: Add reflection, refraction, and doppler effect calculations
+	Ray ray = Viewpoint.CreateRay(screen_pos);
 
-		Intersection isect = Scene->NearestIntersection(ray);
-
+	Intersection isect;
+	if (Scene->TryNearestIntersection(ray, isect))
 		return isect.GetColour();
-	}
-	catch (NoIntersectionException e)
-	{
-		return Background;
-	}
+	return Background;
 }
-Colour Frame::GetPixelColour(const vec2s& pixel) const
+Colour Frame::GetPixelColour(const vector<size_t, 2>& pixel) const
 {
 	if (Scene.get() == nullptr)
 		throw InvalidStateException("Scene must not be NULL");
@@ -71,11 +69,11 @@ Colour Frame::GetPixelColour(const vec2s& pixel) const
 
 	std::random_device rd;
 	std::mt19937 engine(pixel.x + pixel.y + rd());
-	std::uniform_real_distribution<double> dist(-1.0, 1.0);
+	std::uniform_real_distribution<double> dist(0.0, 1.0);
 
 	Vector2d mul = 1.0 / make_vector<double, double>(Image.width(), Image.height());
-	Vector2d pos = static_cast<Vector2d>(pixel) * 2.0 * mul - make_vector(1.0, 1.0);
-	
+	Vector2d pos = static_cast<Vector2d>(pixel * 2) * mul - make_vector(1.0, 1.0);
+
 
 	std::vector<Colour> samples;
 	samples.reserve(NumSamples);
@@ -90,7 +88,7 @@ Colour Frame::GetPixelColour(const vec2s& pixel) const
 	return std::accumulate(samples.begin(), samples.end(), Colour::zero()) / (float)NumSamples;
 }
 
-void Frame::TracePixel(const vec2s& pixel)
+void Frame::TracePixel(const vector<size_t, 2>& pixel)
 {
 	Colour result = GetPixelColour(pixel);
 
@@ -114,4 +112,11 @@ void Frame::TraceFrame()
 #ifndef _DEBUG
 	);
 #endif
+
+	Image.normalize(0.0, 255.0);
+}
+
+void Frame::Save(const char* filename, int suffix, int ndigits) const
+{
+	Image.save(filename, suffix, ndigits);
 }

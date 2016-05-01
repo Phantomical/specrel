@@ -40,6 +40,7 @@ IntersectionList Sphere::AllIntersections(const Ray& inray) const
 		isect.SurfaceVel = Vector3d::zero();
 		isect.RefFrame = RefFrame;
 		isect.Object = ObjectRef(this);
+		isect.Colour = ColourSource;
 		lst.push_back(isect);
 	}
 	{
@@ -49,6 +50,7 @@ IntersectionList Sphere::AllIntersections(const Ray& inray) const
 		isect.SurfaceVel = Vector3d::zero();
 		isect.RefFrame = RefFrame;
 		isect.Object = ObjectRef(this);
+		isect.Colour = ColourSource;
 		lst.push_back(isect);
 	}
 	return lst;
@@ -80,10 +82,11 @@ bool Sphere::AnyIntersections(const Ray& inray) const
 	return det >= 0;
 }
 
-Sphere::Sphere(const Vector4d& pos, double radius, const ReferenceFrame& ref_frame) :
+Sphere::Sphere(const Vector4d& pos, double radius, ColourSourcePtr colour, const ReferenceFrame& ref_frame) :
 	RefFrame(ref_frame),
 	InitialPosition(pos),
-	Radius(radius)
+	Radius(radius),
+	ColourSource(colour)
 {
 
 }

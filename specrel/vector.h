@@ -6,6 +6,10 @@
 #include <algorithm>
 #include <numeric>
 
+#ifdef _MSC_VER
+#pragma warning (disable:4201)
+#endif
+
 template<typename, size_t> struct vector;
 
 template<typename vTy, size_t N>
@@ -38,8 +42,6 @@ private:
 		data[idx] = val;
 	}
 };
-
-
 
 template<typename vTy, size_t N>
 struct vector : vector_data<vTy, N>
@@ -85,10 +87,12 @@ public:
 			data[i] = *(lst.begin()+i);
 	}
 	template<typename vOty>
-	explicit vector(const vector<vOty, size>& v) :
-		data_type((data_type)v.operator vector())
+	explicit vector(const vector<vOty, size>& v)
 	{
-		
+		for (size_t i = 0; i < size; ++i)
+		{
+			data[i] = static_cast<value_type>(v[i]);
+		}
 	}
 
 	void fill(value_type v)
@@ -160,6 +164,8 @@ public:
 	vector normalized() const
 	{
 		value_type q = value_type(1.0) / magnitude();
+		if (isinf(q))
+			return *this;
 		return *this * q;
 	}
 	void normalize()
@@ -279,8 +285,7 @@ struct vector_data<vTy, 2>
 		};
 	};
 
-	vector_data() = default;
-	vector_data(const value_type& x, const value_type& y) :
+	vector_data(const value_type& x = 0.0, const value_type& y = 0.0) :
 		x(x),
 		y(y)
 	{
@@ -309,13 +314,12 @@ struct vector_data<vTy, 3>
 		};
 	};
 
-	vector_data() = default;
 	vector_data(const vector<value_type, size - 1>& v, const value_type& n)
 	{
 		std::copy(v.data, v.data + (size - 1), data);
 		data[size - 1] = n;
 	}
-	vector_data(const value_type& x, const value_type& y, const value_type& z) :
+	vector_data(const value_type& x = 0.0, const value_type& y = 0.0, const value_type& z = 0.0) :
 		x(x),
 		y(y),
 		z(z)
@@ -347,13 +351,12 @@ struct vector_data<vTy, 4>
 		};
 	};
 
-	vector_data() = default;
 	vector_data(const vector<value_type, size - 1>& v, const value_type& n)
 	{
 		std::copy(v.data, v.data + (size - 1), data);
 		data[size - 1] = n;
 	}	
-	vector_data(const value_type& x, const value_type& y, const value_type& z, const value_type& t) :
+	vector_data(const value_type& x = 0.0, const value_type& y = 0.0, const value_type& z = 0.0, const value_type& t = 0.0) :
 		x(x),
 		y(y),
 		z(z),

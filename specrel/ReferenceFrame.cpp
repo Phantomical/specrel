@@ -40,6 +40,12 @@ Vector4d LorentzTransform(const Vector4d& pos, const ReferenceFrame& old, const 
 
 	double gamma = change.Gamma();
 	double vel = magnitude(change.Velocity);
+
+	// If there is no change between frames
+	// don't do anything
+	if (vel == 0.0)
+		return pos;
+
 	Vector3d dir = change.Velocity / vel;
 
 	return Vector4d(change.Velocity + (gamma - 1) * dot(subvec<3>(pos), dir) * dir 
@@ -48,5 +54,11 @@ Vector4d LorentzTransform(const Vector4d& pos, const ReferenceFrame& old, const 
 Vector3d LorentzTransform(const Vector3d& vel, const ReferenceFrame& old, const ReferenceFrame& new_)
 {
 	ReferenceFrame change = new_ - old;
+
+	// If there is no change between frames
+	// don't do anything
+	if (sqrmagnitude(change.Velocity) == 0.0)
+		return vel;
+
 	return (ReferenceFrame(vel) + change).Velocity;
 }

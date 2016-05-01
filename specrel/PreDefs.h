@@ -19,3 +19,14 @@ typedef std::shared_ptr<ObjectBase> ObjectPtr;
 typedef ptr_ref<const ObjectBase> ObjectRef;
 typedef std::shared_ptr<Scene> ScenePtr;
 typedef ptr_ref<const Scene> SceneRef;
+
+template<typename vTy, typename... vArgs>
+inline std::shared_ptr<vTy> MakePtr(vArgs&&... args)
+{
+	return std::make_shared<vTy>(args...);
+}
+template<typename vTy>
+inline ptr_ref<vTy> MakeRef(vTy* ptr)
+{
+	return ptr_ref<vTy>(ptr);
+}

@@ -5,6 +5,7 @@
 class Sphere : public ObjectBase
 {
 public:
+	ColourSourcePtr ColourSource;
 	Vector4d InitialPosition;
 	ReferenceFrame RefFrame;
 	double Radius;
@@ -13,5 +14,5 @@ public:
 	virtual bool AnyIntersections(const Ray& ray) const override;
 
 	Sphere() = default;
-	Sphere(const Vector4d& pos, double radius, const ReferenceFrame& ref_frame = ReferenceFrame::Default);
+	Sphere(const Vector4d& pos, double radius, ColourSourcePtr source, const ReferenceFrame& ref_frame = ReferenceFrame::Default);
 };
