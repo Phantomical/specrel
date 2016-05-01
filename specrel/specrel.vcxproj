@@ -116,14 +116,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Frame.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ReferenceFrame.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
-    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="ColourSource.h" />
+    <ClInclude Include="Frame.h" />
     <ClInclude Include="Intersection.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="PreDefs.h" />

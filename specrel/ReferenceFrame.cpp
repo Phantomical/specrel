@@ -1,6 +1,8 @@
 #include "ReferenceFrame.h"
 #include <cmath>
 
+const ReferenceFrame ReferenceFrame::Default = ReferenceFrame(Vector3d(0.0, 0.0, 0.0));
+
 double ReferenceFrame::Gamma() const
 {
 	return 1.0 / sqrt(1.0 - sqrmagnitude(Velocity));

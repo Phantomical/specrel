@@ -44,6 +44,14 @@ private:
 template<typename vTy, size_t N>
 struct vector : vector_data<vTy, N>
 {
+private:
+	template<template<typename> class X, typename T> struct instantiation_of : public std::false_type {};
+	template<template<typename> class X, typename Y> struct instantiation_of<X, X<Y>> : public std::true_type {};
+
+	template<typename xTy>
+	using rebind = vector<xTy, N>;
+
+public:
 	typedef vector_data<value_type, size> data_type;
 	typedef typename data_type::value_type value_type;
 	static constexpr size_t size = data_type::size;
@@ -51,12 +59,12 @@ struct vector : vector_data<vTy, N>
 	static_assert(size != 1 || size != 0, "Vectors of size 1 or 0 are not valid");
 
 	vector() = default;
-	vector(const data_type& data) :
+	explicit vector(const data_type& data) :
 		data_type(data)
 	{
 
 	}
-	vector(const value_type* vals)
+	explicit vector(const value_type* vals)
 	{
 		std::memcpy(data, vals, sizeof(value_type) * N);
 	}
@@ -66,15 +74,21 @@ struct vector : vector_data<vTy, N>
 
 	}
 	template<typename vTy1, typename... vArgs>
-	vector(const vTy1& v, const vArgs&... args) :
+	explicit vector(const vTy1& v, const vArgs&... args) :
 		data_type(v, args...)
 	{
 
 	}
-	vector(const std::initializer_list<value_type>& lst)
+	explicit vector(const std::initializer_list<value_type>& lst)
 	{
 		for (size_t i = 0; i < size && i < lst.size(); ++i)
 			data[i] = *(lst.begin()+i);
+	}
+	template<typename vOty>
+	explicit vector(const vector<vOty, size>& v) :
+		data_type((data_type)v.operator vector())
+	{
+		
 	}
 
 	void fill(value_type v)

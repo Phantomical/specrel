@@ -12,7 +12,7 @@ private:
 
 	NoIntersectionException(const Ray& erred_ray);
 
-	friend class Scene;
+	friend struct Scene;
 
 public:
 	const Ray& GetRay() const;

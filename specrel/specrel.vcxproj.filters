@@ -25,24 +25,36 @@
     <Filter Include="Header Files\Shapes">
       <UniqueIdentifier>{696e41db-2606-4643-ac7c-414d18ae771e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Spatial">
+      <UniqueIdentifier>{678384be-9864-4c9f-86a7-a43f7076276a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Abstract">
+      <UniqueIdentifier>{4596a6ba-f97c-4df0-ab3c-4c0eadcb0429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shapes">
+      <UniqueIdentifier>{8eae0585-f39a-4608-8f1f-ca566cd51d27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ReferenceFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Spatial</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Source Files\Spatial</Filter>
+    </ClCompile>
+    <ClCompile Include="ReferenceFrame.cpp">
+      <Filter>Source Files\Spatial</Filter>
+    </ClCompile>
     <ClCompile Include="ObjectBase.cpp">
+      <Filter>Source Files\Abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Source Files\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,6 +85,15 @@
     </ClInclude>
     <ClInclude Include="PreDefs.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Spatial</Filter>
+    </ClInclude>
+    <ClInclude Include="ColourSource.h">
+      <Filter>Header Files\Abstract</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
