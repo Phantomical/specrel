@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ObjectBase.h"
+#include "LightBase.h"
 
 // Exception to only be used by Scene
 // It is thrown when an intersection has to be 
@@ -21,7 +22,10 @@ public:
 struct Scene
 {
 	std::vector<ObjectPtr> Objects;
+	std::vector<LightPtr> Lights;
 
+	// Indicates whether a ray intersects with anything in the scene
+	bool AnyIntersections(const Ray& ray) const;
 	// Returns all intersections in a vector
 	IntersectionList AllIntersections(const Ray& ray) const;
 	// Returns the nearest intersection if there is one.
@@ -30,5 +34,7 @@ struct Scene
 	bool TryNearestIntersection(const Ray& ray, Intersection& isect) const;
 
 	void AddObject(ObjectPtr object);
+	void AddLight(LightPtr light);
+
 };
 

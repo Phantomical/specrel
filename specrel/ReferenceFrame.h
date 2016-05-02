@@ -22,3 +22,4 @@ ReferenceFrame operator -(const ReferenceFrame&, const ReferenceFrame&);
 
 Vector4d LorentzTransform(const Vector4d& position, const ReferenceFrame& start, const ReferenceFrame& old);
 Vector3d LorentzTransform(const Vector3d& velocity, const ReferenceFrame& start, const ReferenceFrame& old);
+Vector3d TransformDir(const Vector3d& direction, const ReferenceFrame& start, const ReferenceFrame& end);

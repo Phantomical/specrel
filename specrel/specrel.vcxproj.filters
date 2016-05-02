@@ -40,6 +40,12 @@
     <Filter Include="Source Files\ColourSource">
       <UniqueIdentifier>{d1326a46-e61d-45e4-ba21-635bf73477c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Light">
+      <UniqueIdentifier>{61f630b1-ddb5-4adc-83a3-1917d9651315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lights">
+      <UniqueIdentifier>{0b3c96ad-4772-40df-b800-ee9bc1555235}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -68,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="RgbColourSource.cpp">
       <Filter>Source Files\ColourSource</Filter>
+    </ClCompile>
+    <ClCompile Include="LightBase.cpp">
+      <Filter>Source Files\Abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Source Files\Lights</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="RgbColourSource.h">
       <Filter>Header Files\ColourSource</Filter>
+    </ClInclude>
+    <ClInclude Include="LightBase.h">
+      <Filter>Header Files\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Header Files\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

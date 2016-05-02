@@ -117,7 +117,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="LightBase.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="Ray.cpp" />
@@ -129,8 +131,10 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColourSource.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Intersection.h" />
+    <ClInclude Include="LightBase.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="PreDefs.h" />
     <ClInclude Include="ptr_ref.h" />

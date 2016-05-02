@@ -19,7 +19,8 @@ const Colour Frame::DefaultBackground = Colour(0.0f, 0.0f, 0.0f);
 Frame::Frame(size_t width, size_t height) :
 	Image(width, height, 1, 3),
 	Background(DefaultBackground),
-	NumSamples(DefaultNumSamples)
+	NumSamples(DefaultNumSamples),
+	UseLighting(true)
 {
 
 }
@@ -27,7 +28,8 @@ Frame::Frame(size_t width, size_t height, ScenePtr scene) :
 	Image(width, height, 1, 3),
 	Scene(scene),
 	Background(DefaultBackground),
-	NumSamples(DefaultNumSamples)
+	NumSamples(DefaultNumSamples),
+	UseLighting(true)
 {
 
 }
@@ -36,16 +38,19 @@ Frame::Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoin
 	Scene(scene),
 	Viewpoint(viewpoint),
 	Background(DefaultBackground),
-	NumSamples(DefaultNumSamples)
+	NumSamples(DefaultNumSamples),
+	UseLighting(true)
 {
 
 }
-Frame::Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint, const Colour& background, size_t samples) :
+Frame::Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint, 
+		const Colour& background, size_t samples, bool lights) :
 	Image(width, height, 1, 3),
 	Scene(scene),
 	Viewpoint(viewpoint),
 	Background(background),
-	NumSamples(samples)
+	NumSamples(samples),
+	UseLighting(lights)
 {
 
 }
@@ -57,7 +62,26 @@ Colour Frame::TracePoint(const Vector2d& screen_pos) const
 
 	Intersection isect;
 	if (Scene->TryNearestIntersection(ray, isect))
-		return isect.GetColour();
+	{
+		if (UseLighting)
+		{
+			Colour illuminance = Colour::zero();
+
+			for (auto light : Scene->Lights)
+			{
+				if (light->Illuminated(isect, MakeRef(Scene)))
+				{
+					illuminance += light->GetLightIntensity(isect);
+				}
+			}
+
+			return isect.GetColour() * illuminance;
+		}
+		else
+		{
+			return isect.GetColour();
+		}
+	}
 	return Background;
 }
 Colour Frame::GetPixelColour(const vector<size_t, 2>& pixel) const

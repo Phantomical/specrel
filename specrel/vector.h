@@ -192,42 +192,50 @@ public:
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] += v.data[i];
+		return *this;
 	}
 	vector& operator -=(const vector& v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] -= v.data[i];
+		return *this;
 	}
 	vector& operator *=(const vector& v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] *= v.data[i];
+		return *this;
 	}
 	vector& operator /=(const vector& v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] /= v.data[i];
+		return *this;
 	}
 
 	vector& operator +=(const double v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] += v;
+		return *this;
 	}
 	vector& operator -=(const double v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] -= v;
+		return *this;
 	}
 	vector& operator *=(const double v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] *= v;
+		return *this;
 	}
 	vector& operator /=(const double v)
 	{
 		for (size_t i = 0; i < size; ++i)
 			data[i] /= v;
+		return *this;
 	}
 
 	vector operator-() const
