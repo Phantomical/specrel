@@ -1,4 +1,5 @@
 #include "Ray.h"
+#include <limits>
 
 Vector4d Ray::GetFourVelocity() const
 {
@@ -17,27 +18,34 @@ Ray::Ray(const Vector4d& origin, const Vector3d& dir, const ReferenceFrame& ref_
 
 namespace
 {
-	//Transformrms a direction as if it was a position
+	constexpr double PI = 3.1415926535897932385;
+	inline bool approx(double v, double cmp)
+	{
+		return v > cmp - std::numeric_limits<double>::epsilon()
+			&& v < cmp + std::numeric_limits<double>::epsilon();
+	}
+
 	Vector3d TransformDir(const Vector3d& dir, const ReferenceFrame& old, const ReferenceFrame& new_)
 	{
 		ReferenceFrame change = new_ - old;
 
-		double gamma = change.Gamma();
 		Vector3d vdir = normalize(change.Velocity);
+		double vel = magnitude(change.Velocity);
+		double cosalpha = cosangle(vdir, dir);
 
-		// If there is no change between frames
-		// don't do anything
-		if (sqrmagnitude(vdir) == 0.0)
+		if (cosalpha == 1.0  || vel==0.0)
 			return dir;
 
-		return normalize(change.Velocity + (gamma - 1) * dot(dir, vdir) * vdir);
+		double beta = std::acos((cosalpha - vel) / (1 - vel * cosalpha));
+
+		return rotate(vdir, normalize(cross(dir, vdir)), beta);
 	}
 }
 
 Ray LorentzTransform(const Ray& ray, const ReferenceFrame& new_)
 {
 	return Ray(
-		LorentzTransform(ray.Origin, ray.RefFrame, new_),
+		ray.Origin,//LorentzTransform(ray.Origin, ray.RefFrame, new_),
 		TransformDir(ray.Direction, ray.RefFrame, new_),
 		new_, ray.MinDistance);
 }

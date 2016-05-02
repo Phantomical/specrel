@@ -28,5 +28,7 @@ struct Scene
 	// If there is no intersection it throws NoIntersectionException
 	Intersection NearestIntersection(const Ray& ray) const;
 	bool TryNearestIntersection(const Ray& ray, Intersection& isect) const;
+
+	void AddObject(ObjectPtr object);
 };
 

@@ -3,6 +3,12 @@
 #include "ReferenceFrame.h"
 #include "Ray.h"
 
+constexpr inline double Deg2Rad(double deg)
+{
+	return 0.017453292519943295769 * deg;
+}
+
+
 struct Camera
 {
 	ReferenceFrame RefFrame;

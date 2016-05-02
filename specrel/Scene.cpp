@@ -66,3 +66,8 @@ bool Scene::TryNearestIntersection(const Ray& ray, Intersection& nearest) const
 
 	return found1;
 }
+
+void Scene::AddObject(ObjectPtr object)
+{
+	Objects.push_back(object);
+}
