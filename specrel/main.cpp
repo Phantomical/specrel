@@ -16,11 +16,11 @@ int main()
 	scene->AddObject(sphere2);
 	scene->AddObject(sphere3);
 
-	Camera viewpoint = Camera(Vector4d(0.0, 0.0, -15.0, 0.0), ReferenceFrame(Vector3d(0.0, 0.0, 0.9)));
-	viewpoint.FovX = Deg2Rad(120);
-	viewpoint.FovY = Deg2Rad(90);
+	Camera viewpoint = Camera(Vector4d(0.0, 0.0, -5.0, 0.0), ReferenceFrame(Vector3d(0.0, 0.0, 0.1)));
+	viewpoint.FovX = Deg2Rad(80);
+	viewpoint.FovY = Deg2Rad(60);
 	
-	Frame frame = Frame(100, 75, scene, viewpoint, Colour(0.0f, 0.0f, 0.0f), 32);
+	Frame frame = Frame(1080, 720, scene, viewpoint, Colour(0.0f, 0.0f, 0.0f), 32);
 
 	frame.TraceFrame();
 

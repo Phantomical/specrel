@@ -36,7 +36,7 @@ ReferenceFrame operator -(const ReferenceFrame& u)
 
 Vector4d LorentzTransform(const Vector4d& pos, const ReferenceFrame& old, const ReferenceFrame& new_)
 {
-	ReferenceFrame change = new_ - old;
+	ReferenceFrame change = old - new_;
 
 	double gamma = change.Gamma();
 	double vel = magnitude(change.Velocity);
@@ -48,12 +48,12 @@ Vector4d LorentzTransform(const Vector4d& pos, const ReferenceFrame& old, const 
 
 	Vector3d dir = change.Velocity / vel;
 
-	return Vector4d(change.Velocity + (gamma - 1) * dot(subvec<3>(pos), dir) * dir 
+	return Vector4d(subvec<3>(pos) + (gamma - 1) * dot(subvec<3>(pos), dir) * dir 
 		- gamma * pos.t * vel * dir, gamma * (pos.t - vel * dot(dir, subvec<3>(pos))));
 }
 Vector3d LorentzTransform(const Vector3d& vel, const ReferenceFrame& old, const ReferenceFrame& new_)
 {
-	ReferenceFrame change = new_ - old;
+	ReferenceFrame change = old - new_;
 
 	// If there is no change between frames
 	// don't do anything

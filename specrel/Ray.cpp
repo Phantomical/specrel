@@ -27,7 +27,7 @@ namespace
 
 	Vector3d TransformDir(const Vector3d& dir, const ReferenceFrame& old, const ReferenceFrame& new_)
 	{
-		ReferenceFrame change = new_ - old;
+		ReferenceFrame change = old - new_;
 
 		Vector3d vdir = normalize(change.Velocity);
 		double vel = magnitude(change.Velocity);
@@ -45,7 +45,7 @@ namespace
 Ray LorentzTransform(const Ray& ray, const ReferenceFrame& new_)
 {
 	return Ray(
-		ray.Origin,//LorentzTransform(ray.Origin, ray.RefFrame, new_),
+		LorentzTransform(ray.Origin, ray.RefFrame, new_),
 		TransformDir(ray.Direction, ray.RefFrame, new_),
 		new_, ray.MinDistance);
 }

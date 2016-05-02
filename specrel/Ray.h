@@ -13,7 +13,7 @@ struct Ray
 	Vector4d GetFourVelocity() const;
 
 	Ray() = default;
-	Ray(const Vector4d& origin, const Vector3d& direction, const ReferenceFrame& ref_frame = ReferenceFrame::Default, double min_dist = 0.001);
+	Ray(const Vector4d& origin, const Vector3d& direction, const ReferenceFrame& ref_frame = ReferenceFrame::Default, double min_dist = 0.00001);
 };
 
 Ray LorentzTransform(const Ray& ray, const ReferenceFrame& new_);
