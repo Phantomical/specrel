@@ -81,6 +81,9 @@
     <ClCompile Include="DirectionalLight.cpp">
       <Filter>Source Files\Lights</Filter>
     </ClCompile>
+    <ClCompile Include="AmbientLight.cpp">
+      <Filter>Source Files\Lights</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -126,6 +129,9 @@
       <Filter>Header Files\Abstract</Filter>
     </ClInclude>
     <ClInclude Include="DirectionalLight.h">
+      <Filter>Header Files\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="AmbientLight.h">
       <Filter>Header Files\Light</Filter>
     </ClInclude>
   </ItemGroup>

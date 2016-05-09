@@ -2,6 +2,7 @@
 #include "Sphere.h"
 #include "RgbColourSource.h"
 #include "DirectionalLight.h"
+#include "AmbientLight.h"
 
 int main()
 {
@@ -11,30 +12,33 @@ int main()
 	ColourSourcePtr source1 = MakePtr<RgbColourSource>(Colour(1.0f, 0.0f, 0.0f));
 	ColourSourcePtr source2 = MakePtr<RgbColourSource>(Colour(0.0f, 1.0f, 0.0f));
 	ColourSourcePtr source3 = MakePtr<RgbColourSource>(Colour(0.0f, 0.0f, 1.0f));
+	ColourSourcePtr source4 = MakePtr<RgbColourSource>(Colour(1.0f, 1.0f, 1.0f));
 
-	ObjectPtr sphere1 = MakePtr<Sphere>(Vector4d(1.5, -0.5, 0.0, 0.0), 2.5, source1);
-	ObjectPtr sphere2 = MakePtr<Sphere>(Vector4d(-1.5, -0.5, 0.0, 0.0), 2.5, source2);
-	ObjectPtr sphere3 = MakePtr<Sphere>(Vector4d(0.0, 1.0, -0.5, 0.0), 2.5, source3);
-
-	scene->AddObject(sphere1);
-	scene->AddObject(sphere2);
-	scene->AddObject(sphere3);
+	scene->AddObject(MakePtr<Sphere>(Vector4d(1.5, -0.5, 0.0, 0.0), 2.5, source1));
+	scene->AddObject(MakePtr<Sphere>(Vector4d(-1.5, -0.5, 0.0, 0.0), 2.5, source2));
+	scene->AddObject(MakePtr<Sphere>(Vector4d(0.0, 1.0, 0.5, 0.0), 2.5, source3));
+	scene->AddObject(MakePtr<Sphere>(Vector4d(0.0, -25003.0, 0.0), 25000.0, source4));
 #else
 	ColourSourcePtr source = MakePtr<RgbColourSource>(Colour(1.0f, 1.0f, 1.0f));
 	ObjectPtr sphere = MakePtr<Sphere>(Vector4d(0.0, 0.0, 0.0, 0.0), 2.5, source);
+	ObjectPtr sphere4 = MakePtr<Sphere>(Vector4d(0.0, -25003.0, 0.0), 25000.0, source);
 
+	scene->AddObject(sphere4);
 	scene->AddObject(sphere);
 #endif
 
-	LightPtr light1 = MakePtr<DirectionalLight>(Vector3d(0.0, 1.0, 0.0), Colour(1.0f, 1.0f, 1.0f));
+	scene->AddLight(MakePtr<DirectionalLight>(Vector3d(0.0, -1.0, 0.0), Colour(1.0f, 1.0f, 1.0f)));
+	scene->AddLight(MakePtr<AmbientLight>(Colour(0.1f, 0.1f, 0.1f)));
 
-	scene->AddLight(light1);
-
-	Camera viewpoint = Camera(Vector4d(0.0, 0.0, -10.0, 0.0), ReferenceFrame(Vector3d(0.0, 0.0, 0.0)));
+	Camera viewpoint = Camera(Vector4d(0.0, 0.0, -15.0, 0.0), ReferenceFrame(Vector3d(0.0, 0.0, 0.3)));
 	viewpoint.FovX = Deg2Rad(80);
 	viewpoint.FovY = Deg2Rad(60);
 
-	Frame frame = Frame(1080, 720, scene, viewpoint, Colour(0.0f, 0.0f, 0.0f), 32, true);
+	viewpoint.Forward = Vector3d(0.0, 0.0, 1.0);
+	viewpoint.Up = Vector3d(0.0, 1.0, 0.0);
+	viewpoint.Right = Vector3d(1.0, 0.0, 0.0);
+
+	Frame frame = Frame(1000, 750, scene, viewpoint, Colour(0.0f, 0.0f, 0.0f), 32);
 
 	frame.TraceFrame();
 

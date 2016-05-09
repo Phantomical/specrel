@@ -29,12 +29,11 @@ public:
 	Camera Viewpoint;
 	Colour Background;
 	size_t NumSamples;
-	bool UseLighting;
 
 	Frame(size_t width, size_t height);
 	Frame(size_t width, size_t height, ScenePtr scene);
 	Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint);
-	Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint, const Colour& background, size_t num_samples = DefaultNumSamples, bool UseLighting = true);
+	Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint, const Colour& background, size_t num_samples = DefaultNumSamples);
 
 	Colour TracePoint(const Vector2d& screen_pos) const;
 	Colour GetPixelColour(const vector<size_t, 2>& position) const;

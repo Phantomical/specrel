@@ -19,8 +19,7 @@ const Colour Frame::DefaultBackground = Colour(0.0f, 0.0f, 0.0f);
 Frame::Frame(size_t width, size_t height) :
 	Image(width, height, 1, 3),
 	Background(DefaultBackground),
-	NumSamples(DefaultNumSamples),
-	UseLighting(true)
+	NumSamples(DefaultNumSamples)
 {
 
 }
@@ -28,8 +27,7 @@ Frame::Frame(size_t width, size_t height, ScenePtr scene) :
 	Image(width, height, 1, 3),
 	Scene(scene),
 	Background(DefaultBackground),
-	NumSamples(DefaultNumSamples),
-	UseLighting(true)
+	NumSamples(DefaultNumSamples)
 {
 
 }
@@ -38,19 +36,17 @@ Frame::Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoin
 	Scene(scene),
 	Viewpoint(viewpoint),
 	Background(DefaultBackground),
-	NumSamples(DefaultNumSamples),
-	UseLighting(true)
+	NumSamples(DefaultNumSamples)
 {
 
 }
-Frame::Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint, 
-		const Colour& background, size_t samples, bool lights) :
+Frame::Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint,
+	const Colour& background, size_t samples) :
 	Image(width, height, 1, 3),
 	Scene(scene),
 	Viewpoint(viewpoint),
 	Background(background),
-	NumSamples(samples),
-	UseLighting(lights)
+	NumSamples(samples)
 {
 
 }
@@ -63,24 +59,17 @@ Colour Frame::TracePoint(const Vector2d& screen_pos) const
 	Intersection isect;
 	if (Scene->TryNearestIntersection(ray, isect))
 	{
-		if (UseLighting)
-		{
-			Colour illuminance = Colour::zero();
+		Colour illuminance = Colour::zero();
 
-			for (auto light : Scene->Lights)
+		for (auto light : Scene->Lights)
+		{
+			if (light->Illuminated(isect, MakeRef(Scene)))
 			{
-				if (light->Illuminated(isect, MakeRef(Scene)))
-				{
-					illuminance += light->GetLightIntensity(isect);
-				}
+				illuminance += light->GetLightIntensity(isect);
 			}
+		}
 
-			return isect.GetColour() * illuminance;
-		}
-		else
-		{
-			return isect.GetColour();
-		}
+		return clamp(isect.GetColour() * illuminance, 0.0f, 1.0f);
 	}
 	return Background;
 }
@@ -96,21 +85,24 @@ Colour Frame::GetPixelColour(const vector<size_t, 2>& pixel) const
 	std::uniform_real_distribution<double> dist(0.0, 1.0);
 
 	Vector2d mul = 1.0 / make_vector<double, double>(Image.width(), Image.height());
-	Vector2d pos = static_cast<Vector2d>(pixel * 2) * mul - make_vector(1.0, 1.0);
-
-
+	Vector2d pos = 1.0 - static_cast<Vector2d>(pixel * 2) * mul;
+	
 	std::vector<Colour> samples;
 	samples.reserve(NumSamples);
 
 	for (size_t i = 0; i < NumSamples; ++i)
 	{
-		Vector2d pt = pos + make_vector(dist(engine), dist(engine)) * mul;
+		Vector2d pt = pos - make_vector(dist(engine), dist(engine)) * mul;
 		samples.push_back(TracePoint(pt));
 	}
 
 	// Average all the samples
 	return std::accumulate(samples.begin(), samples.end(), Colour::zero()) / (float)NumSamples;
 }
+
+#if !defined _DEBUG
+#	define MULTITHTREADED
+#endif
 
 void Frame::TracePixel(const vector<size_t, 2>& pixel)
 {
@@ -122,7 +114,7 @@ void Frame::TracePixel(const vector<size_t, 2>& pixel)
 }
 void Frame::TraceFrame()
 {
-#ifndef _DEBUG
+#ifdef MULTITHTREADED
 	concurrency::parallel_for(0, Image.height(), [&](size_t y)
 #else
 	for (size_t y = 0; y < Image.height(); ++y)
@@ -133,11 +125,15 @@ void Frame::TraceFrame()
 			TracePixel(make_vector<size_t>(x, y));
 		}
 	}
-#ifndef _DEBUG
+#ifdef MULTITHTREADED
 	);
 #endif
 
-	Image.normalize(0.0, 255.0);
+	cimg_for(Image, ptr, float) 
+	{ 
+		auto tmp = *ptr * 255.0; 
+		*ptr = tmp;
+	}
 }
 
 void Frame::Save(const char* filename, int suffix, int ndigits) const

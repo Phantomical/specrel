@@ -16,6 +16,7 @@ struct Intersection
 	Vector4d Position;       // The position of the intersection
 	Vector3d SurfaceVel;     // The surface velocity of the intersection relative to the reference frame
 	Vector3d Normal;         // The surface normal
+	Vector3d IncomingDir;    // The direction that the ray is coming from
 	ObjectRef Object;        // The object that was intersected
 	ColourSourcePtr Colour;  // The colour provider for the intersection
 };

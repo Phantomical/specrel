@@ -188,6 +188,15 @@ public:
 		return subvector<nsz>(start);
 	}
 
+	template<typename vFunc>
+	vector apply_op(const vFunc& fnc) const
+	{
+		vector res;
+		for (size_t i = 0; i < size; ++i)
+			res[i] = fnc(data[i]);
+		return res;
+	}
+
 	vector& operator +=(const vector& v)
 	{
 		for (size_t i = 0; i < size; ++i)
@@ -561,6 +570,14 @@ template<typename vTy, size_t N>
 vector<vTy, N> normalize(const vector<vTy, N>& v)
 {
 	return v.normalized();
+}
+
+template<typename vTy, size_t N>
+vector<vTy, N> clamp(const vector<vTy, N>& v, vTy min, vTy max)
+{
+	return v
+		.apply_op([&](vTy in) { return std::min(max, in);})
+		.apply_op([&](vTy in) { return std::max(in, min);});
 }
 
 template<typename vTy, typename... vArgs>
