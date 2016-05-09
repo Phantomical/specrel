@@ -225,12 +225,14 @@ IntersectionList Sphere::AllIntersections(const Ray& inray) const
 	isect.IncomingDir = ray.Direction;
 	{
 		isect.Position = ray.Origin + ray.GetFourVelocity() * r1;
-		isect.Normal = normalize(subvec<3>(isect.Position) - subvec<3>(InitialPosition));
+		Vector3d PosAtTime = subvec<3>(InitialPosition) + RefFrame.Velocity * (InitialPosition.t - isect.Position.t);
+		isect.Normal = normalize(subvec<3>(isect.Position) - PosAtTime);
 		lst.push_back(isect);
 	}
 	{
 		isect.Position = ray.Origin + ray.GetFourVelocity() * r2;
-		isect.Normal = normalize(subvec<3>(isect.Position) - subvec<3>(InitialPosition));
+		Vector3d PosAtTime = subvec<3>(InitialPosition) + RefFrame.Velocity * (InitialPosition.t - isect.Position.t);
+		isect.Normal = normalize(subvec<3>(isect.Position) - PosAtTime);
 		lst.push_back(isect);
 	}
 	return lst;

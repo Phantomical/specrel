@@ -38,7 +38,7 @@ int main()
 	viewpoint.Up = Vector3d(0.0, 1.0, 0.0);
 	viewpoint.Right = Vector3d(1.0, 0.0, 0.0);
 
-	Frame frame = Frame(1000, 750, scene, viewpoint, Colour(0.0f, 0.0f, 0.0f), 32);
+	Frame frame = Frame(1600, 1200, scene, viewpoint, Colour(0.0f, 0.0f, 0.0f), 64);
 
 	frame.TraceFrame();
 
