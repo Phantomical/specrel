@@ -20,6 +20,7 @@ typedef std::shared_ptr<ObjectBase> ObjectPtr;
 typedef ptr_ref<const ObjectBase> ObjectRef;
 typedef std::shared_ptr<LightBase> LightPtr;
 typedef ptr_ref<const LightBase> LightRef;
+typedef std::shared_ptr<Frame> FramePtr;
 typedef std::shared_ptr<Scene> ScenePtr;
 typedef ptr_ref<const Scene> SceneRef;
 

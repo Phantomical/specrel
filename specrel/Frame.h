@@ -47,3 +47,5 @@ public:
 	static const Colour DefaultBackground;
 	static constexpr size_t DefaultNumSamples = 16;
 };
+
+
