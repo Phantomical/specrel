@@ -28,6 +28,11 @@
 
 #include "AST.h"
 #include <assert.h>
+
+#ifndef TRACE
+#	define NDEBUG
+#endif
+
 #ifdef _MSC_VER
 #pragma warning(disable:4100 4189)
 #endif
@@ -37,7 +42,7 @@ typedef struct ProgramNodeType ProgramNode;
 typedef struct ValueNodeImpl ValueNode;
 #define YYMALLOCARGTYPE size_t
 #endif
-#line 41 "parser.c"
+#line 46 "parser.c"
 #include "parser.h"
 /**************** End of %include directives **********************************/
 /* These constants specify the various numeric values for terminal symbols
@@ -783,98 +788,98 @@ static void yy_reduce(
 /********** Begin reduce actions **********************************************/
         YYMINORTYPE yylhsminor;
       case 0: /* program ::= IDENTIFIER NUMBER types */
-#line 31 "parser.y"
+#line 36 "parser.y"
 { *arg = yymsp[0].minor.yy11; }
-#line 789 "parser.c"
+#line 794 "parser.c"
         break;
       case 1: /* types ::= types type */
-#line 32 "parser.y"
+#line 37 "parser.y"
 { yylhsminor.yy11 = yymsp[-1].minor.yy11; Add(yylhsminor.yy11, yymsp[0].minor.yy33); }
-#line 794 "parser.c"
+#line 799 "parser.c"
   yymsp[-1].minor.yy11 = yylhsminor.yy11;
         break;
       case 2: /* types ::= type */
-#line 33 "parser.y"
+#line 38 "parser.y"
 { yylhsminor.yy11 = CreateProgramNode(); Add(yylhsminor.yy11, yymsp[0].minor.yy33); }
-#line 800 "parser.c"
+#line 805 "parser.c"
   yymsp[0].minor.yy11 = yylhsminor.yy11;
         break;
       case 3: /* type ::= IDENTIFIER LBRACE values RBRACE SEMICOLON */
-#line 35 "parser.y"
+#line 40 "parser.y"
 { yylhsminor.yy33 = yymsp[-2].minor.yy33; SetIden(yylhsminor.yy33, yymsp[-4].minor.yy0); }
-#line 806 "parser.c"
+#line 811 "parser.c"
   yymsp[-4].minor.yy33 = yylhsminor.yy33;
         break;
       case 4: /* values ::= values value */
-#line 36 "parser.y"
+#line 41 "parser.y"
 { yylhsminor.yy33 = yymsp[-1].minor.yy33; Add(yylhsminor.yy33, yymsp[0].minor.yy30); }
-#line 812 "parser.c"
+#line 817 "parser.c"
   yymsp[-1].minor.yy33 = yylhsminor.yy33;
         break;
       case 5: /* values ::= value */
-#line 37 "parser.y"
+#line 42 "parser.y"
 { yylhsminor.yy33 = CreateTypeNode(); Add(yylhsminor.yy33, yymsp[0].minor.yy30); }
-#line 818 "parser.c"
+#line 823 "parser.c"
   yymsp[0].minor.yy33 = yylhsminor.yy33;
         break;
       case 6: /* value ::= IDENTIFIER COLON expression SEMICOLON */
-#line 39 "parser.y"
+#line 44 "parser.y"
 { yylhsminor.yy30 = CreateAssignNode(yymsp[-3].minor.yy0, yymsp[-1].minor.yy37); }
-#line 824 "parser.c"
+#line 829 "parser.c"
   yymsp[-3].minor.yy30 = yylhsminor.yy30;
         break;
       case 7: /* expression ::= number */
-#line 40 "parser.y"
+#line 45 "parser.y"
 { yylhsminor.yy37 = CreateExpressionNode(yymsp[0].minor.yy10); }
-#line 830 "parser.c"
+#line 835 "parser.c"
   yymsp[0].minor.yy37 = yylhsminor.yy37;
         break;
       case 8: /* expression ::= IDENTIFIER */
-#line 41 "parser.y"
+#line 46 "parser.y"
 { yylhsminor.yy37 = CreateExpressionNode(yymsp[0].minor.yy0); }
-#line 836 "parser.c"
+#line 841 "parser.c"
   yymsp[0].minor.yy37 = yylhsminor.yy37;
         break;
       case 9: /* expression ::= IDENTIFIER vector */
-#line 42 "parser.y"
+#line 47 "parser.y"
 { yylhsminor.yy37 = CreateColourNode(yymsp[-1].minor.yy0, yymsp[0].minor.yy6); }
-#line 842 "parser.c"
+#line 847 "parser.c"
   yymsp[-1].minor.yy37 = yylhsminor.yy37;
         break;
       case 10: /* expression ::= number IDENTIFIER */
-#line 43 "parser.y"
+#line 48 "parser.y"
 { yylhsminor.yy37 = CreateUnitValueNode(yymsp[-1].minor.yy10, yymsp[0].minor.yy0); }
-#line 848 "parser.c"
+#line 853 "parser.c"
   yymsp[-1].minor.yy37 = yylhsminor.yy37;
         break;
       case 11: /* expression ::= vector */
-#line 44 "parser.y"
+#line 49 "parser.y"
 { yylhsminor.yy37 = CreateVecExprNode(yymsp[0].minor.yy6); }
-#line 854 "parser.c"
+#line 859 "parser.c"
   yymsp[0].minor.yy37 = yylhsminor.yy37;
         break;
       case 12: /* vector ::= LESSER vector_vals GREATER */
-#line 45 "parser.y"
+#line 50 "parser.y"
 { yymsp[-2].minor.yy6 = yymsp[-1].minor.yy6; }
-#line 860 "parser.c"
+#line 865 "parser.c"
         break;
       case 13: /* vector_vals ::= vector_vals COMMA number */
-#line 47 "parser.y"
+#line 52 "parser.y"
 { yylhsminor.yy6 = yymsp[-2].minor.yy6; Add(yylhsminor.yy6, CreateExpressionNode(yymsp[0].minor.yy10)); }
-#line 865 "parser.c"
+#line 870 "parser.c"
   yymsp[-2].minor.yy6 = yylhsminor.yy6;
         break;
       case 14: /* vector_vals ::= number */
-#line 48 "parser.y"
+#line 53 "parser.y"
 { yylhsminor.yy6 = CreateVectorNode(); Add(yylhsminor.yy6, CreateExpressionNode(yymsp[0].minor.yy10)); }
-#line 871 "parser.c"
+#line 876 "parser.c"
   yymsp[0].minor.yy6 = yylhsminor.yy6;
         break;
       case 15: /* number ::= HEXVAL */
       case 16: /* number ::= NUMBER */ yytestcase(yyruleno==16);
-#line 49 "parser.y"
+#line 54 "parser.y"
 { yylhsminor.yy10 = yymsp[0].minor.yy0; }
-#line 878 "parser.c"
+#line 883 "parser.c"
   yymsp[0].minor.yy10 = yylhsminor.yy10;
         break;
       default:

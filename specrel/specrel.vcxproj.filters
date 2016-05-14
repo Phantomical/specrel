@@ -64,6 +64,9 @@
     <Filter Include="Source Files\Serialization">
       <UniqueIdentifier>{ad74d86a-7109-475c-b810-b53bab293d0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\grammar-v0.1">
+      <UniqueIdentifier>{4cf72db3-2b51-4381-8dd0-893d9aefe664}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -196,11 +199,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="sample.txt" />
-    <Text Include="log.txt" />
+    <None Include="parsers\parser-v0.1\lexer.rec">
+      <Filter>Resource Files\grammar-v0.1</Filter>
+    </None>
+    <None Include="parsers\parser-v0.1\parser.y">
+      <Filter>Resource Files\grammar-v0.1</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="parsers\parser-v0.1\lexer.rec" />
-    <None Include="parsers\parser-v0.1\parser.y" />
+    <Text Include="sample.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

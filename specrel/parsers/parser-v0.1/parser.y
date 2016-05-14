@@ -5,6 +5,11 @@
 %include {
 #include "AST.h"
 #include <assert.h>
+
+#ifndef TRACE
+#	define NDEBUG
+#endif
+
 #ifdef _MSC_VER
 #pragma warning(disable:4100 4189)
 #endif
@@ -28,7 +33,6 @@ typedef struct ValueNodeImpl ValueNode;
 %type vector_vals { VectorNode* }
 %type number      { ValueNode* }
 
-entry ::= program END.
 program ::= IDENTIFIER NUMBER types(B).      { *arg = B; }
 types(A) ::= types(B) type(C).               { A = B; Add(A, C); }
 types(A) ::= type(B).                        { A = CreateProgramNode(); Add(A, B); }

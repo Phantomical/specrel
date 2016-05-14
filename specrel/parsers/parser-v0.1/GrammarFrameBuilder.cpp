@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cassert>
 
-#ifndef DEBUG
+#ifndef TRACE
 #	define NDEBUG
 #endif
 
@@ -25,9 +25,7 @@ extern "C"
 
 #define ParseAlloc Parser_v0_1_Alloc
 #define ParseFree Parser_v0_1_Free
-#ifndef NDEBUG
 #define ParseTrace Parser_v0_1_Trace
-#endif
 #define Parse Parser_v0_1_
 
 namespace grammar_v0_1
@@ -64,31 +62,6 @@ namespace grammar_v0_1
 
 		}
 
-		Value EvaluateExpression(ColourNode* colour)
-		{
-			if (colour->Identifier->type != ValueNode::STRING)
-			{
-				log << "[ERROR] Invalid colour declaration found." << std::endl;
-				errorbit = true;
-				return Value(0.0);
-			}
-
-			if (std::string(colour->Identifier->sval) != "rgb")
-			{
-				log << "[ERROR] Non-RGB colours are not supported." << std::endl;
-				errorbit = true;
-				return Value(0.0);
-			}
-
-			Value val = EvaluateExpression(colour->Value);
-			if (val.Type != Value::VEC3)
-			{
-				log << "[ERROR] Colour vector had incorrect number of elements." << std::endl;
-				errorbit = true;
-			}
-
-			return val;
-		}
 		Value EvaluateExpression(ValueNode* val)
 		{
 			switch (val->type)
@@ -103,39 +76,6 @@ namespace grammar_v0_1
 			log << "[ERROR] Unkown value type found." << std::endl;
 			errorbit = true;
 			return Value(0.0);
-		}
-		double EvaluateExpression(UnitValueNode* val)
-		{
-			if (val->Unit->type != ValueNode::STRING)
-			{
-				log << "[ERROR] Unit was not a valid unit." << std::endl;
-				errorbit = true;
-				return 0.0;
-			}
-
-			Value res = EvaluateExpression(val->Number);
-			auto str = std::string(val->Unit->sval);
-
-			if (str == "deg" || str == "degrees")
-			{
-				if (res.Type != Value::NUMBER)
-				{
-					log << "[ERROR] Unit value was not a number." << std::endl;
-					errorbit = true;
-					return 0.0;
-				}
-
-				return res.Number * 0.017453292519943295769;
-			}
-			if (str == "rad")
-			{
-				return res.Number;
-			}
-
-			log << "[WARNING] Units other than radians and degrees are not supported." << std::endl;
-
-			return res.Number;
-
 		}
 		Value EvaluateExpression(VectorNode* vec)
 		{
@@ -228,6 +168,31 @@ namespace grammar_v0_1
 
 			return Value(Vector4d(v1.Number, v2.Number, v3.Number, v4.Number));
 		}
+		Value EvaluateExpression(ColourNode* colour)
+		{
+			if (colour->Identifier->type != ValueNode::STRING)
+			{
+				log << "[ERROR] Invalid colour declaration found." << std::endl;
+				errorbit = true;
+				return Value(0.0);
+			}
+
+			if (std::string(colour->Identifier->sval) != "rgb")
+			{
+				log << "[ERROR] Non-RGB colours are not supported." << std::endl;
+				errorbit = true;
+				return Value(0.0);
+			}
+
+			Value val = EvaluateExpression(colour->Value);
+			if (val.Type != Value::VEC3)
+			{
+				log << "[ERROR] Colour vector had incorrect number of elements." << std::endl;
+				errorbit = true;
+			}
+
+			return val;
+		}
 		Value EvaluateExpression(ExpressionNode* expr)
 		{
 			switch (expr->Type)
@@ -246,6 +211,39 @@ namespace grammar_v0_1
 				return Value(0.0);
 			}
 		}
+		double EvaluateExpression(UnitValueNode* val)
+		{
+			if (val->Unit->type != ValueNode::STRING)
+			{
+				log << "[ERROR] Unit was not a valid unit." << std::endl;
+				errorbit = true;
+				return 0.0;
+			}
+
+			Value res = EvaluateExpression(val->Number);
+			auto str = std::string(val->Unit->sval);
+
+			if (str == "deg" || str == "degrees")
+			{
+				if (res.Type != Value::NUMBER)
+				{
+					log << "[ERROR] Unit value was not a number." << std::endl;
+					errorbit = true;
+					return 0.0;
+				}
+
+				return res.Number * 0.017453292519943295769;
+			}
+			if (str == "rad")
+			{
+				return res.Number;
+			}
+
+			log << "[WARNING] Units other than radians and degrees are not supported." << std::endl;
+
+			return res.Number;
+
+		}
 	};
 
 	void GrammarFrameBuilder::Initialize(const std::string& file)
@@ -256,7 +254,9 @@ namespace grammar_v0_1
 		{
 			Lexer lexer = Lexer(file);
 			void* parser = ParseAlloc(malloc);
+#ifdef TRACE
 			ParseTrace(stdout, "[LEXER] ");
+#endif
 
 			int token;
 
