@@ -1,0 +1,87 @@
+version 0.1
+
+// Comment
+
+// Viewpoint 
+camera {
+	// Named paramters
+	position: <0, 0, 0, 0>;
+	
+	// Basis vectors (Not all of these need to be specified)
+	forward: <0, 0, 1>;
+	up: <0, 1, 0>;
+	right: <1, 0, 0>;
+	
+	// Field of view (fovx can also be used instead of aspect)
+	fovy: 60 degrees;
+	aspect: 1.33333333;
+};
+
+// Ambient light
+light_source {
+	// The type of the light (In this case it is an ambient light)
+	type: ambient;
+	
+	// The colour of the light (color can also be used)
+	colour: rgb <0.1, 0.1, 0.1>;
+};
+
+// Directional light
+light_source {
+	// Specify the type of the light
+	type: directional;
+	
+	// The direction that the light is going in
+	direction: <0, -1, 0>;
+	
+	// Intensity is also a valid identifier
+	colour: rgb <1, 1, 1>;
+};
+
+// First sphere (red sphere)
+sphere {
+	// Indicates that the sphere does not move
+	type: static;
+	
+	// Radius of the sphere
+	radius: 2.5;
+	
+	// Position of the sphere
+	position: <1.5, -0.5, 0.0>;
+	
+	// Both colour and color are valid
+	color: rgb <1, 0, 0>;
+};
+
+// Second sphere (blue sphere)
+sphere {
+	type: static;
+	radius: 2.5;
+	position: <-1.5, -0.5, 0.0>;
+	colour: rgb <0, 1, 0>;
+};
+
+// Third sphere (red sphere)
+sphere {
+	type: static;
+	radius: 2.5;
+	position: <0.0, 1.0, 0.5>;
+	colour: rgb <0, 0, 1>;
+};
+
+// Ground sphere (white sphere)
+sphere {
+	type: dynamic;
+	radius: 25000;
+	position: <0, -25003, 0, 0>;
+	colour: rgb <1, 1, 1>;
+	velocity: <0, 0, 0>;
+};
+
+
+
+
+
+
+
+

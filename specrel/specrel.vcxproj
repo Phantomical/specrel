@@ -74,7 +74,8 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)dependencies</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -82,7 +83,8 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)dependencies</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,7 +94,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)dependencies</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -106,9 +109,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\src;$(ProjectDir)dependencies</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -118,16 +122,23 @@
   <ItemGroup>
     <ClCompile Include="AmbientLight.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Deserializer.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="LightBase.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
+    <ClCompile Include="parsers\FrameBuilder.cpp" />
+    <ClCompile Include="parsers\parser-v0.1\AST.cpp" />
+    <ClCompile Include="parsers\parser-v0.1\GrammarFrameBuilder.cpp" />
+    <ClCompile Include="parsers\parser-v0.1\lexer.cpp" />
+    <ClCompile Include="parsers\parser-v0.1\parser.c" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="ReferenceFrame.cpp" />
     <ClCompile Include="RgbColourSource.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <None Include="parsers\parser-v0.1\lexer.rec" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmbientLight.h" />
@@ -136,6 +147,12 @@
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Intersection.h" />
+    <ClInclude Include="parsers\FrameBuilder.h" />
+    <ClInclude Include="parsers\parser-v0.1\AST.h" />
+    <ClInclude Include="parsers\parser-v0.1\AstDefs.h" />
+    <ClInclude Include="parsers\parser-v0.1\GrammarFrameBuilder.h" />
+    <ClInclude Include="parsers\parser-v0.1\lexer.h" />
+    <ClInclude Include="parsers\parser-v0.1\parser.h" />
     <ClInclude Include="LightBase.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="PreDefs.h" />
@@ -144,8 +161,16 @@
     <ClInclude Include="ReferenceFrame.h" />
     <ClInclude Include="RgbColourSource.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Deserializer.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="parsers\parser-v0.1\parser.y" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="log.txt" />
+    <Text Include="sample.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

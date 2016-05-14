@@ -1,48 +1,47 @@
 #include "Frame.h"
-#include "Sphere.h"
-#include "RgbColourSource.h"
-#include "DirectionalLight.h"
-#include "AmbientLight.h"
+#include "parsers\FrameBuilder.h"
+#include <iostream>
+#include <fstream>
 
-int main()
+char v[] = "version 0.1";
+
+int main(int argc, char** argv)
 {
-	ScenePtr scene = MakePtr<Scene>();
+	try
+	{
+		if (argc < 2)
+		{
+			std::cout << "usage: specrel <input file>" << std::endl;
+			return 1;
+		}
 
-#if 1
-	ColourSourcePtr source1 = MakePtr<RgbColourSource>(Colour(1.0f, 0.0f, 0.0f));
-	ColourSourcePtr source2 = MakePtr<RgbColourSource>(Colour(0.0f, 1.0f, 0.0f));
-	ColourSourcePtr source3 = MakePtr<RgbColourSource>(Colour(0.0f, 0.0f, 1.0f));
-	ColourSourcePtr source4 = MakePtr<RgbColourSource>(Colour(1.0f, 1.0f, 1.0f));
+		FrameBuilderPtr builder = CreateFrameBuilder("0.1", std::cout);
 
-	scene->AddObject(MakePtr<Sphere>(Vector4d(1.5, -0.5, 0.0, 0.0), 2.5, source1));
-	scene->AddObject(MakePtr<Sphere>(Vector4d(-1.5, -0.5, 0.0, 0.0), 2.5, source2));
-	scene->AddObject(MakePtr<Sphere>(Vector4d(0.0, 1.2, 0.0, 0.0), 2.5, source3));
-	scene->AddObject(MakePtr<Sphere>(Vector4d(0.0, -25003.0, 0.0), 25000.0, source4));
-#else
-	ColourSourcePtr source = MakePtr<RgbColourSource>(Colour(1.0f, 1.0f, 1.0f));
-	ObjectPtr sphere = MakePtr<Sphere>(Vector4d(0.0, 0.0, 0.0, 0.0), 2.5, source);
-	ObjectPtr sphere4 = MakePtr<Sphere>(Vector4d(0.0, -25003.0, 0.0), 25000.0, source);
+		std::string buffer;
+		{
+			std::ifstream t(argv[1]);
+			t.seekg(0, std::ios::end);
+			size_t size = t.tellg();
+			buffer.resize(size);
+			t.seekg(0);
+			t.read(&buffer[0], size);
+		}
 
-	scene->AddObject(sphere4);
-	scene->AddObject(sphere);
-#endif
+		builder->Initialize(buffer);
 
-	scene->AddLight(MakePtr<DirectionalLight>(Vector3d(0.0, -1.0, 0.0), Colour(1.0f, 1.0f, 1.0f)));
-	scene->AddLight(MakePtr<AmbientLight>(Colour(0.1f, 0.1f, 0.1f)));
+		std::vector<FramePtr> frames;
+		builder->FillFrames(frames);
 
-	Camera viewpoint = Camera(Vector4d(0.0, 0.0, -15.0, 0.0), ReferenceFrame(Vector3d(0.0, 0.0, 0.0)));
-	viewpoint.FovX = Deg2Rad(80);
-	viewpoint.FovY = Deg2Rad(60);
+		FramePtr frame = frames[0];
 
-	viewpoint.Forward = Vector3d(0.0, 0.0, 1.0);
-	viewpoint.Up = Vector3d(0.0, 1.0, 0.0);
-	viewpoint.Right = Vector3d(1.0, 0.0, 0.0);
+		frame->TraceFrame();
 
-	Frame frame = Frame(1000, 750, scene, viewpoint, Colour(0.0f, 0.0f, 0.0f), 64);
+		frame->Save("output.bmp");
 
-	frame.TraceFrame();
-
-	frame.Save("output.bmp");
-
-	return 0;
+		return 0;
+	}
+	catch (ParseErrorException e)
+	{
+		return 1;
+	}
 }

@@ -104,6 +104,11 @@ Colour Frame::GetPixelColour(const vector<size_t, 2>& pixel) const
 #	define MULTITHTREADED
 #endif
 
+void Frame::SetFrameSize(size_t width, size_t height)
+{
+	Image = cil::CImg<typename Colour::value_type>(width, height, 1, 3);
+}
+
 void Frame::TracePixel(const vector<size_t, 2>& pixel)
 {
 	Colour result = GetPixelColour(pixel);

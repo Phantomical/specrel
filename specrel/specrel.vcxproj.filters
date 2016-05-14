@@ -46,6 +46,24 @@
     <Filter Include="Source Files\Lights">
       <UniqueIdentifier>{0b3c96ad-4772-40df-b800-ee9bc1555235}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Parser">
+      <UniqueIdentifier>{82e7488c-9e9d-41f8-bfe0-afac04898f73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parser">
+      <UniqueIdentifier>{e3764ee5-a35c-4c57-bdea-4a5890985d92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parser\grammar-v0.1">
+      <UniqueIdentifier>{2a2d3469-51de-477d-90bc-fd013b1f6c2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parser\grammar-v0.1">
+      <UniqueIdentifier>{326b53c8-4d13-40a7-b1cc-5eda07e06ff3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Serialization">
+      <UniqueIdentifier>{0b9658a2-d622-4544-8209-5b5158672340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Serialization">
+      <UniqueIdentifier>{ad74d86a-7109-475c-b810-b53bab293d0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -83,6 +101,27 @@
     </ClCompile>
     <ClCompile Include="AmbientLight.cpp">
       <Filter>Source Files\Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="template-lexer.v0.1.cpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers\parser-v0.1\AST.cpp">
+      <Filter>Source Files\Parser\grammar-v0.1</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers\parser-v0.1\lexer.cpp">
+      <Filter>Source Files\Parser\grammar-v0.1</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers\parser-v0.1\parser.c">
+      <Filter>Source Files\Parser\grammar-v0.1</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers\parser-v0.1\GrammarFrameBuilder.cpp">
+      <Filter>Source Files\Parser\grammar-v0.1</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers\FrameBuilder.cpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="Deserializer.cpp">
+      <Filter>Source Files\Serialization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,5 +173,34 @@
     <ClInclude Include="AmbientLight.h">
       <Filter>Header Files\Light</Filter>
     </ClInclude>
+    <ClInclude Include="parsers\parser-v0.1\AST.h">
+      <Filter>Header Files\Parser\grammar-v0.1</Filter>
+    </ClInclude>
+    <ClInclude Include="parsers\parser-v0.1\AstDefs.h">
+      <Filter>Header Files\Parser\grammar-v0.1</Filter>
+    </ClInclude>
+    <ClInclude Include="parsers\parser-v0.1\lexer.h">
+      <Filter>Header Files\Parser\grammar-v0.1</Filter>
+    </ClInclude>
+    <ClInclude Include="parsers\parser-v0.1\parser.h">
+      <Filter>Header Files\Parser\grammar-v0.1</Filter>
+    </ClInclude>
+    <ClInclude Include="parsers\parser-v0.1\GrammarFrameBuilder.h">
+      <Filter>Header Files\Parser\grammar-v0.1</Filter>
+    </ClInclude>
+    <ClInclude Include="parsers\FrameBuilder.h">
+      <Filter>Header Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Deserializer.h">
+      <Filter>Header Files\Serialization</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="sample.txt" />
+    <Text Include="log.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="parsers\parser-v0.1\lexer.rec" />
+    <None Include="parsers\parser-v0.1\parser.y" />
   </ItemGroup>
 </Project>

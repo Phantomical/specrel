@@ -30,6 +30,7 @@ public:
 	Colour Background;
 	size_t NumSamples;
 
+	Frame() = default;
 	Frame(size_t width, size_t height);
 	Frame(size_t width, size_t height, ScenePtr scene);
 	Frame(size_t width, size_t height, ScenePtr scene, const Camera& viewpoint);
@@ -39,7 +40,7 @@ public:
 	Colour GetPixelColour(const vector<size_t, 2>& position) const;
 	void TracePixel(const vector<size_t, 2>& position);
 	void TraceFrame();
-
+	void SetFrameSize(size_t width, size_t height);
 
 	//Saves the file and optionally adds a suffix at the end of the filename
 	void Save(const char* filename, int suffix = -1, int ndigits = 6) const;
