@@ -3,7 +3,6 @@
 %extra_argument { ProgramNode** arg }
 
 %include {
-#include "..\..\Defs.h"
 #include "AST.h"
 #include <assert.h>
 

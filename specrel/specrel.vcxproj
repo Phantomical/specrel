@@ -68,7 +68,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
@@ -78,9 +89,19 @@
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
       <Command>$(ProjectDir)parsers\parser-v0.1\generate.bat
 EXIT 0</Command>
-    </PreBuildEvent>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h;%(Inputs)</Inputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -91,9 +112,19 @@ EXIT 0</Command>
       <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
       <Command>$(ProjectDir)parsers\parser-v0.1\generate.bat
 EXIT 0</Command>
-    </PreBuildEvent>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h;%(Inputs)</Inputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -110,9 +141,19 @@ EXIT 0</Command>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
       <Command>$(ProjectDir)parsers\parser-v0.1\generate.bat
 EXIT 0</Command>
-    </PreBuildEvent>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h;%(Inputs)</Inputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -131,9 +172,19 @@ EXIT 0</Command>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <CustomBuildStep>
       <Command>$(ProjectDir)parsers\parser-v0.1\generate.bat
 EXIT 0</Command>
-    </PreBuildEvent>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h;%(Inputs)</Inputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AmbientLight.cpp" />
