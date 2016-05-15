@@ -281,6 +281,18 @@ namespace grammar_v0_1
 					value = new ValueNode(strbuf);
 					break;
 				}
+				case TOKEN_STRING:
+				{
+					auto str = lexer.TokenText();
+					auto sz = lexer.TokenSize();
+					char* strbuf = new char[sz - 1];
+					std::char_traits<char>::copy(strbuf, str + 1, sz - 2);
+					strbuf[sz - 2] = '\0';
+					Strings.push_back(strbuf);
+					value = new ValueNode(strbuf);
+					token = TOKEN_IDENTIFIER;
+					break;
+				}
 				case 0xFF:
 					OutputLog << "[WARNING] Unexpected token found: " << lexer.TokenText() << std::endl;
 					break;
@@ -348,6 +360,8 @@ namespace grammar_v0_1
 	void GrammarFrameBuilder::FillFrame(FramePtr frame)
 	{
 		frame->Scene = MakePtr<Scene>();
+
+		frame->FileName = "output.bmp";
 
 		bool errorbit = false;
 

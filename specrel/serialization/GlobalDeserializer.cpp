@@ -11,7 +11,6 @@
 #define GET_NUMBER(tgt, val) do { if (!GetNumber(tgt, val->second)) { log << NAN(val) << std::endl; errorbit = true; } } while(false)
 #define GET_VECTOR(tgt, val) do { if (!GetVector(tgt, val->second)) { log << NAV(val) << std::endl; errorbit = true; } } while(false)
 
-
 bool GlobalDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log)
 {
 	if (info.TypeName != "global")
@@ -30,6 +29,7 @@ bool GlobalDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info
 	auto height = info.Values.find("height");
 	auto samples = info.Values.find("samples");
 	auto background = info.Values.find("background");
+	auto filename = info.Values.find("output");
 
 	CHECK_PRESENT(width, global);
 	CHECK_PRESENT(height, global);
@@ -87,22 +87,35 @@ bool GlobalDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info
 	}
 	else
 	{
-		auto it = info.Values.find("background");
+		auto it = background;
 
 		if (it == info.Values.end())
 		{
 			log << "[ERROR] No colour found in type: " << info.TypeName.c_str() << "." << std::endl;
-			return false;
+			errorbit = true;
 		}
 		if (it->second.Type != Value::VEC3)
 		{
 			log << "[ERROR] Background colour value in type: " << info.TypeName.c_str()
 				<< " was not a colour." << std::endl;
-			return false;
+			errorbit = true;
 		}
 
-		frame->Background = static_cast<Colour>(it->second.Vec3);
-		return true;
+		if (!errorbit)
+			frame->Background = static_cast<Colour>(it->second.Vec3);
+	}
+
+	if (filename != info.Values.end())
+	{
+		if (filename->second.Type != Value::STRING)
+		{
+			log << "[ERROR] Filename is not a valid type." << std::endl;
+			errorbit = true;
+		}
+		else
+		{
+			frame->FileName = filename->second.StrVal;
+		}
 	}
 
 	if (!errorbit)

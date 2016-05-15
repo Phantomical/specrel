@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 
 		frame->TraceFrame();
 
-		frame->Save("output.bmp");
+		frame->Save();
 
 		return 0;
 	}

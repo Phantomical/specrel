@@ -29,6 +29,7 @@ public:
 	Camera Viewpoint;
 	Colour Background;
 	size_t NumSamples;
+	std::string FileName;
 
 	Frame() = default;
 	Frame(size_t width, size_t height);
@@ -44,6 +45,7 @@ public:
 
 	//Saves the file and optionally adds a suffix at the end of the filename
 	void Save(const char* filename, int suffix = -1, int ndigits = 6) const;
+	void Save() const;
 
 	static const Colour DefaultBackground;
 	static constexpr size_t DefaultNumSamples = 16;

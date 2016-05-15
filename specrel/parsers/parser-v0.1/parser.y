@@ -19,6 +19,7 @@
 typedef struct ProgramNodeType ProgramNode;
 typedef struct ValueNodeImpl ValueNode;
 #define YYMALLOCARGTYPE size_t
+#define TOKEN_STRING 32
 #endif
 }
 

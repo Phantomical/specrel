@@ -146,3 +146,7 @@ void Frame::Save(const char* filename, int suffix, int ndigits) const
 {
 	Image.save(filename, suffix, ndigits);
 }
+void Frame::Save() const
+{
+	Save(FileName.c_str());
+}
