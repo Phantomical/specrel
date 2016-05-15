@@ -1,8 +1,9 @@
-#include "AmbientLightDeserializer.h"
-#include "..\Frame.h"
+#include "SerializationDefs.h"
 #include "..\RgbColourSource.h"
 #include "..\AmbientLight.h"
 #include <iostream>
+
+DESERIALIZER_DEFS(AmbientLight, "ambient_light");
 
 bool AmbientLightDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log)
 {

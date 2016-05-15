@@ -79,12 +79,15 @@ Vector3d TransformDir(const Vector3d& dir, const ReferenceFrame& old, const Refe
 
 	Vector3d vdir = normalize(change.Velocity);
 	double vel = magnitude(change.Velocity);
-	double cosalpha = cosangle(vdir, dir);
+	// Both vdir and dir are unit vectors
+	double cosalpha = dot(vdir, dir);
 
 	if (cosalpha == 1.0 || vel == 0.0)
 		return dir;
 
-	double beta = std::acos((cosalpha - vel) / (1 - vel * cosalpha));
+	double tmp1 = (cosalpha - vel) / (1 - vel * cosalpha);
+
+	double beta = std::acos(tmp1);
 
 	return rotate(vdir, normalize(cross(dir, vdir)), beta);
 }

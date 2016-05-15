@@ -1,7 +1,8 @@
-#include "GlobalDeserializer.h"
-#include "..\Frame.h"
+#include "SerializationDefs.h"
 #include "..\RgbColourSource.h"
 #include <iostream>
+
+DESERIALIZER_DEFS(Global, "global");
 
 #define NOT_PRESENT(mem, type) "[ERROR] \"" #mem "\" is not present in \"" #type "\"."
 #define CHECK_PRESENT(mem, type) do { if(mem == info.Values.end()) { log << NOT_PRESENT(mem, type) << std::endl; errorbit = true; } } while (false)

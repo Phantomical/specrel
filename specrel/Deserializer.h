@@ -70,6 +70,7 @@ protected:
 	static bool GetReferenceFrame(ReferenceFrame&, const TypeInfo& info, std::ostream& log);
 	static bool GetPosition(Vector4d&, bool is_static, const TypeInfo& info, std::ostream& log);
 	static bool GetColour(ColourSourcePtr&, const TypeInfo& info, std::ostream& log);
+	static bool GetVelocity(Vector3d&, const TypeInfo& info, std::ostream& log);
 
 	static bool GetNumber(double&, const Value& val);
 	static bool GetVector(Vector3d&, const Value& val);
@@ -81,6 +82,7 @@ public:
 	virtual ~Deserializer() = default;
 
 	static DeserializerPtr GetDeserializer(const std::string& type);
+	static void RegisterDeserializer(const std::string& type, DeserializerPtr(*factory_func)());
 };
 
 

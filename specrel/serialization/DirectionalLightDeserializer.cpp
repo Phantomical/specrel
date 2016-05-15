@@ -1,8 +1,9 @@
-#include "DirectionalLightDeserializer.h"
-#include "..\Frame.h"
+#include "SerializationDefs.h"
 #include "..\RgbColourSource.h"
 #include "..\DirectionalLight.h"
 #include <iostream>
+
+DESERIALIZER_DEFS(DirectionalLight, "directional_light");
 
 #define NAV(val) "[ERROR] \"" #val "\" is not a vector."
 #define GET_VECTOR(tgt, val) do { if (!GetVector(tgt, val->second)) { log << NAV(val) << std::endl; errorbit = true; } } while(false)

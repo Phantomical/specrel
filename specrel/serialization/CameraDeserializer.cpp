@@ -1,6 +1,7 @@
-#include "CameraDeserializer.h"
-#include "..\Frame.h"
+#include "SerializationDefs.h"
 #include <iostream>
+
+DESERIALIZER_DEFS(Camera, "camera");
 
 #define NOT_PRESENT(_1, _2, type) "[ERROR] Both \"" #_1 "\" and \"" #_2 "\" are not present in \"" #type "\"."
 #define NAN(val) "[ERROR] \"" #val "\" is not a number."

@@ -52,6 +52,8 @@ private:
 
 	template<typename xTy>
 	using rebind = vector<xTy, N>;
+	template<size_t xN>
+	using resize = vector<vTy, xN>;
 
 public:
 	typedef vector_data<value_type, size> data_type;
@@ -257,6 +259,173 @@ public:
 	const vector& operator+() const
 	{
 		return *this;
+	}
+
+	template<size_t v0, size_t v1>
+	resize<2> swizzle() const
+	{
+		static_assert(v0 < size && v1 < size, "An element was out of range");
+		return resize<2>(data[v0], data[v1]);
+	}
+	template<size_t v0, size_t v1, size_t v2>
+	resize<3> swizzle() const
+	{
+		static_assert(v0 < size && v1 < size && v2 < size, "An element was out of range");
+
+		return resize<3>(data[v0], data[v1], data[v2]);
+	}
+	template<size_t v0, size_t v1, size_t v2, size_t v3>
+	resize<4> swizzle() const
+	{
+		static_assert(v0 < size && v1 < size && v2 < size && v3 < size, "An element was out of range");
+
+		return resize<4>(data[v0], data[v1], data[v2], data);
+	}
+
+	// Swizzle methods (accessors only)
+	resize<2> xx() const
+	{
+		return swizzle<0, 0>();
+	}
+	resize<3> xxx() const
+	{
+		return swizzle<0, 0, 0>();
+	}
+	resize<3> xxy() const
+	{
+		return swizzle<0, 0, 1>();
+	}
+	resize<3> xxz() const
+	{
+		return swizzle<0, 0, 2>();
+	}
+	resize<2> xy() const
+	{
+		return swizzle<0, 1>();
+	}
+	resize<3> xyx() const
+	{
+		return swizzle<0, 1, 0>();
+	}
+	resize<3> xyy() const
+	{
+		return swizzle<0, 1, 1>();
+	}
+	resize<3> xyz() const
+	{
+		return swizzle<0, 1, 2>();
+	}
+	resize<2> xz() const
+	{
+		return swizzle<0, 2>();
+	}
+	resize<3> xzx() const
+	{
+		return swizzle<0, 2, 0>();
+	}
+	resize<3> xzy() const
+	{
+		return swizzle<0, 2, 1>();
+	}
+	resize<3> xzz() const
+	{
+		return swizzle<0, 2, 2>();
+	}
+	resize<2> yx() const
+	{
+		return swizzle<1, 0>();
+	}
+	resize<3> yxx() const
+	{
+		return swizzle<1, 0, 0>();
+	}
+	resize<3> yxy() const
+	{
+		return swizzle<1, 0, 1>();
+	}
+	resize<3> yxz() const
+	{
+		return swizzle<1, 0, 2>();
+	}
+	resize<2> yy() const
+	{
+		return swizzle<1, 1>();
+	}
+	resize<3> yyx() const
+	{
+		return swizzle<1, 1, 0>();
+	}
+	resize<3> yyy() const
+	{
+		return swizzle<1, 1, 1>();
+	}
+	resize<3> yyz() const
+	{
+		return swizzle<1, 1, 2>();
+	}
+	resize<2> yz() const
+	{
+		return swizzle<1, 2>();
+	}
+	resize<3> yzx() const
+	{
+		return swizzle<1, 2, 0>();
+	}
+	resize<3> yzy() const
+	{
+		return swizzle<1, 2, 1>();
+	}
+	resize<3> yzz() const
+	{
+		return swizzle<1, 2, 2>();
+	}
+	resize<2> zx() const
+	{
+		return swizzle<2, 0>();
+	}
+	resize<3> zxx() const
+	{
+		return swizzle<2, 0, 0>();
+	}
+	resize<3> zxy() const
+	{
+		return swizzle<2, 0, 1>();
+	}
+	resize<3> zxz() const
+	{
+		return swizzle<2, 0, 2>();
+	}
+	resize<2> zy() const
+	{
+		return swizzle<2, 1>();
+	}
+	resize<3> zyx() const
+	{
+		return swizzle<2, 1, 0>();
+	}
+	resize<3> zyy() const
+	{
+		return swizzle<2, 1, 1>();
+	}
+	resize<3> zyz() const
+	{
+		return swizzle<2, 1, 2>();
+	}
+	resize<2> zz() const
+	{
+		return swizzle<2, 2>();
+	}
+	resize<3> zzx() const
+	{
+		return swizzle<2, 2, 0>();
+	}
+	resize<3> zzy() const
+	{
+		return swizzle<2, 2, 1>();
+	}
+	resize<3> zzz() const
+	{
+		return swizzle<2, 2, 2>();
 	}
 
 	static vector zero()
@@ -542,7 +711,8 @@ template<typename vTy, size_t N>
 //Returns the cosine of the angle
 typename vector<vTy, N>::value_type cosangle(const vector<vTy, N>& a, const vector<vTy, N>& b)
 {
-	return dot(a, b) / (magnitude(a) * magnitude(b));
+	using std::sqrt;
+	return dot(a, b) / sqrt(dot(a, a) * dot(b, b));
 }
 template<typename vTy, size_t N>
 typename vector<vTy, N>::value_type angle(const vector<vTy, N>& a, const vector<vTy, N>& b)

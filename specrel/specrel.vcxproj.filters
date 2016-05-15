@@ -144,6 +144,12 @@
     <ClCompile Include="serialization\DirectionalLightDeserializer.cpp">
       <Filter>Source Files\Serialization</Filter>
     </ClCompile>
+    <ClCompile Include="InfiniteCylinderY.cpp">
+      <Filter>Source Files\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="serialization\InfiniteCylinderYDeserializer.cpp">
+      <Filter>Source Files\Serialization</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -218,19 +224,10 @@
     <ClInclude Include="Defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="serialization\SphereDeserializer.h">
-      <Filter>Header Files\Serialization</Filter>
+    <ClInclude Include="InfiniteCylinderY.h">
+      <Filter>Header Files\Shapes</Filter>
     </ClInclude>
-    <ClInclude Include="serialization\CameraDeserializer.h">
-      <Filter>Header Files\Serialization</Filter>
-    </ClInclude>
-    <ClInclude Include="serialization\GlobalDeserializer.h">
-      <Filter>Header Files\Serialization</Filter>
-    </ClInclude>
-    <ClInclude Include="serialization\AmbientLightDeserializer.h">
-      <Filter>Header Files\Serialization</Filter>
-    </ClInclude>
-    <ClInclude Include="serialization\DirectionalLightDeserializer.h">
+    <ClInclude Include="serialization\SerializationDefs.h">
       <Filter>Header Files\Serialization</Filter>
     </ClInclude>
   </ItemGroup>

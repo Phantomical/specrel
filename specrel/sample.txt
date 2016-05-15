@@ -10,10 +10,12 @@ global {
 
 // Viewpoint 
 camera {
-	type: static;
+	type: dynamic;
 
 	// Named parameters
 	position: <0, 0, 0, 0>;
+
+	velocity: <0, 0, 0.9>;
 	
 	// Basis vectors (Not all of these need to be specified)
 	forward: <0, 0, 1>;

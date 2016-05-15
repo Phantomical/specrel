@@ -2,12 +2,7 @@
 #include "ReferenceFrame.h"
 #include "RgbColourSource.h"
 #include <iostream>
-
-#include "serialization\SphereDeserializer.h"
-#include "serialization\CameraDeserializer.h"
-#include "serialization\GlobalDeserializer.h"
-#include "serialization\AmbientLightDeserializer.h"
-#include "serialization\DirectionalLightDeserializer.h"
+#include <mutex>
 
 bool Deserializer::GetReferenceFrame(ReferenceFrame& RefFrame, const TypeInfo& info, std::ostream& log)
 {
@@ -71,7 +66,7 @@ bool Deserializer::GetPosition(Vector4d& pos, bool is_static, const TypeInfo& in
 		}
 		else
 		{
-			log << "[ERROR] Position of type: " << info.TypeName.c_str() 
+			log << "[ERROR] Position of type: " << info.TypeName.c_str()
 				<< " was an invalid type." << std::endl;
 			return false;
 		}
@@ -84,7 +79,7 @@ bool Deserializer::GetPosition(Vector4d& pos, bool is_static, const TypeInfo& in
 		}
 		else
 		{
-			log << "[ERROR] Position of type: " << info.TypeName.c_str() 
+			log << "[ERROR] Position of type: " << info.TypeName.c_str()
 				<< " was an invalid type." << std::endl;
 			return false;
 		}
@@ -115,6 +110,30 @@ bool Deserializer::GetColour(ColourSourcePtr& src, const TypeInfo& info, std::os
 	src = ColourSourcePtr(new RgbColourSource(static_cast<Colour>(it->second.Vec3)));
 	return true;
 }
+bool Deserializer::GetVelocity(Vector3d& vel, const TypeInfo& info, std::ostream& log)
+{
+	auto it = info.Values.find("velocity");
+
+	if (it == info.Values.end())
+	{
+		log << "[ERROR] Expected to find a \"velocity\" type in type \""
+			<< info.TypeName.c_str() << "\". None found." << std::endl;
+		return false;
+	}
+
+	if (it->second.Type == Value::VEC3)
+	{
+		vel = it->second.Vec3;
+	}
+	else
+	{
+		log << "[ERROR] Velocity of type: " << info.TypeName.c_str()
+			<< " was an invalid type." << std::endl;
+		return false;
+	}
+
+	return true;
+}
 
 bool Deserializer::GetNumber(double& out, const Value& val)
 {
@@ -141,22 +160,37 @@ bool Deserializer::GetVector(Vector4d& out, const Value& val)
 	return true;
 }
 
+namespace
+{
+	struct Container
+	{
+		std::mutex FactoryFuncsLock;
+		std::map<std::string, DeserializerPtr(*)()> FactoryFuncs;
+	};
+
+	Container* Factory = nullptr;
+}
+
+void Deserializer::RegisterDeserializer(const std::string& type, DeserializerPtr(*factory_func)())
+{
+	if (!Factory)
+		Factory = new Container;
+
+	Factory->FactoryFuncs[type] = factory_func;
+}
 DeserializerPtr Deserializer::GetDeserializer(const std::string& type)
 {
 #ifdef TRACE
 	printf("[TRACE] GetDeserializer() called with type: \"%s\".\n", type.c_str());
 #endif
 
-	if (type == "sphere")
-		return DeserializerPtr(new SphereDeserializer());
-	if (type == "camera")
-		return DeserializerPtr(new CameraDeserializer());
-	if (type == "global")
-		return DeserializerPtr(new GlobalDeserializer());
-	if (type == "ambient_light")
-		return DeserializerPtr(new AmbientLightDeserializer());
-	if (type == "directional_light")
-		return DeserializerPtr(new DirectionalLightDeserializer());
+	if (!Factory)
+		Factory = new Container;
+
+	auto it = Factory->FactoryFuncs.find(type);
+
+	if (it != Factory->FactoryFuncs.end())
+		return it->second();
 
 	return nullptr;
 }
