@@ -7,6 +7,7 @@
 #include "serialization\CameraDeserializer.h"
 #include "serialization\GlobalDeserializer.h"
 #include "serialization\AmbientLightDeserializer.h"
+#include "serialization\DirectionalLightDeserializer.h"
 
 bool Deserializer::GetReferenceFrame(ReferenceFrame& RefFrame, const TypeInfo& info, std::ostream& log)
 {
@@ -154,6 +155,8 @@ DeserializerPtr Deserializer::GetDeserializer(const std::string& type)
 		return DeserializerPtr(new GlobalDeserializer());
 	if (type == "ambient_light")
 		return DeserializerPtr(new AmbientLightDeserializer());
+	if (type == "directional_light")
+		return DeserializerPtr(new DirectionalLightDeserializer());
 
 	return nullptr;
 }

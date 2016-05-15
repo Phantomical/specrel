@@ -16,7 +16,7 @@ bool AmbientLightDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo
 
 		if (it == info.Values.end())
 		{
-			log << "[ERROR] \"ambient_light\" has no colour value." << std::endl;
+			log << "[ERROR] \"ambient_light\" has no colour source." << std::endl;
 			errorbit = true;
 		}
 		else
