@@ -249,7 +249,6 @@ namespace grammar_v0_1
 	void GrammarFrameBuilder::Initialize(const std::string& file)
 	{
 		ProgramNode* ast = nullptr;
-		std::vector<const char*> strings;
 
 		{
 			Lexer lexer = Lexer(file);
@@ -278,7 +277,7 @@ namespace grammar_v0_1
 					char* strbuf = new char[sz + 1];
 					std::char_traits<char>::copy(strbuf, str, sz);
 					strbuf[sz] = '\0';
-					strings.push_back(strbuf);
+					Strings.push_back(strbuf);
 					value = new ValueNode(strbuf);
 					break;
 				}
@@ -299,11 +298,12 @@ namespace grammar_v0_1
 		{
 			OutputLog << "[ERROR] Abstract syntax tree construction failed." << std::endl;
 
-			for (auto str : strings)
+			for (auto str : Strings)
 			{
 				if (str)
 					delete[] str;
 			}
+			Strings.clear();
 
 			throw ParseErrorException("Abstract syntax tree construction failed.");
 		}
@@ -338,11 +338,7 @@ namespace grammar_v0_1
 			Types.push_back(info);
 		}
 
-		{
-			DeleteNode(ast);
-			for (auto str : strings)
-				delete[] str;
-		}
+		DeleteNode(ast);
 
 		if (Eval.errorbit)
 		{
@@ -351,20 +347,28 @@ namespace grammar_v0_1
 	}
 	void GrammarFrameBuilder::FillFrame(FramePtr frame)
 	{
+		frame->Scene = MakePtr<Scene>();
+
+		bool errorbit = false;
+
 		for (const auto& info : Types)
 		{
 			DeserializerPtr deserializer = Deserializer::GetDeserializer(info.TypeName);
 
 			if (!deserializer)
 			{
-				OutputLog << "[WARNING] Unknown type " << info.TypeName
-					<< " found. Type will be ignored." << std::endl;
+				OutputLog << "[WARNING] Unknown type \"" << info.TypeName
+					<< "\" found. Type will be ignored." << std::endl;
 			}
 			else
 			{
-				deserializer->DeserializeToScene(frame, info, OutputLog);
+				if (!deserializer->DeserializeToScene(frame, info, OutputLog))
+					errorbit = true;
 			}
 		}
+
+		if (errorbit)
+			throw ParseErrorException("An error occured while constructing types");
 	}
 	void GrammarFrameBuilder::FillFrames(std::vector<FramePtr>& frames)
 	{
@@ -394,6 +398,11 @@ namespace grammar_v0_1
 		OutputLog(os)
 	{
 		Initialize(filetext);
+	}
+	GrammarFrameBuilder::~GrammarFrameBuilder()
+	{
+		for (auto str : Strings)
+			delete[] str;
 	}
 
 	FrameBuilderPtr CreateFrameBuilder(std::ostream& os)

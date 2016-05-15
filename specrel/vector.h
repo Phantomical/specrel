@@ -391,6 +391,20 @@ vector_data<vTy, N>::vector_data(const vector<value_type, size-1>& v, const valu
 }
 
 template<typename vTy, size_t N>
+bool operator ==(const vector<vTy, N>& a, const vector<vTy, N>& b)
+{
+	for (size_t i = 0; i < N; ++i)
+		if (a[i] != b[i])
+			return false;
+	return true;
+}
+template<typename vTy, size_t N>
+bool operator !=(const vector<vTy, N>& a, const vector<vTy, N>& b)
+{
+	return !(a == b);
+}
+
+template<typename vTy, size_t N>
 vector<vTy, N> operator +(const vector<vTy, N>& a, const vector<vTy, N>& b)
 {
 	vector<vTy, N> res;

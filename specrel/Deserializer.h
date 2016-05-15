@@ -61,13 +61,22 @@ struct TypeInfo
 	std::map<std::string, Value> Values; // The values of the type
 };
 
+class Deserializer;
+typedef std::shared_ptr<Deserializer> DeserializerPtr;
+
 class Deserializer
 {
+protected:
+	static bool GetReferenceFrame(ReferenceFrame&, const TypeInfo& info, std::ostream& log);
+	static bool GetPosition(Vector4d&, bool is_static, const TypeInfo& info, std::ostream& log);
+	static bool GetColour(ColourSourcePtr&, const TypeInfo& info, std::ostream& log);
+
 public:
-	virtual void DeserializeToScene(FramePtr frame, const TypeInfo& info, std::ostream& log) = 0;
+	// Returns whether the deserialization was successful
+	virtual bool DeserializeToScene(FramePtr scene, const TypeInfo& info, std::ostream& log) = 0;
 	virtual ~Deserializer() = default;
 
-	static std::shared_ptr<Deserializer> GetDeserializer(const std::string& type);
+	static DeserializerPtr GetDeserializer(const std::string& type);
 };
 
-typedef std::shared_ptr<Deserializer> DeserializerPtr;
+

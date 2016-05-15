@@ -154,12 +154,14 @@ EXIT 0</Command>
     <ClCompile Include="RgbColourSource.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="SphereDeserializer.cpp" />
     <None Include="parsers\parser-v0.1\lexer.rec" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmbientLight.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColourSource.h" />
+    <ClInclude Include="Defs.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Intersection.h" />
@@ -179,6 +181,7 @@ EXIT 0</Command>
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Deserializer.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="SphereDeserializer.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>

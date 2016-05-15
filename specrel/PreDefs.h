@@ -2,7 +2,9 @@
 
 #include "ptr_ref.h"
 #include "vector.h"
+#include "Defs.h"
 #include <memory>
+
 
 class LightBase;
 class ObjectBase;

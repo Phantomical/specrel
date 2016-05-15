@@ -9,6 +9,7 @@ namespace grammar_v0_1
 	private:
 		std::vector<TypeInfo> Types;
 		std::ostream& OutputLog;
+		std::vector<const char*> Strings;
 
 	public:
 		void Initialize(const std::string& filetext);
@@ -24,6 +25,8 @@ namespace grammar_v0_1
 		// Initializes the output log with the given std::ostream
 		// and automatically calls Initialize with the given file
 		GrammarFrameBuilder(std::ostream&, const std::string& filetext);
+
+		~GrammarFrameBuilder();
 	};
 
 	FrameBuilderPtr CreateFrameBuilder(std::ostream& os);

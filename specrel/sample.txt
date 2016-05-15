@@ -4,7 +4,7 @@ version 0.1
 
 // Viewpoint 
 camera {
-	// Named paramters
+	// Named parameters
 	position: <0, 0, 0, 0>;
 	
 	// Basis vectors (Not all of these need to be specified)
@@ -14,23 +14,18 @@ camera {
 	
 	// Field of view (fovx can also be used instead of aspect)
 	fovy: 60 degrees;
+	// FovX / FovY
 	aspect: 1.33333333;
 };
 
 // Ambient light
-light_source {
-	// The type of the light (In this case it is an ambient light)
-	type: ambient;
-	
+ambient_light {	
 	// The colour of the light (color can also be used)
 	colour: rgb <0.1, 0.1, 0.1>;
 };
 
 // Directional light
-light_source {
-	// Specify the type of the light
-	type: directional;
-	
+directional_light {	
 	// The direction that the light is going in
 	direction: <0, -1, 0>;
 	
@@ -46,7 +41,7 @@ sphere {
 	// Radius of the sphere
 	radius: 2.5;
 	
-	// Position of the sphere
+	// Position of the sphere (This can be a 3-vector if the sphere is static)
 	position: <1.5, -0.5, 0.0>;
 	
 	// Both colour and color are valid
