@@ -100,8 +100,9 @@ Colour Frame::GetPixelColour(const vector<size_t, 2>& pixel) const
 	return std::accumulate(samples.begin(), samples.end(), Colour::zero()) / (float)NumSamples;
 }
 
+#define MULTITHREADED
 #if !defined _DEBUG
-#	define MULTITHTREADED
+#	define MULTITHREADED
 #endif
 
 void Frame::SetFrameSize(size_t width, size_t height)
@@ -119,7 +120,7 @@ void Frame::TracePixel(const vector<size_t, 2>& pixel)
 }
 void Frame::TraceFrame()
 {
-#ifdef MULTITHTREADED
+#ifdef MULTITHREADED
 	concurrency::parallel_for(0, Image.height(), [&](size_t y)
 #else
 	for (size_t y = 0; y < Image.height(); ++y)
@@ -130,7 +131,7 @@ void Frame::TraceFrame()
 			TracePixel(make_vector<size_t>(x, y));
 		}
 	}
-#ifdef MULTITHTREADED
+#ifdef MULTITHREADED
 	);
 #endif
 
