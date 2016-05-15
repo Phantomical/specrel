@@ -5,5 +5,5 @@
 class SphereDeserializer : public Deserializer
 {
 public:
-	virtual bool DeserializeToScene(FramePtr, const TypeInfo&, std::ostream& log) override final;
+	virtual bool DeserializeToFrame(FramePtr, const TypeInfo&, std::ostream& log) override final;
 };

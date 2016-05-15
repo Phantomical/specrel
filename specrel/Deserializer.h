@@ -71,9 +71,13 @@ protected:
 	static bool GetPosition(Vector4d&, bool is_static, const TypeInfo& info, std::ostream& log);
 	static bool GetColour(ColourSourcePtr&, const TypeInfo& info, std::ostream& log);
 
+	static bool GetNumber(double&, const Value& val);
+	static bool GetVector(Vector3d&, const Value& val);
+	static bool GetVector(Vector4d&, const Value& val);
+
 public:
 	// Returns whether the deserialization was successful
-	virtual bool DeserializeToScene(FramePtr scene, const TypeInfo& info, std::ostream& log) = 0;
+	virtual bool DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log) = 0;
 	virtual ~Deserializer() = default;
 
 	static DeserializerPtr GetDeserializer(const std::string& type);

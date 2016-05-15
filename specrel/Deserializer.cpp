@@ -2,6 +2,7 @@
 #include "ReferenceFrame.h"
 #include "RgbColourSource.h"
 #include "SphereDeserializer.h"
+#include "CameraDeserializer.h"
 #include <iostream>
 
 bool Deserializer::GetReferenceFrame(ReferenceFrame& RefFrame, const TypeInfo& info, std::ostream& log)
@@ -111,6 +112,31 @@ bool Deserializer::GetColour(ColourSourcePtr& src, const TypeInfo& info, std::os
 	return true;
 }
 
+bool Deserializer::GetNumber(double& out, const Value& val)
+{
+	if (val.Type != Value::NUMBER)
+		return false;
+
+	out = val.Number;
+	return true;
+}
+bool Deserializer::GetVector(Vector3d& out, const Value& val)
+{
+	if (val.Type != Value::VEC3)
+		return false;
+
+	out = val.Vec3;
+	return true;
+}
+bool Deserializer::GetVector(Vector4d& out, const Value& val)
+{
+	if (val.Type != Value::VEC4)
+		return false;
+
+	out = val.Vec4;
+	return true;
+}
+
 DeserializerPtr Deserializer::GetDeserializer(const std::string& type)
 {
 #ifdef TRACE
@@ -119,6 +145,8 @@ DeserializerPtr Deserializer::GetDeserializer(const std::string& type)
 
 	if (type == "sphere")
 		return DeserializerPtr(new SphereDeserializer());
+	if (type == "camera")
+		return DeserializerPtr(new CameraDeserializer());
 
 	return nullptr;
 }

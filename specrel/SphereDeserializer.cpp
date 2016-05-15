@@ -3,7 +3,7 @@
 #include "Frame.h"
 #include <iostream>
 
-bool SphereDeserializer::DeserializeToScene(FramePtr frame, const TypeInfo& info, std::ostream& log)
+bool SphereDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log)
 {
 	if (info.TypeName != "sphere")
 	{

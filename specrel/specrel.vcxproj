@@ -97,10 +97,10 @@
 EXIT 0</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c;%(Outputs)</Outputs>
+      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c</Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h;%(Inputs)</Inputs>
+      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -120,10 +120,10 @@ EXIT 0</Command>
 EXIT 0</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c;%(Outputs)</Outputs>
+      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c</Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h;%(Inputs)</Inputs>
+      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -149,10 +149,10 @@ EXIT 0</Command>
 EXIT 0</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c;%(Outputs)</Outputs>
+      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c</Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h;%(Inputs)</Inputs>
+      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -180,15 +180,16 @@ EXIT 0</Command>
 EXIT 0</Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c;%(Outputs)</Outputs>
+      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c</Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h;%(Inputs)</Inputs>
+      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AmbientLight.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraDeserializer.cpp" />
     <ClCompile Include="Deserializer.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Frame.cpp" />
@@ -211,6 +212,7 @@ EXIT 0</Command>
   <ItemGroup>
     <ClInclude Include="AmbientLight.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraDeserializer.h" />
     <ClInclude Include="ColourSource.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="DirectionalLight.h" />

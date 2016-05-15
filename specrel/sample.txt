@@ -2,6 +2,12 @@ version 0.1
 
 // Comment
 
+// Frame characteristics
+global {
+	width: 1600;
+	height: 1200;
+};
+
 // Viewpoint 
 camera {
 	// Named parameters

@@ -362,7 +362,7 @@ namespace grammar_v0_1
 			}
 			else
 			{
-				if (!deserializer->DeserializeToScene(frame, info, OutputLog))
+				if (!deserializer->DeserializeToFrame(frame, info, OutputLog))
 					errorbit = true;
 			}
 		}
