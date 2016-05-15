@@ -126,10 +126,13 @@
     <ClCompile Include="Deserializer.cpp">
       <Filter>Source Files\Serialization</Filter>
     </ClCompile>
-    <ClCompile Include="SphereDeserializer.cpp">
+    <ClCompile Include="serialization\SphereDeserializer.cpp">
       <Filter>Source Files\Serialization</Filter>
     </ClCompile>
-    <ClCompile Include="CameraDeserializer.cpp">
+    <ClCompile Include="serialization\CameraDeserializer.cpp">
+      <Filter>Source Files\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="serialization\GlobalDeserializer.cpp">
       <Filter>Source Files\Serialization</Filter>
     </ClCompile>
   </ItemGroup>
@@ -203,13 +206,16 @@
     <ClInclude Include="Deserializer.h">
       <Filter>Header Files\Serialization</Filter>
     </ClInclude>
-    <ClInclude Include="SphereDeserializer.h">
-      <Filter>Header Files\Serialization</Filter>
-    </ClInclude>
     <ClInclude Include="Defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CameraDeserializer.h">
+    <ClInclude Include="serialization\SphereDeserializer.h">
+      <Filter>Header Files\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="serialization\CameraDeserializer.h">
+      <Filter>Header Files\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="serialization\GlobalDeserializer.h">
       <Filter>Header Files\Serialization</Filter>
     </ClInclude>
   </ItemGroup>

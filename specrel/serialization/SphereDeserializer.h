@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Deserializer.h"
+#include "..\Deserializer.h"
 
 class SphereDeserializer : public Deserializer
 {

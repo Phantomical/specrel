@@ -10,6 +10,8 @@ global {
 
 // Viewpoint 
 camera {
+	type: static;
+
 	// Named parameters
 	position: <0, 0, 0, 0>;
 	

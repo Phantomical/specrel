@@ -1,5 +1,5 @@
 #include "CameraDeserializer.h"
-#include "Frame.h"
+#include "..\Frame.h"
 #include <iostream>
 
 #define NOT_PRESENT(_1, _2, type) "[ERROR] Both \"" #_1 "\" and \"" #_2 "\" are not present in \"" #type "\"."
@@ -13,6 +13,13 @@
 
 bool CameraDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log)
 {
+	if (info.TypeName != "camera")
+	{
+		log << "[ERROR] Camera deserializer passed a type of type: " 
+			<< info.TypeName.c_str() << "." << std::endl;
+		return false;
+	}
+
 	Camera cam;
 
 	bool errorbit = false;

@@ -1,9 +1,11 @@
 #include "Deserializer.h"
 #include "ReferenceFrame.h"
 #include "RgbColourSource.h"
-#include "SphereDeserializer.h"
-#include "CameraDeserializer.h"
 #include <iostream>
+
+#include "serialization\SphereDeserializer.h"
+#include "serialization\CameraDeserializer.h"
+#include "serialization\GlobalDeserializer.h"
 
 bool Deserializer::GetReferenceFrame(ReferenceFrame& RefFrame, const TypeInfo& info, std::ostream& log)
 {
@@ -104,7 +106,7 @@ bool Deserializer::GetColour(ColourSourcePtr& src, const TypeInfo& info, std::os
 	if (it->second.Type != Value::VEC3)
 	{
 		log << "[ERROR] Colour value in type: " << info.TypeName.c_str()
-			<< " was not a type name." << std::endl;
+			<< " was not a colour." << std::endl;
 		return false;
 	}
 
@@ -147,6 +149,8 @@ DeserializerPtr Deserializer::GetDeserializer(const std::string& type)
 		return DeserializerPtr(new SphereDeserializer());
 	if (type == "camera")
 		return DeserializerPtr(new CameraDeserializer());
+	if (type == "global")
+		return DeserializerPtr(new GlobalDeserializer());
 
 	return nullptr;
 }

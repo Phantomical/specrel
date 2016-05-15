@@ -1,6 +1,6 @@
 #include "SphereDeserializer.h"
-#include "Sphere.h"
-#include "Frame.h"
+#include "..\Sphere.h"
+#include "..\Frame.h"
 #include <iostream>
 
 bool SphereDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log)

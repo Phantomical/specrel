@@ -189,10 +189,11 @@ EXIT 0</Command>
   <ItemGroup>
     <ClCompile Include="AmbientLight.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraDeserializer.cpp" />
+    <ClCompile Include="serialization\CameraDeserializer.cpp" />
     <ClCompile Include="Deserializer.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="serialization\GlobalDeserializer.cpp" />
     <ClCompile Include="LightBase.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
@@ -206,17 +207,18 @@ EXIT 0</Command>
     <ClCompile Include="RgbColourSource.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
-    <ClCompile Include="SphereDeserializer.cpp" />
+    <ClCompile Include="serialization\SphereDeserializer.cpp" />
     <None Include="parsers\parser-v0.1\lexer.rec" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmbientLight.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraDeserializer.h" />
+    <ClInclude Include="serialization\CameraDeserializer.h" />
     <ClInclude Include="ColourSource.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="serialization\GlobalDeserializer.h" />
     <ClInclude Include="Intersection.h" />
     <ClInclude Include="parsers\FrameBuilder.h" />
     <ClInclude Include="parsers\parser-v0.1\AST.h" />
@@ -234,7 +236,7 @@ EXIT 0</Command>
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Deserializer.h" />
     <ClInclude Include="Sphere.h" />
-    <ClInclude Include="SphereDeserializer.h" />
+    <ClInclude Include="serialization\SphereDeserializer.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
