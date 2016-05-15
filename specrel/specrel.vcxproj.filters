@@ -135,6 +135,12 @@
     <ClCompile Include="serialization\GlobalDeserializer.cpp">
       <Filter>Source Files\Serialization</Filter>
     </ClCompile>
+    <ClCompile Include="ColourSource.cpp">
+      <Filter>Source Files\ColourSource</Filter>
+    </ClCompile>
+    <ClCompile Include="serialization\AmbientLightDeserializer.cpp">
+      <Filter>Source Files\Serialization</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -216,6 +222,9 @@
       <Filter>Header Files\Serialization</Filter>
     </ClInclude>
     <ClInclude Include="serialization\GlobalDeserializer.h">
+      <Filter>Header Files\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="serialization\AmbientLightDeserializer.h">
       <Filter>Header Files\Serialization</Filter>
     </ClInclude>
   </ItemGroup>

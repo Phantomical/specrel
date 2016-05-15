@@ -109,4 +109,6 @@ bool GlobalDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info
 	{
 		frame->SetFrameSize((size_t)_width, (size_t)_height);
 	}
+
+	return !errorbit;
 }

@@ -9,6 +9,7 @@ public:
 	
 	Colour GetColour() const;
 	virtual Colour GetColour(const Intersection&) const override final;
+	virtual bool GetColour(Colour& out) const override final;
 
 	RgbColourSource() = default;
 	RgbColourSource(const Colour& colour);

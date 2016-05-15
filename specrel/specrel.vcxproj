@@ -188,7 +188,9 @@ EXIT 0</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AmbientLight.cpp" />
+    <ClCompile Include="serialization\AmbientLightDeserializer.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ColourSource.cpp" />
     <ClCompile Include="serialization\CameraDeserializer.cpp" />
     <ClCompile Include="Deserializer.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
@@ -212,6 +214,7 @@ EXIT 0</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmbientLight.h" />
+    <ClInclude Include="serialization\AmbientLightDeserializer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="serialization\CameraDeserializer.h" />
     <ClInclude Include="ColourSource.h" />

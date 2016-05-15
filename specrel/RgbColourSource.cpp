@@ -14,3 +14,8 @@ Colour RgbColourSource::GetColour(const Intersection&) const
 {
 	return GetColour();
 }
+bool RgbColourSource::GetColour(Colour& out) const
+{
+	out = GetColour();
+	return true;
+}

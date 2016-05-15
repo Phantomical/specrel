@@ -6,6 +6,7 @@
 #include "serialization\SphereDeserializer.h"
 #include "serialization\CameraDeserializer.h"
 #include "serialization\GlobalDeserializer.h"
+#include "serialization\AmbientLightDeserializer.h"
 
 bool Deserializer::GetReferenceFrame(ReferenceFrame& RefFrame, const TypeInfo& info, std::ostream& log)
 {
@@ -151,6 +152,8 @@ DeserializerPtr Deserializer::GetDeserializer(const std::string& type)
 		return DeserializerPtr(new CameraDeserializer());
 	if (type == "global")
 		return DeserializerPtr(new GlobalDeserializer());
+	if (type == "ambient_light")
+		return DeserializerPtr(new AmbientLightDeserializer());
 
 	return nullptr;
 }
