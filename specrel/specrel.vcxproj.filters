@@ -16,9 +16,6 @@
     <Filter Include="Header Files\Abstract">
       <UniqueIdentifier>{1b55045d-a834-4b27-b905-973625bb810b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\VectorMath">
-      <UniqueIdentifier>{91002bc4-fc4c-4d69-9738-ac1414774df7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Spatial">
       <UniqueIdentifier>{20f67ebf-cb4f-43f8-8e14-783e96b9adf4}</UniqueIdentifier>
     </Filter>
@@ -66,6 +63,12 @@
     </Filter>
     <Filter Include="Resource Files\grammar-v0.1">
       <UniqueIdentifier>{4cf72db3-2b51-4381-8dd0-893d9aefe664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{afd5b2af-2970-4159-aeaf-9bb50f1bf7cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math">
+      <UniqueIdentifier>{91002bc4-fc4c-4d69-9738-ac1414774df7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +153,12 @@
     <ClCompile Include="serialization\InfiniteCylinderYDeserializer.cpp">
       <Filter>Source Files\Serialization</Filter>
     </ClCompile>
+    <ClCompile Include="Torus.cpp">
+      <Filter>Source Files\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtils.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ray.h">
@@ -159,7 +168,7 @@
       <Filter>Header Files\Spatial</Filter>
     </ClInclude>
     <ClInclude Include="vector.h">
-      <Filter>Header Files\VectorMath</Filter>
+      <Filter>Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="Sphere.h">
       <Filter>Header Files\Shapes</Filter>
@@ -229,6 +238,12 @@
     </ClInclude>
     <ClInclude Include="serialization\SerializationDefs.h">
       <Filter>Header Files\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="Torus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Header Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

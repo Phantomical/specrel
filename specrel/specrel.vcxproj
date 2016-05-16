@@ -188,6 +188,7 @@ EXIT 0</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AmbientLight.cpp" />
+    <ClCompile Include="MathUtils.cpp" />
     <ClCompile Include="serialization\AmbientLightDeserializer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColourSource.cpp" />
@@ -213,6 +214,7 @@ EXIT 0</Command>
     <ClCompile Include="serialization\InfiniteCylinderYDeserializer.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="serialization\SphereDeserializer.cpp" />
+    <ClCompile Include="Torus.cpp" />
     <None Include="parsers\parser-v0.1\lexer.rec" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +225,7 @@ EXIT 0</Command>
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Intersection.h" />
+    <ClInclude Include="MathUtils.h" />
     <ClInclude Include="parsers\FrameBuilder.h" />
     <ClInclude Include="parsers\parser-v0.1\AST.h" />
     <ClInclude Include="parsers\parser-v0.1\AstDefs.h" />
@@ -241,6 +244,7 @@ EXIT 0</Command>
     <ClInclude Include="InfiniteCylinderY.h" />
     <ClInclude Include="serialization\SerializationDefs.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Torus.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>

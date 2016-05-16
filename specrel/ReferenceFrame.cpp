@@ -73,9 +73,26 @@ namespace
 	}
 }
 
-Vector3d TransformDir(const Vector3d& dir, const ReferenceFrame& old, const ReferenceFrame& new_)
+Vector3d TransformDir1(const Vector3d& dir, const ReferenceFrame& old)
 {
-	ReferenceFrame change = old - new_;
+	ReferenceFrame change = -old;
+
+	Vector3d vdir = normalize(change.Velocity);
+	double vel = magnitude(change.Velocity); 
+
+	// Both vdir and dir are unit vectors
+	double cosalpha = dot(vdir, dir);
+
+	if (cosalpha == 1.0 || vel == 0.0)
+		return dir;
+
+	double beta = std::acos((cosalpha - vel) / (1 - vel * cosalpha));
+
+	return rotate(vdir, normalize(cross(dir, vdir)), beta);
+}
+Vector3d TransformDir2(const Vector3d& dir, const ReferenceFrame& new_)
+{
+	ReferenceFrame change = new_;
 
 	Vector3d vdir = normalize(change.Velocity);
 	double vel = magnitude(change.Velocity);
@@ -85,9 +102,13 @@ Vector3d TransformDir(const Vector3d& dir, const ReferenceFrame& old, const Refe
 	if (cosalpha == 1.0 || vel == 0.0)
 		return dir;
 
-	double tmp1 = (cosalpha - vel) / (1 - vel * cosalpha);
-
-	double beta = std::acos(tmp1);
+	double beta = std::acos((cosalpha - vel) / (1 - vel * cosalpha));
 
 	return rotate(vdir, normalize(cross(dir, vdir)), beta);
+}
+
+Vector3d TransformDir(const Vector3d& dir, const ReferenceFrame& old, const ReferenceFrame& new_)
+{
+	Vector3d tmp = TransformDir1(dir, old);
+	return TransformDir2(tmp, new_);
 }
