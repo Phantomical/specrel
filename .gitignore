@@ -5,7 +5,6 @@
 dependencies/
 
 # Project specific files
-specrel/parsers/*/lexer.cpp
 specrel/parsers/*/parser.c
 specrel/parsers/*/parser.h
 
