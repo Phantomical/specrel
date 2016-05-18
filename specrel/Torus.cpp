@@ -1,21 +1,36 @@
 #include "Torus.h"
 #include "MathUtils.h"
+#include "Sphere.h"
 
-namespace
+namespace 
 {
-	template<size_t N> constexpr double pow(double v)
+	template<uintmax_t N>
+	constexpr typename std::enable_if<N == 2, double>::type pow(double v)
 	{
-		return v * pow<N - 1>(v);
+		return v * v;
 	}
-
-	template<> constexpr double pow<1>(double v)
+	template<uintmax_t N>
+	constexpr typename std::enable_if<N == 1, double>::type pow(double v)
 	{
 		return v;
 	}
-	template<> constexpr double pow<0>(double)
+	template<uintmax_t N>
+	constexpr typename std::enable_if<N == 0, double>::type pow(double v)
 	{
 		return 1.0;
 	}
+	template<uintmax_t N>
+	constexpr typename std::enable_if<(N & 1) == 0 && (N > 2), double>::type pow(double v)
+	{
+		return pow<2>(pow<N / 2>(v));
+	}
+	template<uintmax_t N>
+	constexpr typename std::enable_if<(N & 1) == 1 && (N > 2), double>::type pow(double v)
+	{
+		return pow<N - 1>(v) * v;
+	}
+
+	constexpr double val = pow<SIZE_MAX>(0.9999999999999999);
 }
 
 #define V RefFrame.Velocity
@@ -50,6 +65,14 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 {
 	Ray ray = LorentzTransform(_ray, RefFrame);
 
+	{
+		//Use sphere for an early exit
+		Sphere sphere{ InitialPosition, Radius + RingRadius, Colour, RefFrame };
+		if (!sphere.AnyIntersections(ray))
+			//No intersections (The ray didn't hit the sphere)
+			return IntersectionList();
+	}
+
 	std::vector<double> slns;
 
 	{
@@ -57,21 +80,48 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp563 = Power(Ot, 4);
 		const double tmp562 = Power(St, 4);
 		const double tmp169 = Power(Oy, 2);
-		const double tmp560 = (tmp169*Sx);
+		const double tmp154 = Power(Sx, 2);
 		const double tmp167 = Power(Oz, 2);
-		const double tmp559 = (tmp167*Sx);
 		const double tmp165 = Power(r, 2);
-		const double tmp558 = (tmp165*Sx);
 		const double tmp163 = Power(R, 2);
+		const double tmp150 = Power(Sy, 2);
+		const double tmp146 = Power(Sz, 2);
+		const double tmp542 = Power(Ox, 3);
+		const double tmp171 = Power(Ox, 2);
+		const double tmp525 = Power(Sx, 3);
+		const double tmp8 = Power(Vx, 2);
+		const double tmp132 = Power(St, 2);
+		const double tmp27 = Power(Vx, 3);
+		const double tmp350 = Power(St, 3);
+		const double tmp26 = Power(Vx, 4);
+		const double tmp490 = Power(Oy, 3);
+		const double tmp468 = Power(Sy, 3);
+		const double tmp5 = Power(Vy, 2);
+		const double tmp20 = Power(Vy, 3);
+		const double tmp19 = Power(Vy, 4);
+		const double tmp425 = Power(Oz, 3);
+		const double tmp4 = Power(Vz, 2);
+		const double tmp2 = Power(Vz, 3);
+		const double tmp351 = Power(Ot, 3);
+		const double tmp1 = Power(Vz, 4);
+		const double tmp133 = Power(Ot, 2);
+		const double tmp12 = Power(Dx, 2);
+		const double tmp11 = Power(Dy, 2);
+		const double tmp10 = Power(Dz, 2);
+		const double tmp28 = Power(Dx, 3);
+		const double tmp25 = Power(Dy, 3);
+		const double tmp17 = Power(Dz, 3);
+		const double tmp398 = Power(Sz, 3);
+		const double tmp560 = (tmp169*Sx);
+		const double tmp559 = (tmp167*Sx);
+		const double tmp558 = (tmp165*Sx);
 		const double tmp557 = (tmp163*Sx);
 		const double tmp556 = (tmp167*Sy);
 		const double tmp555 = (tmp165*Sy);
 		const double tmp554 = (tmp163*Sy);
 		const double tmp342 = (Sx*Sy);
 		const double tmp553 = (Oy*tmp342);
-		const double tmp154 = Power(Sx, 2);
 		const double tmp552 = (tmp154*Sy);
-		const double tmp150 = Power(Sy, 2);
 		const double tmp551 = (Sx*tmp150);
 		const double tmp550 = (tmp165*Sz);
 		const double tmp549 = (tmp163*Sz);
@@ -81,10 +131,8 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp339 = (Sy*Sz);
 		const double tmp546 = (Oz*tmp339);
 		const double tmp545 = (tmp150*Sz);
-		const double tmp146 = Power(Sz, 2);
 		const double tmp544 = (Sx*tmp146);
 		const double tmp543 = (Sy*tmp146);
-		const double tmp542 = Power(Ox, 3);
 		const double tmp541 = (tmp542*Vx);
 		const double tmp335 = (tmp169*Vx);
 		const double tmp540 = (Ox*tmp335);
@@ -99,7 +147,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp535 = (tmp167*tmp123);
 		const double tmp534 = (tmp165*tmp123);
 		const double tmp533 = (tmp163*tmp123);
-		const double tmp171 = Power(Ox, 2);
 		const double tmp122 = (Sx*Vx);
 		const double tmp532 = (tmp171*tmp122);
 		const double tmp531 = (tmp169*tmp122);
@@ -109,7 +156,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp322 = (tmp154*Vx);
 		const double tmp527 = (Ox*tmp322);
 		const double tmp526 = (St*tmp322);
-		const double tmp525 = Power(Sx, 3);
 		const double tmp524 = (tmp525*Vx);
 		const double tmp121 = (Sy*Vx);
 		const double tmp320 = (Oy*tmp121);
@@ -135,7 +181,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp512 = (Ox*tmp312);
 		const double tmp511 = (St*tmp312);
 		const double tmp510 = (Sx*tmp312);
-		const double tmp8 = Power(Vx, 2);
 		const double tmp115 = (St*tmp8);
 		const double tmp509 = (tmp171*tmp115);
 		const double tmp508 = (tmp169*tmp115);
@@ -145,7 +190,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp114 = (Sx*tmp8);
 		const double tmp299 = (St*tmp114);
 		const double tmp504 = (Ox*tmp299);
-		const double tmp132 = Power(St, 2);
 		const double tmp503 = (tmp132*tmp114);
 		const double tmp298 = (tmp154*tmp8);
 		const double tmp502 = (St*tmp298);
@@ -161,18 +205,14 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp497 = (tmp132*tmp112);
 		const double tmp292 = (tmp146*tmp8);
 		const double tmp496 = (St*tmp292);
-		const double tmp27 = Power(Vx, 3);
 		const double tmp290 = (tmp132*tmp27);
 		const double tmp495 = (Ox*tmp290);
-		const double tmp350 = Power(St, 3);
 		const double tmp494 = (tmp350*tmp27);
 		const double tmp109 = (Sx*tmp27);
 		const double tmp493 = (tmp132*tmp109);
-		const double tmp26 = Power(Vx, 4);
 		const double tmp492 = (tmp350*tmp26);
 		const double tmp105 = (Oy*Vy);
 		const double tmp491 = (tmp171*tmp105);
-		const double tmp490 = Power(Oy, 3);
 		const double tmp489 = (tmp490*Vy);
 		const double tmp282 = (tmp167*Vy);
 		const double tmp488 = (Oy*tmp282);
@@ -205,7 +245,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp267 = (tmp150*Vy);
 		const double tmp470 = (Oy*tmp267);
 		const double tmp469 = (St*tmp267);
-		const double tmp468 = Power(Sy, 3);
 		const double tmp467 = (tmp468*Vy);
 		const double tmp100 = (Sz*Vy);
 		const double tmp265 = (Oz*tmp100);
@@ -241,7 +280,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp451 = (tmp350*tmp23);
 		const double tmp92 = (Sy*tmp23);
 		const double tmp450 = (tmp132*tmp92);
-		const double tmp5 = Power(Vy, 2);
 		const double tmp87 = (St*tmp5);
 		const double tmp449 = (tmp171*tmp87);
 		const double tmp448 = (tmp169*tmp87);
@@ -274,18 +312,15 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp433 = (tmp132*tmp81);
 		const double tmp21 = (tmp8*tmp5);
 		const double tmp432 = (tmp350*tmp21);
-		const double tmp20 = Power(Vy, 3);
 		const double tmp224 = (tmp132*tmp20);
 		const double tmp431 = (Oy*tmp224);
 		const double tmp430 = (tmp350*tmp20);
 		const double tmp77 = (Sy*tmp20);
 		const double tmp429 = (tmp132*tmp77);
-		const double tmp19 = Power(Vy, 4);
 		const double tmp428 = (tmp350*tmp19);
 		const double tmp71 = (Oz*Vz);
 		const double tmp427 = (tmp171*tmp71);
 		const double tmp426 = (tmp169*tmp71);
-		const double tmp425 = Power(Oz, 3);
 		const double tmp424 = (tmp425*Vz);
 		const double tmp215 = (tmp165*Vz);
 		const double tmp423 = (Oz*tmp215);
@@ -327,7 +362,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp197 = (tmp146*Vz);
 		const double tmp400 = (Oz*tmp197);
 		const double tmp399 = (St*tmp197);
-		const double tmp398 = Power(Sz, 3);
 		const double tmp397 = (tmp398*Vz);
 		const double tmp16 = (Vx*Vz);
 		const double tmp63 = (St*tmp16);
@@ -373,7 +407,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp378 = (tmp350*tmp13);
 		const double tmp50 = (Sz*tmp13);
 		const double tmp377 = (tmp132*tmp50);
-		const double tmp4 = Power(Vz, 2);
 		const double tmp45 = (St*tmp4);
 		const double tmp376 = (tmp171*tmp45);
 		const double tmp375 = (tmp169*tmp45);
@@ -414,14 +447,11 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp356 = (tmp132*tmp35);
 		const double tmp3 = (tmp5*tmp4);
 		const double tmp355 = (tmp350*tmp3);
-		const double tmp2 = Power(Vz, 3);
 		const double tmp135 = (tmp132*tmp2);
 		const double tmp354 = (Oz*tmp135);
 		const double tmp353 = (tmp350*tmp2);
 		const double tmp31 = (Sz*tmp2);
 		const double tmp352 = (tmp132*tmp31);
-		const double tmp351 = Power(Ot, 3);
-		const double tmp1 = Power(Vz, 4);
 		const double tmp349 = (tmp350*tmp1);
 		const double tmp344 = (Oy*Sy);
 		const double tmp341 = (Oz*Sz);
@@ -501,7 +531,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp32 = (St*tmp2);
 		const double tmp136 = (Oz*tmp32);
 		const double tmp134 = (St*tmp31);
-		const double tmp133 = Power(Ot, 2);
 		const double tmp131 = (tmp132*tmp1);
 		const double tmp111 = (Ox*tmp27);
 		const double tmp108 = (St*tmp26);
@@ -596,12 +625,6 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 		const double tmp106 = (Ox*Vy);
 		const double tmp73 = (Ox*Vz);
 		const double tmp72 = (Oy*Vz);
-		const double tmp12 = Power(Dx, 2);
-		const double tmp11 = Power(Dy, 2);
-		const double tmp10 = Power(Dz, 2);
-		const double tmp28 = Power(Dx, 3);
-		const double tmp25 = Power(Dy, 3);
-		const double tmp17 = Power(Dz, 3);
 		const double tmp129 = (Dz*Oz);
 		const double tmp128 = (Dz*Sz);
 		const double tmp127 = (Ot*Vx);
@@ -630,10 +653,14 @@ IntersectionList Torus::AllIntersections(const Ray& _ray) const
 	isect.IncomingDir = ray.Direction;
 	isect.SurfaceVel = Vector3d::zero();
 	isect.Object = this;
+	isect.RefFrame = RefFrame;
 
 	for (auto dist : slns)
 	{
-
+		isect.Position = ray.Origin + Vector4d(ray.GetFourVelocity() * dist);
+		auto relpos = isect.Position.xyz() - (InitialPosition.xyz() + RefFrame.Velocity * InitialPosition.t);
+		auto a = 1 - (Radius / std::sqrt(relpos.x * relpos.x + relpos.y * relpos.y));
+		isect.Normal = normalize(Vector3d(relpos.xy() * a, relpos.z));
 	}
 
 	return lst;
