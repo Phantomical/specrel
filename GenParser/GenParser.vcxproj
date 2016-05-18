@@ -76,7 +76,8 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <PreBuildEvent>
-      <Command>$(SolutionDir)specrel\parsers\parser-v0.1\generate.bat</Command>
+      <Command>$(SolutionDir)specrel\parsers\parser-v0.1\generate.bat
+EXIT 0</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -86,7 +87,8 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <PreBuildEvent>
-      <Command>$(SolutionDir)specrel\parsers\parser-v0.1\generate.bat</Command>
+      <Command>$(SolutionDir)specrel\parsers\parser-v0.1\generate.bat
+EXIT 0</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -102,7 +104,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)specrel\parsers\parser-v0.1\generate.bat</Command>
+      <Command>$(SolutionDir)specrel\parsers\parser-v0.1\generate.bat
+EXIT 0</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -118,7 +121,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)specrel\parsers\parser-v0.1\generate.bat</Command>
+      <Command>$(SolutionDir)specrel\parsers\parser-v0.1\generate.bat
+EXIT 0</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
