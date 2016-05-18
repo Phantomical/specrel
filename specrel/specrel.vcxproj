@@ -93,14 +93,16 @@
       </Command>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>$(ProjectDir)parsers\parser-v0.1\generate.bat
-EXIT 0</Command>
+      <Command>
+      </Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c</Outputs>
+      <Outputs>
+      </Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h</Inputs>
+      <Inputs>
+      </Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,14 +118,16 @@ EXIT 0</Command>
       </Command>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>$(ProjectDir)parsers\parser-v0.1\generate.bat
-EXIT 0</Command>
+      <Command>
+      </Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c</Outputs>
+      <Outputs>
+      </Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h</Inputs>
+      <Inputs>
+      </Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -145,14 +149,16 @@ EXIT 0</Command>
       </Command>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>$(ProjectDir)parsers\parser-v0.1\generate.bat
-EXIT 0</Command>
+      <Command>
+      </Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c</Outputs>
+      <Outputs>
+      </Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h</Inputs>
+      <Inputs>
+      </Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -176,14 +182,16 @@ EXIT 0</Command>
       </Command>
     </PreBuildEvent>
     <CustomBuildStep>
-      <Command>$(ProjectDir)parsers\parser-v0.1\generate.bat
-EXIT 0</Command>
+      <Command>
+      </Command>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Outputs>$(ProjectDir)parsers\parser-v0.1\lexer.cpp;$(ProjectDir)parsers\parser-v0.1\parser.h;$(ProjectDir)parsers\parser-v0.1\parser.c</Outputs>
+      <Outputs>
+      </Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>$(ProjectDir)parsers\parser-v0.1\lexer.rec;$(ProjectDir)parsers\parser-v0.1\parser.y;$(ProjectDir)parsers\parser-v0.1\AST.h</Inputs>
+      <Inputs>
+      </Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>

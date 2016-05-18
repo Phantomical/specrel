@@ -1,6 +1,11 @@
 version 0.1
 
-// Comment
+// This is a sample file that demonstrates the grammar
+// for the lexer version 0.1. It should generate a scene
+// With three spheres in the centre of the screen and a
+// large white sphere acting as the ground. It can also
+// act as a demonstration of ambient lighting and of
+// directional lighting and basic shape declaration.
 
 // Frame characteristics
 global {
@@ -15,7 +20,7 @@ camera {
 	// Named parameters
 	position: <0, 0, 0, 0>;
 
-	velocity: <0, 0, 0.9>;
+	velocity: <0, 0, 0.0>;
 	
 	// Basis vectors (Not all of these need to be specified)
 	forward: <0, 0, 1>;

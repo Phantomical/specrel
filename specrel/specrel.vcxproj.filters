@@ -108,9 +108,6 @@
     <ClCompile Include="AmbientLight.cpp">
       <Filter>Source Files\Lights</Filter>
     </ClCompile>
-    <ClCompile Include="template-lexer.v0.1.cpp">
-      <Filter>Source Files\Parser</Filter>
-    </ClCompile>
     <ClCompile Include="parsers\parser-v0.1\AST.cpp">
       <Filter>Source Files\Parser\grammar-v0.1</Filter>
     </ClCompile>

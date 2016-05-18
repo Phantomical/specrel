@@ -4,10 +4,6 @@
 # Project specific folders
 dependencies/
 
-# Project specific files
-specrel/parsers/*/parser.c
-specrel/parsers/*/parser.h
-
 # User-specific files
 *.suo
 *.user

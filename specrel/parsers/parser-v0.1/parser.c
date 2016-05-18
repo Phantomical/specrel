@@ -24,13 +24,43 @@
 */
 #include <stdio.h>
 /************ Begin %include sections from the grammar ************************/
-%%
+
+#include "AST.h"
+#include <assert.h>
+
+
+#ifndef TRACE
+#	define NDEBUG
+#endif
+
+#ifdef _MSC_VER
+#pragma warning(disable:4100 4189)
+#endif
+
+#if INTERFACE
+typedef struct ProgramNodeType ProgramNode;
+typedef struct ValueNodeImpl ValueNode;
+#define YYMALLOCARGTYPE size_t
+#define TOKEN_STRING 32
+#endif
+#include "parser.h"
 /**************** End of %include directives **********************************/
 /* These constants specify the various numeric values for terminal symbols
 ** in a format understandable to "makeheaders".  This section is blank unless
 ** "lemon" is run with the "-m" command-line option.
 ***************** Begin makeheaders token definitions *************************/
-%%
+#if INTERFACE
+#define TOKEN_IDENTIFIER                      1
+#define TOKEN_NUMBER                          2
+#define TOKEN_LBRACE                          3
+#define TOKEN_RBRACE                          4
+#define TOKEN_SEMICOLON                       5
+#define TOKEN_COLON                           6
+#define TOKEN_LESSER                          7
+#define TOKEN_GREATER                         8
+#define TOKEN_COMMA                           9
+#define TOKEN_HEXVAL                         10
+#endif
 /**************** End makeheaders token definitions ***************************/
 
 /* The next sections is a series of control #defines.
@@ -49,7 +79,7 @@
 **    YYACTIONTYPE       is the data type used for "action codes" - numbers
 **                       that indicate what to do in response to the next
 **                       token.
-**    ParseTOKENTYPE     is the data type used for minor type for terminal
+**    Parser_v0_1_TOKENTYPE     is the data type used for minor type for terminal
 **                       symbols.  Background: A "minor type" is a semantic
 **                       value associated with a terminal or non-terminal
 **                       symbols.  For example, for an "ID" terminal symbol,
@@ -60,14 +90,14 @@
 **                       symbols.
 **    YYMINORTYPE        is the data type used for all minor types.
 **                       This is typically a union of many types, one of
-**                       which is ParseTOKENTYPE.  The entry in the union
+**                       which is Parser_v0_1_TOKENTYPE.  The entry in the union
 **                       for terminal symbols is called "yy0".
 **    YYSTACKDEPTH       is the maximum depth of the parser's stack.  If
 **                       zero the stack is dynamically sized using realloc()
-**    ParseARG_SDECL     A static variable declaration for the %extra_argument
-**    ParseARG_PDECL     A parameter declaration for the %extra_argument
-**    ParseARG_STORE     Code to store %extra_argument into yypParser
-**    ParseARG_FETCH     Code to extract %extra_argument from yypParser
+**    Parser_v0_1_ARG_SDECL     A static variable declaration for the %extra_argument
+**    Parser_v0_1_ARG_PDECL     A parameter declaration for the %extra_argument
+**    Parser_v0_1_ARG_STORE     Code to store %extra_argument into yypParser
+**    Parser_v0_1_ARG_FETCH     Code to extract %extra_argument from yypParser
 **    YYERRORSYMBOL      is the code number of the error symbol.  If not
 **                       defined, then do no error processing.
 **    YYNSTATE           the combined number of states.
@@ -84,7 +114,41 @@
 # define INTERFACE 1
 #endif
 /************* Begin control #defines *****************************************/
-%%
+#define YYCODETYPE unsigned char
+#define YYNOCODE 22
+#define YYACTIONTYPE unsigned char
+#if INTERFACE
+#define Parser_v0_1_TOKENTYPE  ValueNode* 
+#endif
+typedef union {
+  int yyinit;
+  Parser_v0_1_TOKENTYPE yy0;
+  VectorNode* yy6;
+  ValueNode* yy10;
+  ProgramNode* yy11;
+  AssignNode* yy30;
+  TypeNode* yy33;
+  ExpressionNode* yy37;
+} YYMINORTYPE;
+#ifndef YYSTACKDEPTH
+#define YYSTACKDEPTH 100
+#endif
+#if INTERFACE
+#define Parser_v0_1_ARG_SDECL  ProgramNode** arg ;
+#define Parser_v0_1_ARG_PDECL , ProgramNode** arg 
+#define Parser_v0_1_ARG_FETCH  ProgramNode** arg  = yypParser->arg 
+#define Parser_v0_1_ARG_STORE yypParser->arg  = arg 
+#endif
+#define YYNSTATE             16
+#define YYNRULE              17
+#define YY_MAX_SHIFT         15
+#define YY_MIN_SHIFTREDUCE   30
+#define YY_MAX_SHIFTREDUCE   46
+#define YY_MIN_REDUCE        47
+#define YY_MAX_REDUCE        63
+#define YY_ERROR_ACTION      64
+#define YY_ACCEPT_ACTION     65
+#define YY_NO_ACTION         66
 /************* End control #defines *******************************************/
 
 /* Define the yytestcase() macro to be a no-op if is not already defined
@@ -152,7 +216,38 @@
 **  yy_default[]       Default action for each state.
 **
 *********** Begin parsing tables **********************************************/
-%%
+#define YY_ACTTAB_COUNT (36)
+static const YYACTIONTYPE yy_action[] = {
+ /*     0 */     8,   46,   11,   41,   46,   10,    2,    9,   44,   45,
+ /*    10 */     6,   35,   45,    7,   32,   12,   47,   14,   13,   42,
+ /*    20 */     5,   15,   12,   65,   14,   43,   31,   34,   40,    2,
+ /*    30 */    36,   33,   39,    3,    1,    4,
+};
+static const YYCODETYPE yy_lookahead[] = {
+ /*     0 */     1,    2,   16,   17,    2,   19,    7,   18,   19,   10,
+ /*    10 */    14,   15,   10,   12,   13,    1,    0,    1,    4,    8,
+ /*    20 */     9,    1,    1,   20,    1,   19,   13,   15,    1,    7,
+ /*    30 */     5,    5,   17,    3,    6,    2,
+};
+#define YY_SHIFT_USE_DFLT (-2)
+#define YY_SHIFT_COUNT (15)
+#define YY_SHIFT_MIN   (-1)
+#define YY_SHIFT_MAX   (33)
+static const signed char yy_shift_ofst[] = {
+ /*     0 */    20,   -1,    2,   21,   23,    2,   14,   16,   22,   11,
+ /*    10 */    27,   25,   28,   26,   30,   33,
+};
+#define YY_REDUCE_USE_DFLT (-15)
+#define YY_REDUCE_COUNT (8)
+#define YY_REDUCE_MIN   (-14)
+#define YY_REDUCE_MAX   (15)
+static const signed char yy_reduce_ofst[] = {
+ /*     0 */     3,  -14,  -11,   -4,    1,    6,   12,   13,   15,
+};
+static const YYACTIONTYPE yy_default[] = {
+ /*     0 */    64,   64,   64,   64,   64,   64,   64,   64,   55,   64,
+ /*    10 */    54,   64,   64,   64,   64,   64,
+};
 /********** End of lemon-generated parsing tables *****************************/
 
 /* The next table maps tokens (terminal symbols) into fallback tokens.  
@@ -171,7 +266,6 @@
 */
 #ifdef YYFALLBACK
 static const YYCODETYPE yyFallback[] = {
-%%
 };
 #endif /* YYFALLBACK */
 
@@ -210,7 +304,7 @@ struct yyParser {
 #ifndef YYNOERRORRECOVERY
   int yyerrcnt;                 /* Shifts left before out of the error */
 #endif
-  ParseARG_SDECL                /* A place to hold %extra_argument */
+  Parser_v0_1_ARG_SDECL                /* A place to hold %extra_argument */
 #if YYSTACKDEPTH<=0
   int yystksz;                  /* Current side of the stack */
   yyStackEntry *yystack;        /* The parser's stack */
@@ -244,7 +338,7 @@ static char *yyTracePrompt = 0;
 ** Outputs:
 ** None.
 */
-void ParseTrace(FILE *TraceFILE, char *zTracePrompt){
+void Parser_v0_1_Trace(FILE *TraceFILE, char *zTracePrompt){
   yyTraceFILE = TraceFILE;
   yyTracePrompt = zTracePrompt;
   if( yyTraceFILE==0 ) yyTracePrompt = 0;
@@ -256,7 +350,12 @@ void ParseTrace(FILE *TraceFILE, char *zTracePrompt){
 /* For tracing shifts, the names of all terminals and nonterminals
 ** are required.  The following table supplies these names */
 static const char *const yyTokenName[] = { 
-%%
+  "$",             "IDENTIFIER",    "NUMBER",        "LBRACE",      
+  "RBRACE",        "SEMICOLON",     "COLON",         "LESSER",      
+  "GREATER",       "COMMA",         "HEXVAL",        "error",       
+  "types",         "type",          "values",        "value",       
+  "expression",    "vector",        "vector_vals",   "number",      
+  "program",     
 };
 #endif /* NDEBUG */
 
@@ -264,7 +363,23 @@ static const char *const yyTokenName[] = {
 /* For tracing reduce actions, the names of all rules are required.
 */
 static const char *const yyRuleName[] = {
-%%
+ /*   0 */ "program ::= IDENTIFIER NUMBER types",
+ /*   1 */ "types ::= types type",
+ /*   2 */ "types ::= type",
+ /*   3 */ "type ::= IDENTIFIER LBRACE values RBRACE SEMICOLON",
+ /*   4 */ "values ::= values value",
+ /*   5 */ "values ::= value",
+ /*   6 */ "value ::= IDENTIFIER COLON expression SEMICOLON",
+ /*   7 */ "expression ::= number",
+ /*   8 */ "expression ::= IDENTIFIER",
+ /*   9 */ "expression ::= IDENTIFIER vector",
+ /*  10 */ "expression ::= number IDENTIFIER",
+ /*  11 */ "expression ::= vector",
+ /*  12 */ "vector ::= LESSER vector_vals GREATER",
+ /*  13 */ "vector_vals ::= vector_vals COMMA number",
+ /*  14 */ "vector_vals ::= number",
+ /*  15 */ "number ::= HEXVAL",
+ /*  16 */ "number ::= NUMBER",
 };
 #endif /* NDEBUG */
 
@@ -293,7 +408,7 @@ static void yyGrowStack(yyParser *p){
 #endif
 
 /* Datatype of the argument to the memory allocated passed as the
-** second argument to ParseAlloc() below.  This can be changed by
+** second argument to Parser_v0_1_Alloc() below.  This can be changed by
 ** putting an appropriate #define in the %include section of the input
 ** grammar.
 */
@@ -311,9 +426,9 @@ static void yyGrowStack(yyParser *p){
 **
 ** Outputs:
 ** A pointer to a parser.  This pointer is used in subsequent calls
-** to Parse and ParseFree.
+** to Parser_v0_1_ and Parser_v0_1_Free.
 */
-void *ParseAlloc(void *(*mallocProc)(YYMALLOCARGTYPE)){
+void *Parser_v0_1_Alloc(void *(*mallocProc)(YYMALLOCARGTYPE)){
   yyParser *pParser;
   pParser = (yyParser*)(*mallocProc)( (YYMALLOCARGTYPE)sizeof(yyParser) );
   if( pParser ){
@@ -342,7 +457,7 @@ static void yy_destructor(
   YYCODETYPE yymajor,     /* Type code for object to destroy */
   YYMINORTYPE *yypminor   /* The object to be destroyed */
 ){
-  ParseARG_FETCH;
+  Parser_v0_1_ARG_FETCH;
   switch( yymajor ){
     /* Here is inserted the actions which take place when a
     ** terminal or non-terminal is destroyed.  This can happen
@@ -355,7 +470,6 @@ static void yy_destructor(
     ** inside the C code.
     */
 /********* Begin destructor definitions ***************************************/
-%%
 /********* End destructor definitions *****************************************/
     default:  break;   /* If no destructor action specified: do nothing */
   }
@@ -389,7 +503,7 @@ static void yy_pop_parser_stack(yyParser *pParser){
 ** is defined in a %include section of the input grammar) then it is
 ** assumed that the input pointer is never NULL.
 */
-void ParseFree(
+void Parser_v0_1_Free(
   void *p,                    /* The parser to be deleted */
   void (*freeProc)(void*)     /* Function used to reclaim memory */
 ){
@@ -408,7 +522,7 @@ void ParseFree(
 ** Return the peak depth of the stack for a parser.
 */
 #ifdef YYTRACKMAXSTACKDEPTH
-int ParseStackPeak(void *p){
+int Parser_v0_1_StackPeak(void *p){
   yyParser *pParser = (yyParser*)p;
   return pParser->yyidxMax;
 }
@@ -515,7 +629,7 @@ static int yy_find_reduce_action(
 ** The following routine is called if the stack overflows.
 */
 static void yyStackOverflow(yyParser *yypParser){
-   ParseARG_FETCH;
+   Parser_v0_1_ARG_FETCH;
    yypParser->yyidx--;
 #ifndef NDEBUG
    if( yyTraceFILE ){
@@ -526,9 +640,8 @@ static void yyStackOverflow(yyParser *yypParser){
    /* Here code is inserted which will execute if the parser
    ** stack every overflows */
 /******** Begin %stack_overflow code ******************************************/
-%%
 /******** End %stack_overflow code ********************************************/
-   ParseARG_STORE; /* Suppress warning about unused %extra_argument var */
+   Parser_v0_1_ARG_STORE; /* Suppress warning about unused %extra_argument var */
 }
 
 /*
@@ -558,7 +671,7 @@ static void yy_shift(
   yyParser *yypParser,          /* The parser to be shifted */
   int yyNewState,               /* The new state to shift in */
   int yyMajor,                  /* The major token to shift in */
-  ParseTOKENTYPE yyMinor        /* The minor token to shift in */
+  Parser_v0_1_TOKENTYPE yyMinor        /* The minor token to shift in */
 ){
   yyStackEntry *yytos;
   yypParser->yyidx++;
@@ -595,7 +708,23 @@ static const struct {
   YYCODETYPE lhs;         /* Symbol on the left-hand side of the rule */
   unsigned char nrhs;     /* Number of right-hand side symbols in the rule */
 } yyRuleInfo[] = {
-%%
+  { 20, 3 },
+  { 12, 2 },
+  { 12, 1 },
+  { 13, 5 },
+  { 14, 2 },
+  { 14, 1 },
+  { 15, 4 },
+  { 16, 1 },
+  { 16, 1 },
+  { 16, 2 },
+  { 16, 2 },
+  { 16, 1 },
+  { 17, 3 },
+  { 18, 3 },
+  { 18, 1 },
+  { 19, 1 },
+  { 19, 1 },
 };
 
 static void yy_accept(yyParser*);  /* Forward Declaration */
@@ -612,7 +741,7 @@ static void yy_reduce(
   int yyact;                      /* The next action */
   yyStackEntry *yymsp;            /* The top of the parser's stack */
   int yysize;                     /* Amount to pop the stack */
-  ParseARG_FETCH;
+  Parser_v0_1_ARG_FETCH;
   yymsp = &yypParser->yystack[yypParser->yyidx];
 #ifndef NDEBUG
   if( yyTraceFILE && yyruleno<(int)(sizeof(yyRuleName)/sizeof(yyRuleName[0])) ){
@@ -657,7 +786,72 @@ static void yy_reduce(
   **     break;
   */
 /********** Begin reduce actions **********************************************/
-%%
+        YYMINORTYPE yylhsminor;
+      case 0: /* program ::= IDENTIFIER NUMBER types */
+{ *arg = yymsp[0].minor.yy11; }
+        break;
+      case 1: /* types ::= types type */
+{ yylhsminor.yy11 = yymsp[-1].minor.yy11; Add(yylhsminor.yy11, yymsp[0].minor.yy33); }
+  yymsp[-1].minor.yy11 = yylhsminor.yy11;
+        break;
+      case 2: /* types ::= type */
+{ yylhsminor.yy11 = CreateProgramNode(); Add(yylhsminor.yy11, yymsp[0].minor.yy33); }
+  yymsp[0].minor.yy11 = yylhsminor.yy11;
+        break;
+      case 3: /* type ::= IDENTIFIER LBRACE values RBRACE SEMICOLON */
+{ yylhsminor.yy33 = yymsp[-2].minor.yy33; SetIden(yylhsminor.yy33, yymsp[-4].minor.yy0); }
+  yymsp[-4].minor.yy33 = yylhsminor.yy33;
+        break;
+      case 4: /* values ::= values value */
+{ yylhsminor.yy33 = yymsp[-1].minor.yy33; Add(yylhsminor.yy33, yymsp[0].minor.yy30); }
+  yymsp[-1].minor.yy33 = yylhsminor.yy33;
+        break;
+      case 5: /* values ::= value */
+{ yylhsminor.yy33 = CreateTypeNode(); Add(yylhsminor.yy33, yymsp[0].minor.yy30); }
+  yymsp[0].minor.yy33 = yylhsminor.yy33;
+        break;
+      case 6: /* value ::= IDENTIFIER COLON expression SEMICOLON */
+{ yylhsminor.yy30 = CreateAssignNode(yymsp[-3].minor.yy0, yymsp[-1].minor.yy37); }
+  yymsp[-3].minor.yy30 = yylhsminor.yy30;
+        break;
+      case 7: /* expression ::= number */
+{ yylhsminor.yy37 = CreateExpressionNode(yymsp[0].minor.yy10); }
+  yymsp[0].minor.yy37 = yylhsminor.yy37;
+        break;
+      case 8: /* expression ::= IDENTIFIER */
+{ yylhsminor.yy37 = CreateExpressionNode(yymsp[0].minor.yy0); }
+  yymsp[0].minor.yy37 = yylhsminor.yy37;
+        break;
+      case 9: /* expression ::= IDENTIFIER vector */
+{ yylhsminor.yy37 = CreateColourNode(yymsp[-1].minor.yy0, yymsp[0].minor.yy6); }
+  yymsp[-1].minor.yy37 = yylhsminor.yy37;
+        break;
+      case 10: /* expression ::= number IDENTIFIER */
+{ yylhsminor.yy37 = CreateUnitValueNode(yymsp[-1].minor.yy10, yymsp[0].minor.yy0); }
+  yymsp[-1].minor.yy37 = yylhsminor.yy37;
+        break;
+      case 11: /* expression ::= vector */
+{ yylhsminor.yy37 = CreateVecExprNode(yymsp[0].minor.yy6); }
+  yymsp[0].minor.yy37 = yylhsminor.yy37;
+        break;
+      case 12: /* vector ::= LESSER vector_vals GREATER */
+{ yymsp[-2].minor.yy6 = yymsp[-1].minor.yy6; }
+        break;
+      case 13: /* vector_vals ::= vector_vals COMMA number */
+{ yylhsminor.yy6 = yymsp[-2].minor.yy6; Add(yylhsminor.yy6, CreateExpressionNode(yymsp[0].minor.yy10)); }
+  yymsp[-2].minor.yy6 = yylhsminor.yy6;
+        break;
+      case 14: /* vector_vals ::= number */
+{ yylhsminor.yy6 = CreateVectorNode(); Add(yylhsminor.yy6, CreateExpressionNode(yymsp[0].minor.yy10)); }
+  yymsp[0].minor.yy6 = yylhsminor.yy6;
+        break;
+      case 15: /* number ::= HEXVAL */
+      case 16: /* number ::= NUMBER */ yytestcase(yyruleno==16);
+{ yylhsminor.yy10 = yymsp[0].minor.yy0; }
+  yymsp[0].minor.yy10 = yylhsminor.yy10;
+        break;
+      default:
+        break;
 /********** End reduce actions ************************************************/
   };
   assert( yyruleno<sizeof(yyRuleInfo)/sizeof(yyRuleInfo[0]) );
@@ -685,7 +879,7 @@ static void yy_reduce(
 static void yy_parse_failed(
   yyParser *yypParser           /* The parser */
 ){
-  ParseARG_FETCH;
+  Parser_v0_1_ARG_FETCH;
 #ifndef NDEBUG
   if( yyTraceFILE ){
     fprintf(yyTraceFILE,"%sFail!\n",yyTracePrompt);
@@ -695,9 +889,8 @@ static void yy_parse_failed(
   /* Here code is inserted which will be executed whenever the
   ** parser fails */
 /************ Begin %parse_failure code ***************************************/
-%%
 /************ End %parse_failure code *****************************************/
-  ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
+  Parser_v0_1_ARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 #endif /* YYNOERRORRECOVERY */
 
@@ -707,14 +900,13 @@ static void yy_parse_failed(
 static void yy_syntax_error(
   yyParser *yypParser,           /* The parser */
   int yymajor,                   /* The major type of the error token */
-  ParseTOKENTYPE yyminor         /* The minor type of the error token */
+  Parser_v0_1_TOKENTYPE yyminor         /* The minor type of the error token */
 ){
-  ParseARG_FETCH;
+  Parser_v0_1_ARG_FETCH;
 #define TOKEN yyminor
 /************ Begin %syntax_error code ****************************************/
-%%
 /************ End %syntax_error code ******************************************/
-  ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
+  Parser_v0_1_ARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 
 /*
@@ -723,7 +915,7 @@ static void yy_syntax_error(
 static void yy_accept(
   yyParser *yypParser           /* The parser */
 ){
-  ParseARG_FETCH;
+  Parser_v0_1_ARG_FETCH;
 #ifndef NDEBUG
   if( yyTraceFILE ){
     fprintf(yyTraceFILE,"%sAccept!\n",yyTracePrompt);
@@ -733,14 +925,13 @@ static void yy_accept(
   /* Here code is inserted which will be executed whenever the
   ** parser accepts */
 /*********** Begin %parse_accept code *****************************************/
-%%
 /*********** End %parse_accept code *******************************************/
-  ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
+  Parser_v0_1_ARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
 
 /* The main parser program.
 ** The first argument is a pointer to a structure obtained from
-** "ParseAlloc" which describes the current state of the parser.
+** "Parser_v0_1_Alloc" which describes the current state of the parser.
 ** The second argument is the major token number.  The third is
 ** the minor token.  The fourth optional argument is whatever the
 ** user wants (and specified in the grammar) and is available for
@@ -757,11 +948,11 @@ static void yy_accept(
 ** Outputs:
 ** None.
 */
-void Parse(
+void Parser_v0_1_(
   void *yyp,                   /* The parser */
   int yymajor,                 /* The major token code number */
-  ParseTOKENTYPE yyminor       /* The value for the token */
-  ParseARG_PDECL               /* Optional %extra_argument parameter */
+  Parser_v0_1_TOKENTYPE yyminor       /* The value for the token */
+  Parser_v0_1_ARG_PDECL               /* Optional %extra_argument parameter */
 ){
   YYMINORTYPE yyminorunion;
   unsigned int yyact;   /* The parser action. */
@@ -798,7 +989,7 @@ void Parse(
 #if !defined(YYERRORSYMBOL) && !defined(YYNOERRORRECOVERY)
   yyendofinput = (yymajor==0);
 #endif
-  ParseARG_STORE;
+  Parser_v0_1_ARG_STORE;
 
 #ifndef NDEBUG
   if( yyTraceFILE ){
