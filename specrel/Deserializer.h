@@ -7,7 +7,7 @@
 
 struct Value
 {
-	enum
+	enum TypeName
 	{
 		NUMBER,
 		VEC2,

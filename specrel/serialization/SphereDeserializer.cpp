@@ -5,6 +5,8 @@
 
 DESERIALIZER_DEFS(Sphere, "sphere");
 
+DECL_FUNC(Radius, "radius");
+
 bool SphereDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log)
 {
 	if (info.TypeName != "sphere")
@@ -33,21 +35,16 @@ bool SphereDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info
 	if (!GetColour(sphere->ColourSource, info, log))
 		error = true;
 
-	auto it = info.Values.find("radius");
-
-	if (it == info.Values.end())
+	switch (Set_Radius(sphere, info, log))
 	{
-		log << "[ERROR] No radius found in element of type sphere." << std::endl;
+	case NOT_FOUND:
+		log << "[ERROR] Element \"radius\" not found in type \"sphere\"" << std::endl;
 		error = true;
-	}
-	else if (it->second.Type != Value::NUMBER)
-	{
-		log << "[ERROR] Radius value is not a number." << std::endl;
+		break;
+	case WRONG_TYPE:
+		log << "[ERROR] Element \"radius\" was not a number." << std::endl;
 		error = true;
-	}
-	else
-	{
-		sphere->Radius = it->second.Number;
+		break;
 	}
 
 	if (!error)

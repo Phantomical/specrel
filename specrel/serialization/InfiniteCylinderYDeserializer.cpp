@@ -4,6 +4,8 @@
 
 DESERIALIZER_DEFS(InfiniteCylinderY, "infinite_cylinder_y");
 
+DECL_FUNC(Radius, "radius");
+
 bool InfiniteCylinderYDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log)
 {
 	if (info.TypeName != TokenName)
@@ -13,11 +15,12 @@ bool InfiniteCylinderYDeserializer::DeserializeToFrame(FramePtr frame, const Typ
 		return false;
 	}
 
+	InfiniteCylinderY* cyl = new InfiniteCylinderY;
+	ObjectPtr obj = ObjectPtr(cyl);
 	bool errorbit = false;
 	ColourSourcePtr colour;
 	Vector3d vel;
 	Vector4d pos;
-	double radius = 0.0;
 
 	if (!GetColour(colour, info, log))
 		errorbit = true;
@@ -28,32 +31,22 @@ bool InfiniteCylinderYDeserializer::DeserializeToFrame(FramePtr frame, const Typ
 	if (!GetPosition(pos, vel == ReferenceFrame::Default.Velocity, info, log))
 		errorbit = true;
 
+	switch (Set_Radius(cyl, info, log))
 	{
-		auto it = info.Values.find("radius");
-
-		if (it == info.Values.end())
-		{
-			log << "[ERROR] No radius found in element of type \"" 
-				<< TypeName << "\"." << std::endl;
-			errorbit = true;
-		}
-		else if (it->second.Type != Value::NUMBER)
-		{
-			log << "[ERROR] Radius value is not a number." << std::endl;
-			errorbit = true;
-		}
-		else
-		{
-			radius = it->second.Number;
-		}
+	case NOT_FOUND:
+		log << "[ERROR] Element \"radius\" not found in type \"infinite_cylinder_y\"" << std::endl;
+		errorbit = true;
+		break;
+	case WRONG_TYPE:
+		log << "[ERROR] Element \"infinite_cylinder_y\" was not a number." << std::endl;
+		errorbit = true;
+		break;
 	}
 
 	if (!errorbit)
 	{
-		InfiniteCylinderY* cyl = new InfiniteCylinderY;
 		cyl->Colour = colour;
 		cyl->InitialPosition = pos;
-		cyl->Radius = radius;
 		cyl->RefFrame = ReferenceFrame(vel);
 		frame->Scene->AddObject(ObjectPtr(cyl));
 	}
