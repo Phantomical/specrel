@@ -12,5 +12,4 @@ public:
 	double Radius;
 
 	IntersectionList AllIntersections(const Ray& ray) const override final;
-	bool AnyIntersections(const Ray& ray) const override final;
 };

@@ -227,6 +227,7 @@
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="serialization\SphereDeserializer.cpp" />
     <ClCompile Include="Torus.cpp" />
+    <ClCompile Include="serialization\TorusDeserializer.cpp" />
     <None Include="parsers\parser-v0.1\lexer.rec" />
   </ItemGroup>
   <ItemGroup>
