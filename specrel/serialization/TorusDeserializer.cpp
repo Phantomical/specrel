@@ -33,29 +33,8 @@ bool TorusDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info,
 	if (!GetColour(torus->Colour, info, log))
 		errorbit = true;
 
-	switch (Set_RingRadius(torus, info, log))
-	{
-	case NOT_FOUND:
-		log << "[ERROR] Element \"ring_radius\" not found in type \"torus\"" << std::endl;
-		errorbit = true;
-		break;
-	case WRONG_TYPE:
-		log << "[ERROR] Element \"ring_radius\" was not a number." << std::endl;
-		errorbit = true;
-		break;
-	}
-
-	switch (Set_Radius(torus, info, log))
-	{
-	case NOT_FOUND:
-		log << "[ERROR] Element \"radius\" not found in type \"torus\"" << std::endl;
-		errorbit = true;
-		break;
-	case WRONG_TYPE:
-		log << "[ERROR] Element \"radius\" was not a number." << std::endl;
-		errorbit = true;
-		break;
-	}
+	DESERIALIZE(RingRadius, "ring_radius", torus, info, log, errorbit);
+	DESERIALIZE(Radius, "radius", torus, info, log, errorbit);
 
 	if (!errorbit)
 	{

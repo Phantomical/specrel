@@ -4,8 +4,6 @@
 
 DESERIALIZER_DEFS(InfiniteCylinderY, "infinite_cylinder_y");
 
-DECL_FUNC(Radius, "radius");
-
 bool InfiniteCylinderYDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log)
 {
 	if (info.TypeName != TokenName)
@@ -31,17 +29,7 @@ bool InfiniteCylinderYDeserializer::DeserializeToFrame(FramePtr frame, const Typ
 	if (!GetPosition(pos, vel == ReferenceFrame::Default.Velocity, info, log))
 		errorbit = true;
 
-	switch (Set_Radius(cyl, info, log))
-	{
-	case NOT_FOUND:
-		log << "[ERROR] Element \"radius\" not found in type \"infinite_cylinder_y\"" << std::endl;
-		errorbit = true;
-		break;
-	case WRONG_TYPE:
-		log << "[ERROR] Element \"infinite_cylinder_y\" was not a number." << std::endl;
-		errorbit = true;
-		break;
-	}
+	DESERIALIZE(Radius, "radius", cyl, info, log, errorbit);
 
 	if (!errorbit)
 	{

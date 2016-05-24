@@ -116,7 +116,7 @@ enum SetErrorCode
 
 #define DECL_FUNC(MemberName, TypeName) \
 	template<typename vType> \
-	SetErrorCode Set_##MemberName(vType* typeinst, const TypeInfo& info, std::ostream& log) \
+	SetErrorCode Set_##MemberName(vType* typeinst, const TypeInfo& info) \
 	{ \
 		auto it = info.Values.find(TypeName); \
 		if (it == info.Values.end()) \
@@ -126,6 +126,20 @@ enum SetErrorCode
 		typeinst->MemberName = detail::ValueAccessor<detail::GetValueType<detail::Unref<decltype(typeinst->MemberName)>>::value>::GetValue(it->second); \
 		return OK; \
 	}
+#define DESERIALIZE(MemberName, TypeName, typeinst, info, log, errorbit)\
+	[&](){ \
+		auto it = info.Values.find(TypeName); \
+		if (it == info.Values.end()) \
+		{ \
+			log << "[ERROR] \"" << TypeName << "\" was not found in type \"" << TokenName << "\"." << std::endl; \
+			errorbit = true; \
+		} \
+		if (it->second.Type != detail::GetValueType<detail::Unref<decltype(typeinst->MemberName)>>::value) \
+		{ \
+			log << "[ERROR] \"" << TypeName << "\" in type \"" << TokenName << "\" was not of correct type." << std::endl;\
+		} \
+		typeinst->MemberName = detail::ValueAccessor<detail::GetValueType<detail::Unref<decltype(typeinst->MemberName)>>::value>::GetValue(it->second); \
+	}()
 
 
 

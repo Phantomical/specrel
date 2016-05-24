@@ -5,9 +5,6 @@
 
 DESERIALIZER_DEFS(DirectionalLight, "directional_light");
 
-#define NAV(val) "[ERROR] \"" #val "\" is not a vector."
-#define GET_VECTOR(tgt, val) do { if (!GetVector(tgt, val->second)) { log << NAV(val) << std::endl; errorbit = true; } } while(false)
-
 bool DirectionalLightDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info, std::ostream& log)
 {
 	if (info.TypeName != "directional_light")
@@ -16,6 +13,9 @@ bool DirectionalLightDeserializer::DeserializeToFrame(FramePtr frame, const Type
 			<< "\" instead of \"directional_light\"." << std::endl;
 		return false;
 	}
+
+	DirectionalLight* light = new DirectionalLight;
+	LightPtr ptr = LightPtr(light);
 
 	Vector3d dir;
 	ColourSourcePtr src;
@@ -45,24 +45,15 @@ bool DirectionalLightDeserializer::DeserializeToFrame(FramePtr frame, const Type
 		}
 	}
 
-	auto direction = info.Values.find("direction");
-
-	if (direction == info.Values.end())
-	{
-		log << "[ERROR] No direction present in type \"directional_light\"." << std::endl;
-		errorbit = true;
-	}
-	else
-	{
-		GET_VECTOR(dir, direction);
-	}
+	DESERIALIZE(Direction, "direction", light, info, log, errorbit);
 
 	if (!errorbit)
 	{
 		Colour colour;
 		if (src->GetColour(colour))
 		{
-			frame->Scene->AddLight(LightPtr(new DirectionalLight(dir, colour)));
+			light->Intensity = colour;
+			frame->Scene->AddLight(ptr);
 		}
 		else
 		{

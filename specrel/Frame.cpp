@@ -100,7 +100,7 @@ Colour Frame::GetPixelColour(const vector<size_t, 2>& pixel) const
 	return std::accumulate(samples.begin(), samples.end(), Colour::zero()) / (float)NumSamples;
 }
 
-#define MULTITHREADED
+//#define MULTITHREADED
 #if !defined _DEBUG
 #	define MULTITHREADED
 #endif

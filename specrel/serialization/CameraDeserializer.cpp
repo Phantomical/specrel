@@ -74,11 +74,11 @@ bool CameraDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info
 	else if (right == end)
 	{
 		GET_VECTOR(cam.Forward, forward);
-		GET_VECTOR(cam.Right, right);
+		GET_VECTOR(cam.Up, up);
 
 		if (!errorbit)
 		{
-			cam.Right = cross(cam.Forward, cam.Right);
+			cam.Right = cross(cam.Forward, cam.Up);
 		}
 	}
 	else

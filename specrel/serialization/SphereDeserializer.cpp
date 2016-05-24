@@ -35,17 +35,7 @@ bool SphereDeserializer::DeserializeToFrame(FramePtr frame, const TypeInfo& info
 	if (!GetColour(sphere->ColourSource, info, log))
 		error = true;
 
-	switch (Set_Radius(sphere, info, log))
-	{
-	case NOT_FOUND:
-		log << "[ERROR] Element \"radius\" not found in type \"sphere\"" << std::endl;
-		error = true;
-		break;
-	case WRONG_TYPE:
-		log << "[ERROR] Element \"radius\" was not a number." << std::endl;
-		error = true;
-		break;
-	}
+	DESERIALIZE(Radius, "radius", sphere, info, log, error);
 
 	if (!error)
 	{

@@ -9,8 +9,9 @@ version 0.1
 
 // Frame characteristics
 global {
-	width: 100;
-	height: 75;
+	width: 1000;
+	height: 750;
+	file: "output.bmp";
 };
 
 // Viewpoint 
@@ -18,14 +19,13 @@ camera {
 	type: dynamic;
 
 	// Named parameters
-	position: <0, 0, 0, 0>;
+	position: <0, 10, 0, 0>;
 
 	velocity: <0, 0, 0.0>;
 	
 	// Basis vectors (Not all of these need to be specified)
-	forward: <0, 0, 1>;
-	up: <0, 1, 0>;
-	right: <1, 0, 0>;
+	forward: <0, -1, 0>;
+	up: <0, 0, 1>;
 	
 	// Field of view (fovx can also be used instead of aspect)
 	fovy: 60 degrees;
@@ -63,7 +63,7 @@ sphere {
 	color: rgb <1, 0, 0>;
 };
 
-// Second sphere (blue sphere)
+// Second sphere (green sphere)
 sphere {
 	type: static;
 	radius: 2.5;
@@ -71,10 +71,11 @@ sphere {
 	colour: rgb <0, 1, 0>;
 };
 
-// Third sphere (red sphere)
-sphere {
+// Third sphere (blue sphere)
+torus {
 	type: static;
 	radius: 2.5;
+	ring_radius: 0.5;
 	position: <0.0, 1.0, 0.5>;
 	colour: rgb <0, 0, 1>;
 };
